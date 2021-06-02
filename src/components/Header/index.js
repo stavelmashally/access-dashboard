@@ -4,14 +4,13 @@ import useStyles from './styles';
 
 const Header = () => {
   const classes = useStyles();
+  
   return (
-    <div>
-      <AppBar position='fixed' className={classes.appBar}>
-        <Toolbar>
-          <Typography variant='h6'>Config Dashboard</Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position='fixed' className={classes.appBar}>
+      <Toolbar>
+        <Typography variant='h6'>Config Dashboard</Typography>
+      </Toolbar>
+    </AppBar>
   );
 };
 

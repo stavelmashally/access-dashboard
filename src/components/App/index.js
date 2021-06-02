@@ -1,8 +1,8 @@
 import Header from '../Header';
 import SideBar from '../Sidebar';
 import Editor from '../Editor';
-import useStyles from './styles';
 import { Toolbar } from '@material-ui/core';
+import useStyles from './styles';
 
 function App() {
   const classes = useStyles();
