@@ -10,11 +10,7 @@ export default makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  drawerContainer: {
-    overflow: 'auto',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
+  title: {
+    padding: theme.spacing(2)
+  }
 }));

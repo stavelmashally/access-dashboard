@@ -1,22 +1,22 @@
+import React from 'react';
 import Header from '../Header';
-import SideBar from '../Sidebar';
-import Editor from '../Editor';
+import Sidebar from '../Sidebar';
 import { Toolbar } from '@material-ui/core';
 import useStyles from './styles';
 
-function App() {
+const Layout = ({ children }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Header />
-      <SideBar />
-      <main className={classes.content}>
+      <Sidebar />
+      <div className={classes.content}>
         <Toolbar />
-        <Editor />
-      </main>
+        {children}
+      </div>
     </div>
   );
-}
+};
 
-export default App;
+export default Layout;

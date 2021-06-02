@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  Toolbar,
+  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
 
@@ -24,12 +24,14 @@ const SideBar = () => {
     <Drawer
       className={classes.drawer}
       variant='permanent'
+      anchor='left'
       classes={{
         paper: classes.drawerPaper,
       }}
     >
-      <Toolbar />
-      <div className={classes.drawerContainer}></div>
+      <Typography variant='h5' className={classes.title}>
+        Elements
+      </Typography>
       {drawerItems}
     </Drawer>
   );
