@@ -1,6 +1,15 @@
 import React from 'react';
 import { ListItem, ListItemText } from '@material-ui/core';
-import useStyles from './styles';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  itemText: {
+    color: '#8D8D8D',
+  },
+  itemActiveText: {
+    color: '#272727',
+  },
+}));
 
 const SidebarItem = ({ text, isActive, onItemSelected }) => {
   const classes = useStyles();

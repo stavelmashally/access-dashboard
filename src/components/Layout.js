@@ -4,6 +4,8 @@ import Sidebar from './Sidebar';
 import { Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
 
+export const sidebarWidth = 240;
+
 const LayoutContainer = styled.div`
   display: flex;
   height: 100vh;
@@ -11,7 +13,7 @@ const LayoutContainer = styled.div`
 const PageContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% - ${sidebarWidth}px);
   height: 100%;
 `;
 

@@ -1,18 +1,40 @@
 import Layout from './Layout';
 import Editor from '../plugins/settings/Editor';
-import { RecoilRoot, atom } from 'recoil';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import * as access from '../plugins/access';
 
-const appState = atom({
+import { RecoilRoot, atom, selector } from 'recoil';
+
+export const appState = atom({
   key: 'appState',
-  default: {},
+  default: { element: null },
+});
+
+export const elementSelector = selector({
+  key: 'elementState',
+  get: ({ get }) => {
+    const {element} = get(appState);
+
+    return element;
+  },
+});
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: access.color('colors.primary'),
+    },
+  },
 });
 
 function App() {
   return (
     <RecoilRoot>
-      <Layout>
-        <Editor />
-      </Layout>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Editor />
+        </Layout>
+      </ThemeProvider>
     </RecoilRoot>
   );
 }
