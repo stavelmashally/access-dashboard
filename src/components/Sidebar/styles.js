@@ -11,6 +11,10 @@ export default makeStyles(theme => ({
     width: drawerWidth,
   },
   title: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));

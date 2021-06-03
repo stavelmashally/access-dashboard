@@ -1,5 +1,5 @@
 import Layout from './Layout';
-import Editor from '../pages/Editor';
+import Editor from '../plugins/settings/Editor';
 
 function App() {
   return (
