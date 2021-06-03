@@ -15,6 +15,13 @@ export default makeStyles(theme => ({
   },
   toolbar: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  itemText: {
+    color: '#8D8D8D',
+  },
+  itemActiveText: {
+    color: '#272727',
   },
 }));

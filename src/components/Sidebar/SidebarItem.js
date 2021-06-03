@@ -7,7 +7,10 @@ const SidebarItem = ({ text, isActive, onItemSelected }) => {
 
   return (
     <ListItem button onClick={() => onItemSelected(text)} selected={isActive}>
-      <ListItemText primary={text.charAt(0).toUpperCase() + text.slice(1)} />
+      <ListItemText
+        className={isActive ? classes.itemActiveText : classes.itemText}
+        primary={text.charAt(0).toUpperCase() + text.slice(1)}
+      />
     </ListItem>
   );
 };

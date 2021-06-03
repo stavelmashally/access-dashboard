@@ -10,8 +10,18 @@ import {
 } from '@material-ui/core';
 import { VisibilityOutlined, CodeOutlined } from '@material-ui/icons';
 import SidebarItem from './SidebarItem';
+import styled from 'styled-components';
 import useStyles from './styles';
+import appLogo from '../../assets/app-logo.png';
 import { getFromConfig } from '../../plugins/access/gate';
+
+const Title = styled.div`
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+`;
 
 const config = getFromConfig();
 
@@ -55,7 +65,10 @@ const SideBar = () => {
       }}
     >
       <Toolbar className={classes.toolbar}>
-        <Typography variant='h6'>Elements</Typography>
+        <Title>
+          <img src={appLogo} alt='app logo' width={35} height={35} />
+          <Typography variant='h6'>Access</Typography>
+        </Title>
         {renderModeIcons()}
       </Toolbar>
       <Divider />
