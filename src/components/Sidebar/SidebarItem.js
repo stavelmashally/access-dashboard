@@ -7,15 +7,19 @@ const useStyles = makeStyles(theme => ({
     color: '#8D8D8D',
   },
   itemActiveText: {
-    color: '#272727',
+    color: theme.palette.primary.main,
   },
 }));
 
-const SidebarItem = ({ text, isActive, onItemSelected }) => {
+const SidebarItem = ({ text, onSelected, value, isActive }) => {
   const classes = useStyles();
 
   return (
-    <ListItem button onClick={() => onItemSelected(text)} selected={isActive}>
+    <ListItem
+      button
+      onClick={() => onSelected({ text, value })}
+      selected={isActive}
+    >
       <ListItemText
         className={isActive ? classes.itemActiveText : classes.itemText}
         primary={text.charAt(0).toUpperCase() + text.slice(1)}

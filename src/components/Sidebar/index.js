@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
-import { getFromConfig } from '../../plugins/access/gate';
-import { sidebarWidth } from '../Layout';
 import { makeStyles } from '@material-ui/core/styles';
-import { useRecoilState } from 'recoil';
-import { appState } from '../App';
+import { useSetRecoilState } from 'recoil';
+import configAtom from 'recoil/configState';
+import { getFromConfig } from 'plugins/access/gate';
+
+const sidebarWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -17,26 +18,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const config = getFromConfig();
+const structure = getFromConfig();
 
 const SideBar = () => {
-  const [state, setState] = useRecoilState(appState);
-
-  const [activeItem, setActiveItem] = useState(Object.keys(config)[0]);
   const classes = useStyles();
+  const [active, setActive] = useState(Object.keys(structure)[0]);
+  const setConfig = useSetRecoilState(configAtom);
 
-  const handleItemSelected = item => {
-    setActiveItem(item);
-    setState({ element: item });
+  useEffect(() => {
+    setConfig(Object.values(structure)[0])
+  }, [setConfig])
+
+  const handleSelected = ({ text, value }) => {
+    setActive(text);
+    setConfig(value);
   };
 
-  const renderItems = () => {
-    return Object.keys(config).map(itemText => (
+  const renderListItems = () => {
+    return Object.entries(structure).map(([key, value]) => (
       <SidebarItem
-        key={itemText}
-        text={itemText}
-        onItemSelected={handleItemSelected}
-        isActive={itemText === activeItem}
+        key={key}
+        text={key}
+        value={value}
+        onSelected={handleSelected}
+        isActive={key === active}
       />
     ));
   };
@@ -52,7 +57,7 @@ const SideBar = () => {
       }}
     >
       <Toolbar />
-      <List>{renderItems()}</List>
+      <List>{renderListItems()}</List>
     </Drawer>
   );
 };
