@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   itemText: {
-    color: '#8D8D8D',
+    color: theme.palette.text.secondary,
   },
   itemActiveText: {
     color: theme.palette.primary.main,

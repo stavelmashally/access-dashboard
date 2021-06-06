@@ -8,7 +8,6 @@ import configAtom from 'recoil/configState';
 
 const EditorContainer = styled.div`
   display: flex;
-  padding-top: 8px;
   height: 100%;
 `;
 
@@ -30,6 +29,7 @@ const Editor = () => {
           enableLiveAutocompletion: true,
           showLineNumbers: true,
           tabSize: 2,
+          useWorker: false
         }}
       />
     </EditorContainer>

@@ -21,7 +21,6 @@ const TitleContainer = styled.div`
   display: flex;
   gap: 0.3rem;
   align-items: center;
-  width: '240px';
 `;
 
 const ButtonsContainer = styled.div``;

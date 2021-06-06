@@ -3,7 +3,7 @@ export default {
   colors: {
     white: 'white',
     black: 'black',
-    lightgray: 'lightgray',
+    lightgray: '#A8A8A8',
     primary: '#163153',
   },
 
@@ -13,6 +13,7 @@ export default {
 
   texts: {
     title: 'colors.black',
+    secondary: 'colors.lightgray'
   },
 
   border: {

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   mode: {
     offline: false,
@@ -9,7 +10,14 @@ export default {
   },
   dynamicTypes: {
     active: true,
-    entities: ['email', 'binainsight', 'binanews', 'file', 'case', 'kickentity'],
+    entities: [
+      'email',
+      'binainsight',
+      'binanews',
+      'file',
+      'case',
+      'kickentity',
+    ],
   },
   fontFamily: {
     'he-IL': 'Seoge UI, sans-serif',

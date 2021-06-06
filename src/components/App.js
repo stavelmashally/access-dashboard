@@ -1,17 +1,9 @@
 import Header from './Header';
 import Sidebar from './Sidebar';
 import EditorSection from './EditorSection';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import * as access from 'plugins/access';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: access.color('colors.primary'),
-    },
-  },
-});
+import Themes from 'themes'
 
 const AppContainer = styled.div`
   display: flex;
@@ -20,7 +12,7 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Themes.default}>
       <AppContainer>
         <Header />
         <Sidebar />

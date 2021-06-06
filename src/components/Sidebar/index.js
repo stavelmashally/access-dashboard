@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,8 +26,8 @@ const SideBar = () => {
   const setConfig = useSetRecoilState(configAtom);
 
   useEffect(() => {
-    setConfig(Object.values(structure)[0])
-  }, [setConfig])
+    setConfig(Object.values(structure)[0]);
+  }, [setConfig]);
 
   const handleSelected = ({ text, value }) => {
     setActive(text);
