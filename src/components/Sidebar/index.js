@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { activeConfigAtom, loadConfigSelector } from 'recoil/config';
+import { useRecoilState } from 'recoil';
+import { selectedConfigAtom } from 'recoil/config';
 
 const sidebarWidth = 240;
 
@@ -17,26 +17,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const structure = [
-  'color',
-  'icon',
-  'dimensions',
-  'format',
-  'general',
-  'type',
-];
+const structure = ['color', 'icon', 'dimensions', 'format', 'general', 'type'];
 
 const SideBar = () => {
   const classes = useStyles();
-  const loadConfig = useSetRecoilState(loadConfigSelector);
-  const [active, setActive] = useRecoilState(activeConfigAtom);
+  const [selected, setSelected] = useRecoilState(selectedConfigAtom);
 
   useEffect(() => {
-    loadConfig();
-    setActive(structure[0]);
-  }, [loadConfig, setActive]);
+    setSelected(structure[0]);
+  }, [setSelected]);
 
-  const handleSelected = text => setActive(text);
+  const handleSelected = text => setSelected(text);
 
   const renderListItems = () => {
     return structure.map(key => (
@@ -44,7 +35,7 @@ const SideBar = () => {
         key={key}
         text={key}
         onSelected={handleSelected}
-        isActive={key === active}
+        isActive={key === selected}
       />
     ));
   };

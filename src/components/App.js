@@ -15,26 +15,26 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  const fetchConfigs = useRecoilValueLoadable(fetchConfigSelector);
+  const { state } = useRecoilValueLoadable(fetchConfigSelector);
 
-  // eslint-disable-next-line default-case
-  switch (fetchConfigs.state) {
-    case 'hasValue':
-      return (
-        <ThemeProvider theme={Themes.default}>
-          <CssBaseline />
-          <AppContainer>
-            <Header />
-            <Sidebar />
-            <EditorSection />
-          </AppContainer>
-        </ThemeProvider>
-      );
-    case 'loading':
-      return <Loader />;
-    case 'hasError':
-      return <div>error</div>;
+  if (state === 'loading') {
+    return <Loader />;
   }
+
+  if (state === 'hasError') {
+    return <div>error</div>;
+  }
+  
+  return (
+    <ThemeProvider theme={Themes.default}>
+      <CssBaseline />
+      <AppContainer>
+        <Header />
+        <Sidebar />
+        <EditorSection />
+      </AppContainer>
+    </ThemeProvider>
+  );
 }
 
 export default App;

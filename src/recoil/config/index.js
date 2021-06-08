@@ -1,16 +1,4 @@
-import { configAtom, activeConfigAtom } from './atoms';
-import {
-  activeConfigSelector,
-  fetchConfigSelector,
-  updateConfigSelector,
-  loadConfigSelector
-} from './selectors';
+import { selectedConfigAtom } from './atoms';
+import { fetchConfigSelector} from './selectors';
 
-export {
-  configAtom,
-  activeConfigAtom,
-  activeConfigSelector,
-  fetchConfigSelector,
-  updateConfigSelector,
-  loadConfigSelector
-};
+export { selectedConfigAtom, fetchConfigSelector};

@@ -14,6 +14,4 @@ const defaultTheme = {
   },
 };
 
-console.log(access.color('access.primary'));
-
 export default defaultTheme;

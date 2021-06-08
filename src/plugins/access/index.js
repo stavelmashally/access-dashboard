@@ -1,11 +1,11 @@
 
 import { isUndefined, isObject, isString } from 'lodash';
 import { getFromConfig, mergeDeep } from './gate';
-import memoize from 'memoizee';
+// import memoize from 'memoizee';
 
-const memo = (func) => {
-  return memoize(func, { primitive: true });
-};
+// const memo = (func) => {
+//   return memoize(func, { primitive: true });
+// };
 
 const get = (collection, path, delimiter = '.') => {
   if (!path) return collection;
