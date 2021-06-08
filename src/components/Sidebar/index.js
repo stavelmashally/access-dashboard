@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSetRecoilState } from 'recoil';
-import configAtom from 'recoil/configState';
-import { getFromConfig } from 'plugins/access/gate';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { activeConfigAtom, loadConfigSelector } from 'recoil/config';
 
 const sidebarWidth = 240;
 
@@ -18,28 +17,32 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const structure = getFromConfig();
+const structure = [
+  'color',
+  'icon',
+  'dimensions',
+  'format',
+  'general',
+  'type',
+];
 
 const SideBar = () => {
   const classes = useStyles();
-  const [active, setActive] = useState(Object.keys(structure)[0]);
-  const setConfig = useSetRecoilState(configAtom);
+  const loadConfig = useSetRecoilState(loadConfigSelector);
+  const [active, setActive] = useRecoilState(activeConfigAtom);
 
   useEffect(() => {
-    setConfig(Object.values(structure)[0]);
-  }, [setConfig]);
+    loadConfig();
+    setActive(structure[0]);
+  }, [loadConfig, setActive]);
 
-  const handleSelected = ({ text, value }) => {
-    setActive(text);
-    setConfig(value);
-  };
+  const handleSelected = text => setActive(text);
 
   const renderListItems = () => {
-    return Object.entries(structure).map(([key, value]) => (
+    return structure.map(key => (
       <SidebarItem
         key={key}
         text={key}
-        value={value}
         onSelected={handleSelected}
         isActive={key === active}
       />

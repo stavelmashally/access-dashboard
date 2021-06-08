@@ -76,11 +76,11 @@ const getGeneral = (path) => {
 };
 
 const getColor = (path) => {
-  return getNested('colors', path);
+  return getNested('color', path);
 };
 
 const getIcon = (path) => {
-  return getNested('icons', path);
+  return getNested('icon', path);
 };
 
 const getWidgets = (path) => {
@@ -99,24 +99,6 @@ const getTable = (path) => {
   return getNested('tables', path);
 };
 
-const getEnums = (path) => {
-  const collection = getFromConfig('enums');
-
-  if (!collection) return undefined;
-  if (!path) return collection;
-
-  const pathArr = path.split('.');
-  const [group, key] = pathArr;
-
-  if (!collection[group]) return undefined;
-  if (!key) return collection[group];
-
-  const enumObject = collection[group].filter((item) => {
-    return item.enumId === key;
-  });
-  
-  return enumObject && enumObject[0];
-};
 
 const getEntity = (type, path) => {
   const collection = getFromConfig('entities') || {};
@@ -152,14 +134,13 @@ const getEntity = (type, path) => {
 };
 
 
-export const dim = memo(getDimension);
-export const icon = memo(getIcon);
-export const color = memo(getColor);
-export const format = memo(getFormat);
-export const general = memo(getGeneral);
-export const chart = memo(getChart); 
-export const widget = memo(getWidgets); 
-export const table = memo(getTable);
-export const entity = memo(getEntity); 
-export const type = memo(getType); 
-export const enums = memo(getEnums);
+export const dimensions = getDimension;
+export const icon = getIcon;
+export const color = getColor;
+export const format = getFormat;
+export const general = getGeneral;
+export const chart = getChart; 
+export const widget = getWidgets; 
+export const table = getTable;
+export const entity = getEntity; 
+export const type = getType; 

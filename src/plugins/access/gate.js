@@ -1,4 +1,3 @@
-
 import { isObject } from 'lodash';
 
 import general from './mainConfig/general';
@@ -9,9 +8,9 @@ import dimensions from './mainConfig/dimensions';
 import types from './mainConfig/types';
 
 let config = {
-  colors,
+  color: colors,
   general,
-  icons,
+  icon: icons,
   formats,
   dimensions,
   types,

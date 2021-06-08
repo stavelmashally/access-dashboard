@@ -3,12 +3,17 @@ import * as access from 'plugins/access';
 const defaultTheme = {
   palette: {
     primary: {
-      main: access.color('colors.primary'),
+      main: access.color('access.primary'),
     },
     text: {
-      secondary: access.color('colors.lightgray'),
+      secondary: access.color('access.secondary'),
+    },
+    background: {
+      default: access.color('access.secondary'),
     },
   },
 };
 
-export default defaultTheme
+console.log(access.color('access.primary'));
+
+export default defaultTheme;

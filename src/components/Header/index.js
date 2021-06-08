@@ -1,7 +1,8 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import ViewModeToggle from './ViewModeToggle';
 import SaveButton from './SaveButton';
+import RestoreButton from './RestoreButton';
+import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import appLogo from 'assets/app-logo.png';
 import styled from 'styled-components';
 
@@ -37,6 +38,7 @@ const Header = () => {
         </TitleContainer>
         <ButtonsContainer>
           <SaveButton />
+          <RestoreButton />
           <ViewModeToggle />
         </ButtonsContainer>
       </Toolbar>

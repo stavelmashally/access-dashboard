@@ -3,8 +3,9 @@ export default {
   colors: {
     white: 'white',
     black: 'black',
-    lightgray: '#A8A8A8',
-    primary: '#163153',
+    gray: '#A8A8A8',
+    lightgray: '#d3d3d3',
+    blueDark: '#163153',
   },
 
   backgrounds: {
@@ -13,7 +14,7 @@ export default {
 
   texts: {
     title: 'colors.black',
-    secondary: 'colors.lightgray'
+    secondary: 'colors.gray',
   },
 
   border: {
@@ -22,5 +23,10 @@ export default {
 
   icon: {
     primary: 'colors.white',
+  },
+
+  access: {
+    primary: 'colors.blueDark',
+    secondary: 'colors.gray',
   },
 };

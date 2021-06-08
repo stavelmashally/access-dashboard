@@ -11,15 +11,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SidebarItem = ({ text, onSelected, value, isActive }) => {
+const SidebarItem = ({ text, onSelected, isActive }) => {
   const classes = useStyles();
 
   return (
-    <ListItem
-      button
-      onClick={() => onSelected({ text, value })}
-      selected={isActive}
-    >
+    <ListItem button onClick={() => onSelected(text)} selected={isActive}>
       <ListItemText
         className={isActive ? classes.itemActiveText : classes.itemText}
         primary={text.charAt(0).toUpperCase() + text.slice(1)}

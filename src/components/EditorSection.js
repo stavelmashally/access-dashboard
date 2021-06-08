@@ -3,7 +3,7 @@ import Editor from 'plugins/settings/Editor';
 import Display from './Display';
 import { Toolbar } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
-import viewModeAtom from 'recoil/viewModeState'
+import { viewModeAtom } from 'recoil/viewMode';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const EditorSection = () => {
   const viewMode = useRecoilValue(viewModeAtom);
-  
+
   return (
     <Container>
       <Toolbar />
