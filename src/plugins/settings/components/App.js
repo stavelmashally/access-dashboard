@@ -1,13 +1,13 @@
 import Header from './Header';
 import Sidebar from './Sidebar';
-import EditorSection from './EditorSection';
+import EditorSection from './Editor/EditorSection';
 import Loader from './Loader';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';
 import styled from 'styled-components';
 import { useRecoilValueLoadable } from 'recoil';
-import { fetchConfigSelector } from 'recoil/config';
+import { fetchConfigSelector } from 'plugins/settings/store';
 
 const AppContainer = styled.div`
   display: flex;

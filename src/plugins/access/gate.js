@@ -46,6 +46,12 @@ export const addToConfig = pluginConfig => {
   }
 };
 
+export const replaceConfig = (path, value) => {
+  if (config.hasOwnProperty(path)) {
+    config[path] = value;
+  }
+};
+
 export const getFromConfig = path => {
   if (!path) return config;
 

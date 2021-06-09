@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { useRecoilState } from 'recoil';
-import { selectedConfigAtom } from 'recoil/config';
+import { selectedConfigAtom } from 'plugins/settings/store';
 
 const sidebarWidth = 240;
 
@@ -22,10 +22,6 @@ const structure = ['color', 'icon', 'dimensions', 'format', 'general', 'type'];
 const SideBar = () => {
   const classes = useStyles();
   const [selected, setSelected] = useRecoilState(selectedConfigAtom);
-
-  useEffect(() => {
-    setSelected(structure[0]);
-  }, [setSelected]);
 
   const handleSelected = text => setSelected(text);
 
