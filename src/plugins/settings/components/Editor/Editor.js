@@ -7,7 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   selectedConfigAtom,
   viewModeAtom,
-  saveConfigAtom,
+  hasErrorAtom,
 } from 'plugins/settings/store';
 import styled from 'styled-components';
 import { getFromConfig, replaceConfig } from 'plugins/access/gate';
@@ -21,22 +21,20 @@ const EditorContainer = styled.div`
 const Editor = () => {
   const selected = useRecoilValue(selectedConfigAtom);
   const viewMode = useRecoilValue(viewModeAtom);
-  const canSave = useSetRecoilState(saveConfigAtom);
+  const hasError = useSetRecoilState(hasErrorAtom);
 
   const config = viewMode ? access[selected]() : getFromConfig(selected);
   const code = JSON.stringify(config, null, 2);
 
-  const handleChange = newValue => {
-    if (viewMode) return;
+  const handleChange = newCode => {
+    if (viewMode || newCode === code) return;
     try {
-      replaceConfig(selected, JSON.parse(newValue));
-      canSave(true);
+      replaceConfig(selected, JSON.parse(newCode));
+      hasError(false);
     } catch (error) {
-      canSave(false);
+      hasError(true);
     }
   };
-
-  console.log('editor');
 
   return (
     <EditorContainer>

@@ -10,9 +10,9 @@ const selectedConfigAtom = atom({
   default: 'color',
 });
 
-const saveConfigAtom = atom({
-  key: 'saveConfigAtom',
-  default: true,
+const hasErrorAtom = atom({
+  key: 'hasErrorAtom',
+  default: false,
 });
 
-export { selectedConfigAtom, viewModeAtom, saveConfigAtom };
+export { selectedConfigAtom, viewModeAtom, hasErrorAtom };

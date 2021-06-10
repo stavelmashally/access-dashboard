@@ -11,9 +11,9 @@ let config = {
   color: colors,
   general,
   icon: icons,
-  formats,
+  format: formats,
   dimensions,
-  types,
+  type: types,
 };
 
 export const mergeDeep = (target, source) => {

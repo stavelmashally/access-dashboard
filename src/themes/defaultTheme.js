@@ -9,7 +9,7 @@ const defaultTheme = {
       secondary: access.color('access.secondary'),
     },
     background: {
-      default: access.color('access.secondary'),
+      default: access.color('access.background'),
     },
   },
 };

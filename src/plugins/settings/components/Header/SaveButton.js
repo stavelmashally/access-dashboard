@@ -2,14 +2,14 @@ import React from 'react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { Save } from '@material-ui/icons';
 import { useRecoilValue } from 'recoil';
-import { saveConfigAtom } from 'plugins/settings/store';
+import { hasErrorAtom } from 'plugins/settings/store';
 
 const SaveButton = () => {
-  const canSave = useRecoilValue(saveConfigAtom);
+  const hasError = useRecoilValue(hasErrorAtom);
 
   return (
     <Tooltip title='Save'>
-      <IconButton color='inherit' disabled={!canSave}>
+      <IconButton color='inherit' disabled={hasError}>
         <Save />
       </IconButton>
     </Tooltip>

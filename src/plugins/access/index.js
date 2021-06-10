@@ -1,15 +1,9 @@
-
 import { isUndefined, isObject, isString } from 'lodash';
 import { getFromConfig, mergeDeep } from './gate';
-// import memoize from 'memoizee';
-
-// const memo = (func) => {
-//   return memoize(func, { primitive: true });
-// };
 
 const get = (collection, path, delimiter = '.') => {
   if (!path) return collection;
-  
+
   let value = collection;
 
   if (typeof path === 'string') {
@@ -29,7 +23,7 @@ const get = (collection, path, delimiter = '.') => {
 const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
   const keys = Object.keys(obj);
 
-  keys.forEach((key) => {
+  keys.forEach(key => {
     const value = obj[key];
 
     if (isUndefined(value)) newObject[key] = undefined;
@@ -39,7 +33,7 @@ const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
     } else if (isString(value)) {
       if (value.indexOf(delimiter) > -1) {
         // eslint-disable-next-line no-use-before-define
-        newObject[key] =  getNested(type, value);
+        newObject[key] = getNested(type, value);
       } else {
         newObject[key] = value;
       }
@@ -63,59 +57,55 @@ const getNested = (type, path, delimiter = '.') => {
   return code;
 };
 
-const getDimension = (path) => {
+const getDimension = path => {
   return getNested('dimensions', path);
 };
 
-const getFormat = (path) => {
-  return getNested('formats', path, '_');
+const getFormat = path => {
+  return getNested('format', path, '_');
 };
 
-const getGeneral = (path) => {
+const getGeneral = path => {
   return getNested('general', path);
 };
 
-const getColor = (path) => {
+const getColor = path => {
   return getNested('color', path);
 };
 
-const getIcon = (path) => {
+const getIcon = path => {
   return getNested('icon', path);
 };
 
-const getWidgets = (path) => {
+const getWidgets = path => {
   return getNested('widgets', path);
 };
 
-const getType = (path) => {
-  return getNested('types', path);
+const getType = path => {
+  return getNested('type', path);
 };
 
-const getChart = (path) => {
+const getChart = path => {
   return getNested('charts', path);
 };
 
-const getTable = (path) => {
+const getTable = path => {
   return getNested('tables', path);
 };
-
 
 const getEntity = (type, path) => {
   const collection = getFromConfig('entities') || {};
   const mainConfig = collection.default || {};
 
-  
   if (!type) {
     const entries = Object.entries(collection);
 
     const entities = entries.reduce((res, [name, typeConfig]) => {
-      res.push(
-        {
-          name,
-          typeConfig,
-          fullConfig: mergeDeep(mainConfig, typeConfig),
-        },
-      );
+      res.push({
+        name,
+        typeConfig,
+        fullConfig: mergeDeep(mainConfig, typeConfig),
+      });
 
       return res;
     }, []);
@@ -133,14 +123,13 @@ const getEntity = (type, path) => {
   return fullConfig;
 };
 
-
 export const dimensions = getDimension;
 export const icon = getIcon;
 export const color = getColor;
 export const format = getFormat;
 export const general = getGeneral;
-export const chart = getChart; 
-export const widget = getWidgets; 
+export const chart = getChart;
+export const widget = getWidgets;
 export const table = getTable;
-export const entity = getEntity; 
-export const type = getType; 
+export const entity = getEntity;
+export const type = getType;
