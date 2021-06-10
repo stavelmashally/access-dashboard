@@ -1,0 +1,18 @@
+{
+  "defaultConfig": {
+    "color": {
+      "colors": {
+        "white": "#ffffff",
+        "defaultColor": "fromDefaultConfig"
+      }
+    }
+  },
+  "modifyConfig": {
+    "color": {
+      "colors": {
+        "black": "#000000",
+        "modifyColor": "fromModifyConfig"
+      }
+    }
+  }
+}

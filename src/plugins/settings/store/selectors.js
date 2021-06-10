@@ -9,8 +9,8 @@ const fetchConfigSelector = selector({
       Api.getDefaultConfig(),
       Api.getModifyConfig(),
     ]);
-    addToConfig(...defaultConfig.data);
-    addToConfig(...modifyConfig.data);
+    addToConfig(defaultConfig.data);
+    addToConfig(modifyConfig.data);
   },
 });
 
