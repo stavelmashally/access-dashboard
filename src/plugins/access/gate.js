@@ -1,5 +1,4 @@
 import { isObject } from 'lodash';
-
 import general from './mainConfig/general';
 import colors from './mainConfig/colors';
 import icons from './mainConfig/icons';
@@ -46,10 +45,10 @@ export const addToConfig = pluginConfig => {
   }
 };
 
-export const replaceConfig = (path, value) => {
-  if (config.hasOwnProperty(path)) {
-    config[path] = value;
-  }
+export const replaceConfig = ({ path, value }) => {
+  if (!path) return (config = value);
+  
+  config[path] = value;
 };
 
 export const getFromConfig = path => {

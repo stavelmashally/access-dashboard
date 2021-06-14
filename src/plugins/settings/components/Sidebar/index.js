@@ -2,18 +2,17 @@ import React from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
 import { makeStyles } from '@material-ui/core/styles';
+import { SIDEBAR_WIDTH } from '../Layout';
 import { useRecoilState } from 'recoil';
 import { selectedConfigAtom } from 'plugins/settings/store';
 
-const sidebarWidth = 240;
-
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: sidebarWidth,
+    width: SIDEBAR_WIDTH,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: sidebarWidth,
+    width: SIDEBAR_WIDTH,
   },
 }));
 

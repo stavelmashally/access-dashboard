@@ -1,8 +1,19 @@
 import { atom } from 'recoil';
+import { fetchConfigSelector } from './selectors';
 
 const viewModeAtom = atom({
   key: 'viewModeAtom',
   default: true,
+});
+
+const defaultConfigAtom = atom({
+  key: 'configAtom',
+  default: fetchConfigSelector,
+});
+
+const restoreAtom = atom({
+  key: 'restoreAtom',
+  default: false,
 });
 
 const selectedConfigAtom = atom({
@@ -15,4 +26,10 @@ const hasErrorAtom = atom({
   default: false,
 });
 
-export { selectedConfigAtom, viewModeAtom, hasErrorAtom };
+export {
+  defaultConfigAtom,
+  selectedConfigAtom,
+  viewModeAtom,
+  hasErrorAtom,
+  restoreAtom,
+};

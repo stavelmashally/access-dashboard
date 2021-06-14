@@ -2,9 +2,29 @@
   "defaultConfig": {
     "color": {
       "colors": {
-        "white": "#ffffff",
-        "defaultColor": "fromDefaultConfig"
-      }
+      },
+      "backgrounds": {},
+      "texts": {},
+      "border": {},
+      "icon": {},
+      "access": {}
+    },
+    "icon": {
+      "icons": {}
+    },
+    "dimensions": {
+      "boxShadow": {},
+      "height": {}
+    },
+    "format": {},
+    "general": {
+      "mode": {},
+      "dynamicTypes": {},
+      "fontFamily": {}
+    },
+    "type": {
+      "mode": {},
+      "changeType": {}
     }
   },
   "modifyConfig": {

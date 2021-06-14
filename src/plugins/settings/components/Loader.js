@@ -1,20 +1,12 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-import styled from 'styled-components';
-
-const LoaderContainer = styled.div`
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`;
+import { CenteredContainer } from "./Layout";
 
 const Loader = () => {
   return (
-    <LoaderContainer>
+    <CenteredContainer>
       <CircularProgress size='5rem'/>
-    </LoaderContainer>
+    </CenteredContainer>
   );
 };
 

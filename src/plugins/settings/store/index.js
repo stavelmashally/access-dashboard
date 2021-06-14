@@ -1,4 +1,17 @@
-import { selectedConfigAtom, viewModeAtom, hasErrorAtom } from './atoms';
+import {
+  defaultConfigAtom,
+  selectedConfigAtom,
+  restoreAtom,
+  viewModeAtom,
+  hasErrorAtom,
+} from './atoms';
 import { fetchConfigSelector } from './selectors';
 
-export { viewModeAtom, selectedConfigAtom, fetchConfigSelector, hasErrorAtom };
+export {
+  defaultConfigAtom,
+  viewModeAtom,
+  restoreAtom,
+  selectedConfigAtom,
+  fetchConfigSelector,
+  hasErrorAtom,
+};

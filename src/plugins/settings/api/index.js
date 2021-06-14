@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5050';
+const BASE_URL = 'http://localhost:3001';
 
-const getDefaultConfig = () => {
+const fetchDefaultConfig = () => {
   return axios.get(
     `${BASE_URL}/defaultConfig`
   );
 };
 
-const getModifyConfig = () => {
+const fetchModifyConfig = () => {
   return axios.get(
     `${BASE_URL}/modifyConfig`
   );
 };
 
-export { getDefaultConfig, getModifyConfig };
+export { fetchDefaultConfig, fetchModifyConfig };
