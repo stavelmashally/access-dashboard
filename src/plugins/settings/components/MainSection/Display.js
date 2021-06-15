@@ -36,7 +36,7 @@ const Display = () => {
   const renderElements = () =>
     Object.entries(config).map(([key, values]) => (
       <Card>
-        <Typography variant='h5'>{key}</Typography>
+        <Typography variant='h5' color='textSecondary'>{key}</Typography>
         <Divider />
         {elements[selected](values)}
       </Card>

@@ -10,3 +10,9 @@ export const CenteredContainer = styled.div`
   align-items: center;
 `;
 
+export const Code = styled.code`
+  font-size: 1rem;
+  border-radius: 2px;
+  background: #f8f8f8;
+  padding: 0 4px;
+`;

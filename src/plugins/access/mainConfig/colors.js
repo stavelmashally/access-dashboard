@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   colors: {
-    white: '#fff',
-    black: '#000',
-    gray: '#a8a8a8',
+    white: '#ffffff',
+    black: '#000000',
+    gray: '#a4a4a4',
     lightgray: '#d3d3d3',
     lightbluegray: '#f6f7ff',
     darkblue: '#163153',

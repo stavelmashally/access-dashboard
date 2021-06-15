@@ -1,13 +1,7 @@
 import Colors from './Colors';
 import Icons from './Icons';
+import Formats from './Formats';
 
-const getColors = values => {
-  return <Colors values={values} />;
-};
-
-const getIcons = values => {
-  return <Icons values={values} />;
-};
-
-export const color = getColors;
-export const icon = getIcons;
+export const icon = values => <Icons values={values} />;
+export const color = values => <Colors values={values} />;
+export const format = values => <Formats value={values} />;

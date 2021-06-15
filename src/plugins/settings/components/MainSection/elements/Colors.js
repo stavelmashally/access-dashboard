@@ -1,4 +1,5 @@
 import React from 'react';
+import { isLight } from 'utils/colorUtils';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -12,17 +13,19 @@ const ColorBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${props => props.color};
+  color: ${props => props.color};
+  background: ${props => props.background};
   width: 100px;
   height: 100px;
   border: 1px solid black;
-  color: white;
 `;
 
 const Colors = ({ values }) => {
   const renderColors = () =>
     Object.entries(values).map(([key, value]) => (
-      <ColorBox color={value}>{key}</ColorBox>
+      <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
+        {key}
+      </ColorBox>
     ));
 
   return <Container>{renderColors()}</Container>;
