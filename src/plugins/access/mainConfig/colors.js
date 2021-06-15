@@ -3,10 +3,10 @@ export default {
   colors: {
     white: '#fff',
     black: '#000',
-    gray: '#A8A8A8',
+    gray: '#a8a8a8',
     lightgray: '#d3d3d3',
-    lightbluegray: '#F6F7FF',
-    blueDark: '#163153',
+    lightbluegray: '#f6f7ff',
+    darkblue: '#163153',
   },
 
   backgrounds: {
@@ -27,7 +27,7 @@ export default {
   },
 
   access: {
-    primary: 'colors.blueDark',
+    primary: 'colors.darkblue',
     background: 'colors.lightbluegray',
     secondary: 'colors.gray',
   },

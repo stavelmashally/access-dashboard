@@ -42,7 +42,6 @@ const Editor = () => {
         debounceChangePeriod={500}
         showPrintMargin={false}
         enableLiveAutocompletion
-        highlightSelectedWord
         editorProps={{ $blockScrolling: true }}
       />
     </EditorContainer>

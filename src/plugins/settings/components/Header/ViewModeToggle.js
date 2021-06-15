@@ -10,7 +10,7 @@ const ViewModeToggle = () => {
   const toggleViewMode = () => setViewMode(prevViewMode => !prevViewMode);
 
   return (
-    <Tooltip title={viewMode ? 'switch to code' : 'switch to ui'}>
+    <Tooltip title={`Switch to ${viewMode ? 'code' : 'ui'}`}>
       <IconButton color='inherit' onClick={toggleViewMode}>
         {viewMode ? <Visibility /> : <Code />}
       </IconButton>

@@ -30,8 +30,7 @@
   "modifyConfig": {
     "color": {
       "colors": {
-        "black": "#000000",
-        "modifyColor": "fromModifyConfig"
+        "black": "#000000"
       }
     }
   }

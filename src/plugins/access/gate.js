@@ -46,8 +46,11 @@ export const addToConfig = pluginConfig => {
 };
 
 export const replaceConfig = ({ path, value }) => {
-  if (!path) return (config = value);
-  
+  if (!path) {
+    config = value;
+    return;
+  }
+
   config[path] = value;
 };
 

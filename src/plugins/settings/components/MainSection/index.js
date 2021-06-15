@@ -2,7 +2,7 @@ import React from 'react';
 import Editor from './Editor';
 import Loader from '../Loader';
 import Error from '../Error';
-import Display from '../Display';
+import Display from './Display';
 import { Toolbar } from '@material-ui/core';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
@@ -20,7 +20,7 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const EditorSection = () => {
+const MainSection = () => {
   const { state } = useRecoilValueLoadable(defaultConfigAtom);
   const viewMode = useRecoilValue(viewModeAtom);
   useRecoilValue(restoreAtom);
@@ -43,4 +43,4 @@ const EditorSection = () => {
   );
 };
 
-export default EditorSection;
+export default MainSection;
