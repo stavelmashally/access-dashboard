@@ -3,7 +3,7 @@ import { Typography, Divider } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
 import { selectedConfigAtom } from '../../store';
 import * as access from 'plugins/access';
-import * as elements from './elements';
+import { getComponent } from './elements';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -28,6 +28,7 @@ const Card = styled.div`
     0 1px 8px 0 #9a9a9a1a;
 `;
 
+
 const Display = () => {
   const selected = useRecoilValue(selectedConfigAtom);
 
@@ -36,9 +37,11 @@ const Display = () => {
   const renderElements = () =>
     Object.entries(config).map(([key, values]) => (
       <Card>
-        <Typography variant='h5' color='textSecondary'>{key}</Typography>
+        <Typography variant='h5' color='textSecondary'>
+          {key}
+        </Typography>
         <Divider />
-        {elements[selected](values)}
+        {getComponent({ type: selected, values })}
       </Card>
     ));
 

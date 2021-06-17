@@ -20,15 +20,12 @@ const ColorBox = styled.div`
   border: 1px solid black;
 `;
 
-const Colors = ({ values }) => {
-  const renderColors = () =>
-    Object.entries(values).map(([key, value]) => (
-      <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
-        {key}
-      </ColorBox>
-    ));
-
-  return <Container>{renderColors()}</Container>;
+const Color = ({ text, value }) => {
+  return (
+    <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
+      {text}
+    </ColorBox>
+  );
 };
 
-export default Colors;
+export default Color;
