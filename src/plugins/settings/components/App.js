@@ -1,6 +1,6 @@
 import Header from './Header';
 import Sidebar from './Sidebar';
-import EditorSection from './MainSection';
+import EditorSection from './MainContent';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';

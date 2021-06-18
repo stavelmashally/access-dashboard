@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDate } from 'utils/dateUtils';
 import { Code } from 'plugins/settings/components/Layout';
 
-const Format = ({ text, value }) => {
+const Format = ({ value }) => {
   return <Code>{formatDate(value)}</Code>;
 };
 

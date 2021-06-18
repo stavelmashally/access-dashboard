@@ -8,11 +8,6 @@ import { selectedConfigAtom, hasErrorAtom } from 'plugins/settings/store';
 import styled from 'styled-components';
 import { getFromConfig, replaceConfig } from 'plugins/access/gate';
 
-const EditorContainer = styled.div`
-  display: flex;
-  height: 100%;
-`;
-
 const Editor = () => {
   const selected = useRecoilValue(selectedConfigAtom);
   const hasError = useSetRecoilState(hasErrorAtom);
@@ -47,5 +42,10 @@ const Editor = () => {
     </EditorContainer>
   );
 };
+
+const EditorContainer = styled.div`
+  display: flex;
+  height: 100%;
+`;
 
 export default Editor;
