@@ -5,7 +5,7 @@ import { Code, Item } from 'plugins/settings/components/Layout';
 const Dimensions = ({text, value }) => {
   return (
     <Item>
-      <Typography variant='h6'>{text}</Typography>
+      <Typography variant='subtitle1'>{text}</Typography>
       <Code>{value}</Code>
     </Item>
   );

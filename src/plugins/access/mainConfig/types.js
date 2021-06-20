@@ -6,10 +6,10 @@ export default {
     test: {
       nested: 'nested1',
       test2: {
-        nested2: ['a', 'b', 'c', 'd', 'e'],
-        test3: {
-          nested: 'nested3',
-        },
+        array: ['a', 'b', 'c', 'd', 'e'],
+      },
+      test3: {
+        nested: 'nested3',
       },
     },
   },

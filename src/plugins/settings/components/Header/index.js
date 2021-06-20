@@ -18,14 +18,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TitleContainer = styled.div`
-  display: flex;
-  gap: 0.3rem;
-  align-items: center;
-`;
-
-const ButtonsContainer = styled.div``;
-
 const Header = () => {
   const classes = useStyles();
 
@@ -45,5 +37,13 @@ const Header = () => {
     </AppBar>
   );
 };
+
+const TitleContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+`;
+
+const ButtonsContainer = styled.div``;
 
 export default Header;

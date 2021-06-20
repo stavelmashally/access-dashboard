@@ -13,7 +13,11 @@ const Ui = () => {
 
   const renderCards = () =>
     Object.entries(config).map(([key, values]) => (
-      <Card title={key} content={renderContent({ type: selected, values })} />
+      <Card
+        key={key}
+        title={key}
+        content={renderContent({ type: selected, data: values })}
+      />
     ));
 
   return <Container>{renderCards()}</Container>;

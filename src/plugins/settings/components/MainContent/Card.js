@@ -18,7 +18,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 1rem;
   width: 90%;
   padding: 1rem;
   border-radius: 8px;

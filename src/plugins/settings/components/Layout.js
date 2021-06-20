@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SIDEBAR_WIDTH = 240
+export const SIDEBAR_WIDTH = 240;
 
 export const CenteredContainer = styled.div`
   display: flex;
@@ -27,23 +27,17 @@ export const Grid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   width: 100%;
   flex-wrap: wrap;
-  gap: 8px;
 `;
 
 export const Code = styled.code`
-  font-size: 1rem;
   border-radius: 2px;
-  background: #f8f8f8;
+  background: #f3f6fa;
+  padding: 0 0.5rem;
 `;
 
 export const Item = styled.div`
   display: flex;
   align-items: center;
-  gap: 4px;
-`;
-
-export const Section = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0px 8px;
+  gap: 0.5rem;
+  padding: 0.5rem;
 `;

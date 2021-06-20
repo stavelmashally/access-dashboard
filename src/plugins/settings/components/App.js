@@ -1,15 +1,10 @@
 import Header from './Header';
 import Sidebar from './Sidebar';
-import EditorSection from './MainContent';
+import MainContent from './MainContent';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';
 import styled from 'styled-components';
-
-const AppContainer = styled.div`
-  display: flex;
-  height: 100vh;
-`;
 
 function App() {
   return (
@@ -18,10 +13,15 @@ function App() {
       <AppContainer>
         <Header />
         <Sidebar />
-        <EditorSection />
+        <MainContent />
       </AppContainer>
     </ThemeProvider>
   );
 }
+
+const AppContainer = styled.div`
+  display: flex;
+  height: 100vh;
+`;
 
 export default App;
