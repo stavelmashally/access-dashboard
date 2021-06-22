@@ -4,9 +4,10 @@ export default {
     white: '#ffffff',
     black: '#000000',
     gray: '#a4a4a4',
-    lightgray: '#d3d3d3',
-    lightbluegray: '#f6f7ff',
+    lightgray: '#f6f7ff',
+    darkbluegray: '#395464',
     darkblue: '#163153',
+    text: '#012333',
   },
 
   backgrounds: {
@@ -15,7 +16,6 @@ export default {
 
   texts: {
     title: 'colors.black',
-    secondary: 'colors.gray',
   },
 
   border: {
@@ -28,7 +28,8 @@ export default {
 
   access: {
     primary: 'colors.darkblue',
-    background: 'colors.lightbluegray',
-    secondary: 'colors.gray',
+    background: 'colors.lightgray',
+    primaryText: 'colors.text',
+    secondaryText: 'colors.darkbluegray',
   },
 };

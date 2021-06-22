@@ -6,7 +6,8 @@ export default {
     test: {
       nested: 'nested1',
       test2: {
-        array: ['a', 'b', 'c', 'd', 'e'],
+        // array: ['a', 'b', 'c', 'd', 'e'],
+        a: 'A',
       },
       test3: {
         nested: 'nested3',

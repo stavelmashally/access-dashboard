@@ -2,12 +2,13 @@ import React from 'react';
 import { isLight } from 'utils/colorUtils';
 import styled from 'styled-components';
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
+const Color = ({ text, value }) => {
+  return (
+    <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
+      {text}
+    </ColorBox>
+  );
+};
 
 const ColorBox = styled.div`
   display: flex;
@@ -17,15 +18,10 @@ const ColorBox = styled.div`
   background: ${props => props.background};
   width: 100px;
   height: 100px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
+  box-shadow: 0px 3px 11px 0px #e8eafc, 0 3px 3px -2px #b2b2b21a,
+    0 1px 8px 0 #9a9a9a1a;
+  border-radius: 10px;
 `;
-
-const Color = ({ text, value }) => {
-  return (
-    <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
-      {text}
-    </ColorBox>
-  );
-};
 
 export default Color;

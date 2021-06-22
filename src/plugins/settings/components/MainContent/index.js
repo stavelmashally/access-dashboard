@@ -1,8 +1,8 @@
 import React from 'react';
-import Editor from './Editor';
 import Loader from '../Loader';
 import Error from '../Error';
 import Ui from './Ui';
+import Editor from './Editor';
 import { Toolbar } from '@material-ui/core';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
