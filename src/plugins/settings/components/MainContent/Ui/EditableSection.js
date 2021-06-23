@@ -10,14 +10,20 @@ import { isPlainObject } from 'lodash';
 import { getComponent } from './elements';
 import styled from 'styled-components';
 
-const EditableSection = ({ title, values, type, onTitleChange }) => {
-  const [edit, setEdit] = useState(false);
+const EditableSection = ({
+  title,
+  onDeleteSection,
+  values,
+  type,
+  path,
+  onTitleChange,
+}) => {
+  const [edit, setEdit] = useState(title === 'sectionTitle');
   const titleRef = useRef(null);
-
   const { Component, Layout } = getComponent(type);
 
   const handleKeyDown = e => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === 'Escape') {
       onTitleChange({ key: title, newKey: titleRef.current.value });
       setEdit(false);
     }
@@ -33,7 +39,7 @@ const EditableSection = ({ title, values, type, onTitleChange }) => {
         onKeyDown={handleKeyDown}
       />
     ) : (
-        <Typography
+      <Typography
         variant='h5'
         color='textSecondary'
         onDoubleClick={() => setEdit(true)}
@@ -43,46 +49,51 @@ const EditableSection = ({ title, values, type, onTitleChange }) => {
     );
   };
 
-  const renderButtons = () => {
-    return edit ? (
-      <ButtonGroup>
-        <IconButton>
-          <Remove />
-        </IconButton>
-        <IconButton>
-          <Add />
-        </IconButton>
-      </ButtonGroup>
-    ) : null;
+
+  const renderInnerSection = (key, value) => {
+    return (
+      <InnerSection key={key}>
+        <EditableSection
+          title={key}
+          values={value}
+          type={type}
+          path={path.concat(`.${key}`)}
+          onTitleChange={onTitleChange}
+          onDeleteSection={onDeleteSection}
+        />
+      </InnerSection>
+    );
   };
 
   const renderTree = nodes => {
-    return Object.entries(nodes).map(([key, value]) => {
-      if (isPlainObject(value)) {
-        return (
-          <InnerSection key={key}>
-            <EditableSection
-              title={key}
-              values={value}
-              type={type}
-              onTitleChange={onTitleChange}
-            />
-          </InnerSection>
-        );
-      }
-      return React.createElement(Component, {
-        text: key,
-        value,
-        key,
-      });
-    });
+    if (!isPlainObject(nodes)) {
+      return React.createElement(Component, { value: nodes });
+    }
+    return Object.entries(nodes).map(([key, value]) =>
+      isPlainObject(value)
+        ? renderInnerSection(key, value)
+        : React.createElement(Component, {
+            text: key,
+            value,
+            key,
+          })
+    );
   };
 
   return (
     <>
       <SectionTitle>
         {renderTitle()}
-        {renderButtons()}
+        {edit && (
+          <ButtonGroup>
+            <IconButton>
+              <Add />
+            </IconButton>
+            <IconButton onClick={() => onDeleteSection(path)}>
+              <Remove />
+            </IconButton>
+          </ButtonGroup>
+        )}
       </SectionTitle>
       <Divider />
       <Layout>{renderTree(values)}</Layout>

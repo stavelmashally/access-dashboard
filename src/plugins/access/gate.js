@@ -1,4 +1,4 @@
-import { isObject, transform, isString } from 'lodash';
+import { isObject, transform, isString, unset } from 'lodash';
 import general from './mainConfig/general';
 import colors from './mainConfig/colors';
 import icons from './mainConfig/icons';
@@ -55,7 +55,7 @@ export const replaceConfig = ({ path, value }) => {
 };
 
 function renameKey(obj, keysMap) {
-  return transform(obj, function (result, value, key) {
+  return transform(obj, (result, value, key) => {
     const currentKey = keysMap[key] || key;
     result[currentKey] = isObject(value) ? renameKey(value, keysMap) : value;
   });
@@ -71,6 +71,10 @@ function renameValue(obj, oldValue, newValue) {
     }
   });
 }
+
+export const deleteValue = path => {
+  unset(config, path);
+};
 
 export const editConfigKey = ({ key, newKey }) => {
   config = renameKey(config, { [key]: newKey });
