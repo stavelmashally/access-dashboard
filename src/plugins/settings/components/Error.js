@@ -3,12 +3,11 @@ import { Typography } from '@material-ui/core';
 import ErrorIcon from '@material-ui/icons/Error';
 import { CenteredContainer } from './Layout';
 
-
-const Error = ({ text }) => {
+const Error = ({ msg }) => {
   return (
     <CenteredContainer>
       <ErrorIcon fontSize='large'/>
-      <Typography variant='h6'>{text}</Typography>
+      <Typography variant='h6'>{msg}</Typography>
     </CenteredContainer>
   );
 };

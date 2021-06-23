@@ -18,20 +18,13 @@ const MainContent = () => {
   const viewMode = useRecoilValue(viewModeAtom);
   useRecoilValue(restoreAtom);
 
-  const error = state === 'hasError';
-  const loading = state === 'loading';
-  const content = viewMode ? <Ui /> : <Editor />;
+  if (state === 'loading') return <Loader />;
+  if (state === 'hasError') return <Error msg='Failed to load configs' />;
 
   return (
     <Container>
       <Toolbar />
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Error text='Error while trying to load configs' />
-      ) : (
-        content
-      )}
+      {viewMode ? <Ui /> : <Editor />}
     </Container>
   );
 };

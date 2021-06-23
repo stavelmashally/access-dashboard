@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import EditableSection from './EditableSection';
+import EditableForm from './EditableForm';
 import { useRecoilValue } from 'recoil';
 import { Typography } from '@material-ui/core';
-import { selectedConfigAtom } from '../../../store';
+import { selectedConfigAtom } from 'plugins/settings/store';
 import * as access from 'plugins/access';
 import { editConfigKey, replaceConfig, deleteValue } from 'plugins/access/gate';
 import styled from 'styled-components';
@@ -28,18 +28,20 @@ const Ui = () => {
     forceRender({});
   };
 
+  const handleAddProperty = path => {};
+
   const renderSections = () => {
     return Object.entries(config).map(([key, value]) => {
       return (
         <CardWrapper key={key}>
-          <EditableSection
-            onDeleteSection={handleDeleteSection}
-            key={key}
+          <EditableForm
             title={key}
-            values={value}
+            data={value}
             type={selected}
             path={`${selected}.${key}`}
             onTitleChange={handleTitleChanged}
+            onAddProperty={handleAddProperty}
+            onDeleteSection={handleDeleteSection}
           />
         </CardWrapper>
       );

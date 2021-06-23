@@ -6,7 +6,7 @@ import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';
 import styled from 'styled-components';
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider theme={Themes.default}>
       <CssBaseline />
@@ -17,11 +17,12 @@ function App() {
       </AppContainer>
     </ThemeProvider>
   );
-}
+};
 
 const AppContainer = styled.div`
-  display: flex;
   height: 100vh;
+  display: flex;
+  justify-content: center;
 `;
 
 export default App;

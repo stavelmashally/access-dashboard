@@ -22,19 +22,22 @@ const SideBar = () => {
   const classes = useStyles();
   const [selected, setSelected] = useRecoilState(selectedConfigAtom);
 
-  const handleSelected = text => setSelected(text);
-
+  
+  const handleSelected = text => {
+    setSelected(text);
+  };
+  
   const renderListItems = () => {
     return structure.map(key => (
       <SidebarItem
-        key={key}
-        text={key}
-        onSelected={handleSelected}
-        isActive={key === selected}
+      key={key}
+      text={key}
+      onSelected={handleSelected}
+      isActive={key === selected}
       />
-    ));
-  };
-
+      ));
+    };
+  
   return (
     <Drawer
       className={classes.drawer}
