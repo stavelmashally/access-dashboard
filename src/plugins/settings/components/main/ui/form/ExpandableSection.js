@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
-import { Item } from 'plugins/settings/components/Layout';
 import styled from 'styled-components';
 
 const ExpandableSection = ({ title, children }) => {
@@ -8,23 +7,20 @@ const ExpandableSection = ({ title, children }) => {
 
   return (
     <>
-      <Item onClick={() => setIsOpen(prev => !prev)}>
+      <Title onClick={() => setIsOpen(isOpen => !isOpen)}>
         <Typography variant='h6'>
           {title}
           {isOpen ? '-' : '+'}
         </Typography>
-      </Item>
+      </Title>
       <InnerSection>
-        {isOpen ? children : null}
-        {React.Children.count(children) === 0 && isOpen
-          ? 'The list is empty!'
-          : null}
+        {isOpen && children}
       </InnerSection>
     </>
   );
 };
 
-export const PropertyName = styled.div`
+export const Title = styled.div`
   display: flex;
   font-size: 1rem;
   font-weight: bold;
@@ -34,7 +30,8 @@ export const PropertyName = styled.div`
 export const InnerSection = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
+  gap: 1rem;
 `;
 
 export default ExpandableSection;

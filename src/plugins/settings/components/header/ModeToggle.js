@@ -4,10 +4,10 @@ import { Visibility, Code } from '@material-ui/icons';
 import { useRecoilState } from 'recoil';
 import { viewModeAtom } from 'plugins/settings/store';
 
-const ViewModeToggle = () => {
+const ModeToggle = () => {
   const [viewMode, setViewMode] = useRecoilState(viewModeAtom);
 
-  const toggleViewMode = () => setViewMode(prevViewMode => !prevViewMode);
+  const toggleViewMode = () => setViewMode(viewMode => !viewMode);
 
   return (
     <Tooltip title={`Switch to ${viewMode ? 'code' : 'ui'}`}>
@@ -18,4 +18,4 @@ const ViewModeToggle = () => {
   );
 };
 
-export default ViewModeToggle;
+export default ModeToggle;

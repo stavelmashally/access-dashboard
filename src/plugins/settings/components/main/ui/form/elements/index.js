@@ -4,7 +4,7 @@ import Format from './Format';
 import Type from './Type';
 import Fallback from './Fallback';
 import Dimensions from './Dimensions';
-import { Grid, Row, Column } from 'plugins/settings/components/Layout';
+import { Grid, Row, Column } from 'plugins/settings/components/shared/Layout';
 import { hasIn } from 'lodash';
 
 const components = {

@@ -1,6 +1,6 @@
-import Header from './Header';
-import Sidebar from './Sidebar';
-import MainContent from './MainContent';
+import Header from './header/Header';
+import Sidebar from './sidebar/Sidebar';
+import MainContent from './main/MainContent';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';

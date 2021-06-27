@@ -11,9 +11,9 @@ const defaultConfigAtom = atom({
   default: fetchConfigSelector,
 });
 
-const restoreAtom = atom({
-  key: 'restoreAtom',
-  default: false,
+const refreshAtom = atom({
+  key: 'refreshAtom',
+  default: {},
 });
 
 const selectedConfigAtom = atom({
@@ -31,5 +31,5 @@ export {
   selectedConfigAtom,
   viewModeAtom,
   hasErrorAtom,
-  restoreAtom,
+  refreshAtom,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatDate } from 'utils/dateUtils';
-import { Code } from 'plugins/settings/components/Layout';
+import { Code } from 'plugins/settings/components/shared/Layout';
 
 const Format = ({ value }) => {
   

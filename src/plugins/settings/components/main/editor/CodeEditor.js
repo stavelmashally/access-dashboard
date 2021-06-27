@@ -8,7 +8,7 @@ import { selectedConfigAtom, hasErrorAtom } from 'plugins/settings/store';
 import styled from 'styled-components';
 import { getFromConfig, replaceConfig } from 'plugins/access/gate';
 
-const Editor = () => {
+const CodeEditor = () => {
   const selected = useRecoilValue(selectedConfigAtom);
   const hasError = useSetRecoilState(hasErrorAtom);
 
@@ -25,7 +25,7 @@ const Editor = () => {
   };
 
   return (
-    <EditorContainer>
+    <Wrapper>
       <AceEditor
         mode='json'
         fontSize={16}
@@ -37,15 +37,15 @@ const Editor = () => {
         debounceChangePeriod={500}
         showPrintMargin={false}
         enableLiveAutocompletion
-        editorProps={{ $blockScrolling: true }}
+        CodeeditorProps={{ $blockScrolling: true }}
       />
-    </EditorContainer>
+    </Wrapper>
   );
 };
 
-const EditorContainer = styled.div`
+const Wrapper = styled.div`
   display: flex;
   height: 100%;
 `;
 
-export default Editor;
+export default CodeEditor;

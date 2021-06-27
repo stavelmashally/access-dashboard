@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { Item } from 'plugins/settings/components/Layout';
+import { Item } from 'plugins/settings/components/shared/Layout';
 
 const Icons = ({ text,value }) => {
   return (

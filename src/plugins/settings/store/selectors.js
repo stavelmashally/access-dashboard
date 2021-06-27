@@ -1,5 +1,6 @@
 import { selector } from 'recoil';
-import { addToConfig } from 'plugins/access/gate';
+import { defaultConfigAtom } from './atoms';
+import { addToConfig, replaceConfig } from 'plugins/access/gate';
 import * as Api from 'plugins/settings/api';
 
 const fetchConfigSelector = selector({
@@ -11,8 +12,14 @@ const fetchConfigSelector = selector({
     addToConfig(defaultConfig);
     addToConfig(modifyConfig);
 
-    return defaultConfig
+    return defaultConfig;
   },
 });
 
-export { fetchConfigSelector };
+const restoreDefaultSelector = selector({
+  set: ({ get }) => {
+    replaceConfig({ value: get(defaultConfigAtom) });
+  },
+});
+
+export { fetchConfigSelector, restoreDefaultSelector };

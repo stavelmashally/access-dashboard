@@ -1,7 +1,7 @@
 import React from 'react';
-import ClipboardText from 'plugins/settings/components/MainContent/Ui/ClipboardText';
+import ClipboardText from 'plugins/settings/components/main/ui/form/ClipboardText';
 import { Typography } from '@material-ui/core';
-import { Item } from 'plugins/settings/components/Layout';
+import { Item } from 'plugins/settings/components/shared/Layout';
 
 const Dimensions = ({ text, value }) => {
   return (

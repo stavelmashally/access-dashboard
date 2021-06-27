@@ -1,5 +1,5 @@
 import React from 'react';
-import ViewModeToggle from './ViewModeToggle';
+import ViewModeToggle from './ModeToggle';
 import SaveButton from './SaveButton';
 import RestoreButton from './RestoreButton';
 import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';

@@ -51,34 +51,16 @@ export const replaceConfig = ({ path, value }) => {
     return;
   }
 
-  config[path] = value;
+  config = { ...config, [path]: value };
 };
-
-function renameKey(obj, keysMap) {
-  return transform(obj, (result, value, key) => {
-    const currentKey = keysMap[key] || key;
-    result[currentKey] = isObject(value) ? renameKey(value, keysMap) : value;
-  });
-}
-
-function renameValue(obj, oldValue, newValue) {
-  Object.keys(obj).forEach(key => {
-    if (obj[key] !== null && isObject(obj[key])) {
-      renameValue(obj[key], oldValue, newValue);
-    }
-    if (isString(obj[key]) && obj[key].includes(oldValue)) {
-      obj[key] = obj[key].replace(oldValue, newValue);
-    }
-  });
-}
 
 export const deleteValue = path => {
   unset(config, path);
 };
 
-export const editConfigKey = ({ key, newKey }) => {
-  config = renameKey(config, { [key]: newKey });
-  renameValue(config, key, newKey);
+export const editConfigProperty = ({ property, newProperty }) => {
+  config = renameProperty(config, { [property]: newProperty });
+  renameValue(config, property, newProperty);
 };
 
 export const getFromConfig = path => {
@@ -86,3 +68,23 @@ export const getFromConfig = path => {
 
   return config[path];
 };
+
+function renameProperty(obj, keysMap) {
+  return transform(obj, (result, value, key) => {
+    const currentKey = keysMap[key] || key;
+    result[currentKey] = isObject(value)
+      ? renameProperty(value, keysMap)
+      : value;
+  });
+}
+
+function renameValue(obj, oldVal, newVal) {
+  Object.entries(obj).forEach(([key, value]) => {
+    if (value && isObject(value)) {
+      renameValue(obj[key], oldVal, newVal);
+    }
+    if (isString(value) && value.includes(oldVal)) {
+      obj[key] = value.replace(oldVal, newVal);
+    }
+  });
+}

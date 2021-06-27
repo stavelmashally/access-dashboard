@@ -20,6 +20,7 @@ export const Row = styled.div`
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 `;
 
 export const Grid = styled.div`
@@ -39,5 +40,4 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
 `;
