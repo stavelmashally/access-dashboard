@@ -20,7 +20,7 @@ const UiView = () => {
 
   return (
     <Wrapper>
-      <SectionsList config={config} selected={selected} />
+      <SectionsList config={config} type={selected} />
       <AddButton onClick={handleAddSection}>Add section +</AddButton>
     </Wrapper>
   );

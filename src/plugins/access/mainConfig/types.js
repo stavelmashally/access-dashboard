@@ -3,10 +3,10 @@ export default {
   mode: {
     edit: 'edit',
     view: 'view',
+    array: ['a', 'b', 'c', 'd', 'e'],
     test: {
       nested: 'nested1',
       test2: {
-        // array: ['a', 'b', 'c', 'd', 'e'],
         a: 'A',
       },
       test3: {

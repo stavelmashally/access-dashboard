@@ -1,4 +1,4 @@
-import { isObject, transform, isString, unset } from 'lodash';
+import { isObject, isString, unset } from 'lodash';
 import general from './mainConfig/general';
 import colors from './mainConfig/colors';
 import icons from './mainConfig/icons';
@@ -54,13 +54,13 @@ export const replaceConfig = ({ path, value }) => {
   config = { ...config, [path]: value };
 };
 
-export const deleteValue = path => {
-  unset(config, path);
+export const deleteConfigProperty = prop => {
+  config = removeKey(config, prop);
 };
 
 export const editConfigProperty = ({ property, newProperty }) => {
-  config = renameProperty(config, { [property]: newProperty });
-  renameValue(config, property, newProperty);
+  config = renameKey(config, { [property]: newProperty });
+  config = renameValue(config, { oldVal: property, newVal: newProperty });
 };
 
 export const getFromConfig = path => {
@@ -69,22 +69,40 @@ export const getFromConfig = path => {
   return config[path];
 };
 
-function renameProperty(obj, keysMap) {
-  return transform(obj, (result, value, key) => {
-    const currentKey = keysMap[key] || key;
-    result[currentKey] = isObject(value)
-      ? renameProperty(value, keysMap)
-      : value;
-  });
-}
+const renameKey = (obj, keysMap) =>
+  Object.entries(obj).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      ...{
+        [keysMap[key] || key]: isObject(value)
+          ? renameKey(value, keysMap)
+          : value,
+      },
+    }),
+    {}
+  );
 
-function renameValue(obj, oldVal, newVal) {
-  Object.entries(obj).forEach(([key, value]) => {
-    if (value && isObject(value)) {
-      renameValue(obj[key], oldVal, newVal);
-    }
-    if (isString(value) && value.includes(oldVal)) {
-      obj[key] = value.replace(oldVal, newVal);
-    }
-  });
-}
+const renameValue = (obj, { oldVal, newVal }) =>
+  Object.entries(obj).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      ...{
+        [key]: isObject(value)
+          ? renameValue(value, { oldVal, newVal })
+          : isString(value) && value.includes(oldVal)
+          ? value.replace(oldVal, newVal)
+          : value,
+      },
+    }),
+    {}
+  );
+
+const removeKey = (obj, key) =>
+  !isObject(obj)
+    ? obj
+    : Object.keys(obj)
+        .filter(k => k !== key)
+        .reduce(
+          (acc, x) => Object.assign(acc, { [x]: removeKey(obj[x], key) }),
+          {}
+        );

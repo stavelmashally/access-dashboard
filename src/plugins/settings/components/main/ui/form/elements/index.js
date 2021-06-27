@@ -5,7 +5,6 @@ import Type from './Type';
 import Fallback from './Fallback';
 import Dimensions from './Dimensions';
 import { Grid, Row, Column } from 'plugins/settings/components/shared/Layout';
-import { hasIn } from 'lodash';
 
 const components = {
   color: { Component: Color, Layout: Row },
@@ -17,7 +16,7 @@ const components = {
 };
 
 export const getComponent = type => {
-  if (!hasIn(components, type)) return components['fallback'];
+  if (components[type] !== undefined) return components[type];
 
-  return components[type];
+  return components['fallback'];
 };

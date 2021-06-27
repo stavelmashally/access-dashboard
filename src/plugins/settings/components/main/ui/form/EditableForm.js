@@ -5,11 +5,11 @@ import EditButtons from './EditButtons';
 import { refreshAtom } from 'plugins/settings/store';
 import { useSetRecoilState } from 'recoil';
 import { isPlainObject, isNumber, isString, isBoolean, isEmpty } from 'lodash';
-import { editConfigProperty, deleteValue } from 'plugins/access/gate';
+import { editConfigProperty, deleteConfigProperty } from 'plugins/access/gate';
 import { getComponent } from './elements';
 import styled from 'styled-components';
 
-const EditableForm = ({ title, data, type, path, onDeleteSection }) => {
+const EditableForm = ({ title, data, type }) => {
   const [edit, setEdit] = useState(() => title === 'sectionTitle');
   const refresh = useSetRecoilState(refreshAtom);
   const titleRef = useRef();
@@ -28,7 +28,7 @@ const EditableForm = ({ title, data, type, path, onDeleteSection }) => {
   };
 
   const handleDeleteSection = () => {
-    deleteValue(path);
+    deleteConfigProperty(title);
     refresh({});
   };
 
@@ -69,15 +69,15 @@ const EditableForm = ({ title, data, type, path, onDeleteSection }) => {
           value,
           key: idx,
         })
+      ) : Array.isArray(value) ? (
+        React.createElement(Component, {
+          text: key,
+          value: `[ ${value.join(', ')} ]`,
+          key: idx,
+        })
       ) : (
         <ExpandableSection title={key} key={idx}>
-          {!isEmpty(value) && (
-            <EditableForm
-              data={value}
-              type={type}
-              path={path.concat(`.${key}`)}
-            />
-          )}
+          {!isEmpty(value) && <EditableForm data={value} type={type} />}
         </ExpandableSection>
       )
     );

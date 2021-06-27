@@ -2,18 +2,13 @@ import React from 'react';
 import EditableForm from './form/EditableForm';
 import styled from 'styled-components';
 
-const SectionsList = ({ config, selected }) => {
+const SectionsList = ({ config, type }) => {
   return (
     <Wrapper>
       {Object.entries(config).map(([key, value]) => {
         return (
           <CardWrapper key={key}>
-            <EditableForm
-              title={key}
-              data={value}
-              type={selected}
-              path={`${selected}.${key}`}
-            />
+            <EditableForm title={key} data={value} type={type} />
           </CardWrapper>
         );
       })}
