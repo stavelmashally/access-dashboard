@@ -1,109 +1,83 @@
-import React, { useState, useRef } from 'react';
-import { Typography, Divider } from '@material-ui/core';
+import React from 'react';
+import { Divider } from '@material-ui/core';
 import ExpandableSection from './ExpandableSection';
-import EditButtons from './EditButtons';
+import FormHeader from './FormHeader';
 import { refreshAtom } from 'plugins/settings/store';
 import { useSetRecoilState } from 'recoil';
-import { isPlainObject, isNumber, isString, isBoolean, isEmpty } from 'lodash';
-import { editConfigProperty, deleteConfigProperty } from 'plugins/access/gate';
+import { isPlainObject, isNumber, isString, isEmpty } from 'lodash';
+import * as Access from 'plugins/access/gate';
 import { getComponent } from './elements';
-import styled from 'styled-components';
 
-const EditableForm = ({ title, data, type }) => {
-  const [edit, setEdit] = useState(() => title === 'sectionTitle');
+const EditableForm = ({ title, data, type, path }) => {
   const refresh = useSetRecoilState(refreshAtom);
-  const titleRef = useRef();
 
   const { Component, Layout } = getComponent(type);
 
-  const handleKeyDown = evt => {
-    if (evt.key === 'Enter' || evt.key === 'Escape') {
-      editConfigProperty({
-        property: title,
-        newProperty: titleRef.current.value,
-      });
-      setEdit(false);
-      refresh({});
-    }
-  };
-
-  const handleDeleteSection = () => {
-    deleteConfigProperty(title);
+  const handleAddProperty = fieldValue => {
+    Access.addConfigProperty({
+      path,
+      value: { propertyName: fieldValue },
+    });
     refresh({});
   };
 
-  const handleAddProperty = () => {};
+  const handleSetValue = value => {
+    Access.setConfigValue({ path, value });
+    refresh({});
+  };
 
-  const renderTitle = () => {
-    return edit ? (
-      <>
-        <Input
-          ref={titleRef}
-          type='text'
-          autoFocus
-          defaultValue={title}
-          onKeyDown={handleKeyDown}
-        />
-        <EditButtons onDelete={handleDeleteSection} onAdd={handleAddProperty} />
-      </>
-    ) : (
-      <Typography
-        variant='h5'
-        color='textSecondary'
-        onDoubleClick={() => setEdit(true)}
-      >
-        {title}
-      </Typography>
-    );
+  const handleTitleChanged = title => {
+    Access.editConfigProperty({ path, newProperty: title });
+    refresh({});
+  };
+
+  const handleDeleteProperty = ({ propName }) => {
+    const propPath = propName ? `${path}.${propName}` : path;
+    Access.deleteConfigProperty(propPath);
+    refresh({});
   };
 
   const renderTree = property => {
-    if (!isPlainObject(property)) {
-      return React.createElement(Component, { value: property });
-    }
+    return Object.entries(property).map(([key, value], idx) => {
+      const elemProps = {
+        key,
+        label: key,
+        onSubmit: handleSetValue,
+        onDelete: handleDeleteProperty,
+      };
 
-    return Object.entries(property).map(([key, value], idx) =>
-      isNumber(value) || isString(value) || isBoolean(value) ? (
-        React.createElement(Component, {
-          text: key,
-          value,
-          key: idx,
-        })
-      ) : Array.isArray(value) ? (
-        React.createElement(Component, {
-          text: key,
-          value: `[ ${value.join(', ')} ]`,
-          key: idx,
-        })
-      ) : (
+      if (isNumber(value) || isString(value))
+        return <Component {...elemProps} value={value} />;
+
+      if (Array.isArray(value))
+        return <Component {...elemProps} value={`[ ${value.join(', ')} ]`} />;
+
+      return (
         <ExpandableSection title={key} key={idx}>
-          {!isEmpty(value) && <EditableForm data={value} type={type} />}
+          {!isEmpty(value) && (
+            <EditableForm data={value} type={type} path={`${path}.${key}`} />
+          )}
         </ExpandableSection>
-      )
-    );
+      );
+    });
   };
 
   return (
     <>
-      {title && <SectionTitle>{renderTitle()}</SectionTitle>}
+      {title && (
+        <FormHeader
+          title={title}
+          onSubmit={handleTitleChanged}
+          onAdd={handleAddProperty}
+          onDelete={handleDeleteProperty}
+        />
+      )}
       <Divider />
-      <Layout>{renderTree(data)}</Layout>
+      <Layout>
+        {isPlainObject(data) ? renderTree(data) : <Component value={data} />}
+      </Layout>
     </>
   );
 };
 
-const SectionTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-`;
-
-const Input = styled.input`
-  font-size: 1.5rem;
-  width: 40%;
-  border: none;
-  border-bottom: 2px solid;
-  outline: none;
-`;
-
-export default React.memo(EditableForm);
+export default EditableForm;

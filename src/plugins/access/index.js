@@ -1,9 +1,4 @@
-import {
-  isUndefined,
-  isObject,
-  isString,
-  isNumber,
-} from 'lodash';
+import { isUndefined, isObject, isString, isNumber, isBoolean } from 'lodash';
 import { getFromConfig, mergeDeep } from './gate';
 
 const get = (collection, path, delimiter = '.') => {
@@ -33,6 +28,7 @@ const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
 
     if (isUndefined(value)) newObject[key] = undefined;
     else if (isNumber(value)) newObject[key] = value;
+    else if (isBoolean(value)) newObject[key] = String(value);
     else if (Array.isArray(value)) newObject[key] = value;
     else if (isObject(value)) {
       newObject[key] = getNestedEndValue({}, value, type, delimiter);

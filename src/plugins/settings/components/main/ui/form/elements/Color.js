@@ -1,11 +1,11 @@
 import React from 'react';
-import { isLight } from 'utils/colorUtils';
+import { isLight } from 'plugins/settings/utils/colorUtils';
 import styled from 'styled-components';
 
-const Color = ({ text, value }) => {
+const Color = ({ label, value }) => {
   return (
     <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
-      {text}
+      {label}
     </ColorBox>
   );
 };

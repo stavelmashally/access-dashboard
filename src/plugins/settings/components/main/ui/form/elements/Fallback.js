@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Fallback = ({ text, value }) => {
+const Fallback = ({ label, value }) => {
   return <p>The component has not been created yet</p>;
 };
 

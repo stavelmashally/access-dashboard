@@ -8,7 +8,12 @@ const SectionsList = ({ config, type }) => {
       {Object.entries(config).map(([key, value]) => {
         return (
           <CardWrapper key={key}>
-            <EditableForm title={key} data={value} type={type} />
+            <EditableForm
+              title={key}
+              data={value}
+              type={type}
+              path={`${type}.${key}`}
+            />
           </CardWrapper>
         );
       })}

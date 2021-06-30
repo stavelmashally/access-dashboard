@@ -5,6 +5,9 @@ const defaultTheme = {
     primary: {
       main: access.color('access.primary'),
     },
+    secondary: {
+      main: access.color('access.secondary'),
+    },
     text: {
       primary: access.color('access.primaryText'),
       secondary: access.color('access.secondaryText'),
