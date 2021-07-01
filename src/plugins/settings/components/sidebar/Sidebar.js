@@ -1,12 +1,13 @@
 import React from 'react';
 import { Drawer, List, Toolbar } from '@material-ui/core';
 import SidebarItem from './SidebarItem';
+import { uniqueId } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { SIDEBAR_WIDTH } from '../shared/Layout';
 import { useRecoilState } from 'recoil';
 import { selectedConfigAtom } from 'plugins/settings/store';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   drawer: {
     width: SIDEBAR_WIDTH,
     flexShrink: 0,
@@ -14,9 +15,16 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: SIDEBAR_WIDTH,
   },
-}));
+});
 
-const structure = ['color', 'icon', 'dimensions', 'format', 'general', 'type'];
+const sidebarItems = [
+  'color',
+  'icon',
+  'dimensions',
+  'format',
+  'general',
+  'type',
+];
 
 const Sidebar = () => {
   const classes = useStyles();
@@ -27,12 +35,12 @@ const Sidebar = () => {
   };
 
   const renderListItems = () => {
-    return structure.map(key => (
+    return sidebarItems.map(item => (
       <SidebarItem
-        key={key}
-        text={key}
+        key={uniqueId()}
+        text={item}
         onSelected={handleSelected}
-        isActive={key === selected}
+        isActive={item === selected}
       />
     ));
   };

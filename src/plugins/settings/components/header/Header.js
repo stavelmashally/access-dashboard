@@ -44,6 +44,8 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 
-const ButtonsContainer = styled.div``;
+const ButtonsContainer = styled.div`
+  display: flex;
+`;
 
 export default Header;

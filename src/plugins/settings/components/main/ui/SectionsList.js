@@ -1,4 +1,5 @@
 import React from 'react';
+import { uniqueId } from 'lodash';
 import EditableForm from './form/EditableForm';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ const SectionsList = ({ config, type }) => {
     <Wrapper>
       {Object.entries(config).map(([key, value]) => {
         return (
-          <CardWrapper key={key}>
+          <CardWrapper key={uniqueId()}>
             <EditableForm
               title={key}
               data={value}

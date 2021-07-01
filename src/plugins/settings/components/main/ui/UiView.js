@@ -16,7 +16,11 @@ const UiView = () => {
   const config = access[selected]();
 
   const handleAddSection = () => {
-    addConfigProperty({ path: selected, value: { sectionTitle: {} } });
+    const sectionValue = selected === 'format' ? '' : {};
+    addConfigProperty({
+      path: selected,
+      value: { sectionTitle: sectionValue },
+    });
     refresh({});
   };
 
@@ -29,7 +33,7 @@ const UiView = () => {
         startIcon={<Add />}
         onClick={handleAddSection}
       >
-        <Typography variant='h5'> New</Typography>
+        <Typography variant='h5'>New</Typography>
       </Button>
     </Wrapper>
   );

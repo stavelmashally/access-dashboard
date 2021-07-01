@@ -1,23 +1,19 @@
 import React from 'react';
+import FormatField from './formFields/FormatField';
 import { Divider } from '@material-ui/core';
 import ExpandableSection from './ExpandableSection';
 import FormHeader from './FormHeader';
 import { refreshAtom } from 'plugins/settings/store';
 import { useSetRecoilState } from 'recoil';
-import { isPlainObject, isNumber, isString, isEmpty } from 'lodash';
+import { isPlainObject, isEmpty, uniqueId } from 'lodash';
 import * as Access from 'plugins/access/gate';
-import { getComponent } from './elements';
+import { getFieldLayout, getFieldComponentByType } from './formFields';
 
 const EditableForm = ({ title, data, type, path }) => {
   const refresh = useSetRecoilState(refreshAtom);
 
-  const { Component, Layout } = getComponent(type);
-
-  const handleAddProperty = fieldValue => {
-    Access.addConfigProperty({
-      path,
-      value: { propertyName: fieldValue },
-    });
+  const handleAddProperty = value => {
+    Access.addConfigProperty({ path, value });
     refresh({});
   };
 
@@ -38,29 +34,26 @@ const EditableForm = ({ title, data, type, path }) => {
   };
 
   const renderTree = property => {
-    return Object.entries(property).map(([key, value], idx) => {
-      const elemProps = {
-        key,
-        label: key,
-        onSubmit: handleSetValue,
-        onDelete: handleDeleteProperty,
-      };
-
-      if (isNumber(value) || isString(value))
-        return <Component {...elemProps} value={value} />;
-
-      if (Array.isArray(value))
-        return <Component {...elemProps} value={`[ ${value.join(', ')} ]`} />;
-
-      return (
+    return Object.entries(property).map(([key, value], idx) =>
+      isPlainObject(value) ? (
         <ExpandableSection title={key} key={idx}>
           {!isEmpty(value) && (
             <EditableForm data={value} type={type} path={`${path}.${key}`} />
           )}
         </ExpandableSection>
-      );
-    });
+      ) : (
+        getFieldComponentByType(value, {
+          key: uniqueId(),
+          label: key,
+          value,
+          onSubmit: handleSetValue,
+          onDelete: handleDeleteProperty,
+        })
+      )
+    );
   };
+
+  const Layout = getFieldLayout(type);
 
   return (
     <>
@@ -74,7 +67,7 @@ const EditableForm = ({ title, data, type, path }) => {
       )}
       <Divider />
       <Layout>
-        {isPlainObject(data) ? renderTree(data) : <Component value={data} />}
+        {isPlainObject(data) ? renderTree(data) : <FormatField value={data} />}
       </Layout>
     </>
   );

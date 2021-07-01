@@ -23,6 +23,12 @@ export const Column = styled.div`
   gap: 1rem;
 `;
 
+export const SpaceBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -31,6 +37,7 @@ export const Grid = styled.div`
 `;
 
 export const Code = styled.code`
+  font-size: 1rem;
   border-radius: 2px;
   background: #f3f6fa;
   padding: 0 0.5rem;
@@ -40,4 +47,15 @@ export const Item = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+`;
+
+export const Input = styled.input`
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: #395464;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  :focus {
+    outline-color: #395464;
+  }
 `;

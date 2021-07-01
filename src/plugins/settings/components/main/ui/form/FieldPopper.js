@@ -3,14 +3,15 @@ import Popper from '@material-ui/core/Popper';
 import styled from 'styled-components';
 
 const options = [
-  { type: 'String', value: 'field value' },
-  { type: 'Boolean', value: true },
-  { type: 'Number', value: 0 },
+  { type: 'String', value: { propertyName: 'field value' } },
+  { type: 'Boolean', value: { propertyName: true } },
+  { type: 'Number', value: { propertyName: 0 } },
+  { type: 'Array', value: { propertyName: ['item1', 'item2'] } },
 ];
 
 const FieldPopper = ({ anchorEl, onSelected }) => {
-  const handleSelected = item => {
-    onSelected(item);
+  const handleSelected = value => {
+    onSelected(value);
   };
 
   const renderOptions = () => {

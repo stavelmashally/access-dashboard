@@ -16,6 +16,11 @@ const defaultTheme = {
       default: access.color('access.background'),
     },
   },
+  typography: {
+    h6: {
+      fontSize: '1.1rem',
+    },
+  },
 };
 
 export default defaultTheme;

@@ -2,7 +2,7 @@ import React from 'react';
 import { isLight } from 'plugins/settings/utils/colorUtils';
 import styled from 'styled-components';
 
-const Color = ({ label, value }) => {
+const ColorField = ({ label, value }) => {
   return (
     <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
       {label}
@@ -24,4 +24,4 @@ const ColorBox = styled.div`
   border-radius: 10px;
 `;
 
-export default Color;
+export default ColorField;

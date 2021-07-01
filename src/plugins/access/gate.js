@@ -61,7 +61,6 @@ export const replaceConfig = ({ path, value }) => {
 };
 
 export const deleteConfigProperty = path => {
-  console.log(path)
   config = deletePropertyInPath(config, path.split('.'));
 };
 
@@ -90,12 +89,12 @@ const addPropertyInPath = (obj, [key, ...next], value) => {
     : { ...obj, [key]: addPropertyInPath(obj[key], next, value) };
 };
 
-const deletePropertyInPath = (obj, [key, ...next], value) => {
+const deletePropertyInPath = (obj, [key, ...next]) => {
   if (next.length === 0) {
     const { [key]: remove, ...rest } = obj;
     return rest;
   }
-  return { ...obj, [key]: deletePropertyInPath(obj[key], next, value) };
+  return { ...obj, [key]: deletePropertyInPath(obj[key], next) };
 };
 
 const renamePropertyInPath = (obj, [key, ...next], propName) => {
