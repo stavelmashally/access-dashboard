@@ -26,10 +26,16 @@ const hasErrorAtom = atom({
   default: false,
 });
 
+const expandedAtom = atom({
+  key: 'expandedAtom',
+  default: {},
+});
+
 export {
   defaultConfigAtom,
   selectedConfigAtom,
   viewModeAtom,
   hasErrorAtom,
   refreshAtom,
+  expandedAtom,
 };

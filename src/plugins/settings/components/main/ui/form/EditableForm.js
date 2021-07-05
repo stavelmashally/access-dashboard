@@ -1,29 +1,32 @@
-import React from 'react';
-import FormatField from './formFields/FormatField';
-import { Divider } from '@material-ui/core';
-import ExpandableSection from './ExpandableSection';
-import FormHeader from './FormHeader';
-import { refreshAtom } from 'plugins/settings/store';
-import { useSetRecoilState } from 'recoil';
-import { isPlainObject, isEmpty, uniqueId } from 'lodash';
-import * as Access from 'plugins/access/gate';
-import { getFieldLayout, getFieldComponentByType } from './formFields';
+import React from "react";
+import FormatField from "./formFields/FormatField";
+import { Divider } from "@material-ui/core";
+import Expandable from "./Expandable";
+import { Column } from "plugins/settings/components/shared/Layout";
+import { isPlainObject, uniqueId } from "lodash";
+import { useSetRecoilState } from "recoil";
+import { refreshAtom } from "plugins/settings/store";
+import * as Access from "plugins/access/gate";
+import { getFieldComponentByType } from "./formFields";
 
 const EditableForm = ({ title, data, type, path }) => {
   const refresh = useSetRecoilState(refreshAtom);
 
-  const handleAddProperty = value => {
+  const handleAddProperty = (value) => {
     Access.addConfigProperty({ path, value });
     refresh({});
   };
 
-  const handleSetValue = value => {
-    Access.setConfigValue({ path, value });
+  const handleValueChanged = ({ label, value }) => {
+    Access.setConfigValue({ path: `${path}.${label}`, value });
     refresh({});
   };
 
-  const handleTitleChanged = title => {
-    Access.editConfigProperty({ path, newProperty: title });
+  const handleLabelChanged = ({ label, value }) => {
+    Access.renameConfigProperty({
+      path: label ? `${path}.${label}` : path,
+      propName: value,
+    });
     refresh({});
   };
 
@@ -33,43 +36,42 @@ const EditableForm = ({ title, data, type, path }) => {
     refresh({});
   };
 
-  const renderTree = property => {
-    return Object.entries(property).map(([key, value], idx) =>
-      isPlainObject(value) ? (
-        <ExpandableSection title={key} key={idx}>
-          {!isEmpty(value) && (
-            <EditableForm data={value} type={type} path={`${path}.${key}`} />
-          )}
-        </ExpandableSection>
+  const renderTree = (property) => {
+    return Object.entries(property).map(([key, value]) => {
+      return isPlainObject(value) ? (
+        <EditableForm
+          key={uniqueId()}
+          title={key}
+          data={value}
+          type={type}
+          path={`${path}.${key}`}
+        />
       ) : (
         getFieldComponentByType(value, {
           key: uniqueId(),
           label: key,
           value,
-          onSubmit: handleSetValue,
+          onLabelChanged: handleLabelChanged,
+          onValueChanged: handleValueChanged,
           onDelete: handleDeleteProperty,
         })
-      )
-    );
+      );
+    });
   };
 
-  const Layout = getFieldLayout(type);
-
   return (
-    <>
-      {title && (
-        <FormHeader
-          title={title}
-          onSubmit={handleTitleChanged}
-          onAdd={handleAddProperty}
-          onDelete={handleDeleteProperty}
-        />
-      )}
+    <Expandable
+      title={title}
+      path={path}
+      onSubmit={handleLabelChanged}
+      onAdd={handleAddProperty}
+      onDelete={handleDeleteProperty}
+    >
       <Divider />
-      <Layout>
+      <Column>
         {isPlainObject(data) ? renderTree(data) : <FormatField value={data} />}
-      </Layout>
-    </>
+      </Column>
+    </Expandable>
   );
 };
 

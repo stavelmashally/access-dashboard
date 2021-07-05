@@ -3,13 +3,12 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/webpack-resolver';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { selectedConfigAtom, hasErrorAtom } from 'plugins/settings/store';
+import { useSetRecoilState } from 'recoil';
+import { hasErrorAtom } from 'plugins/settings/store';
 import styled from 'styled-components';
 import { getFromConfig, replaceConfig } from 'plugins/access/gate';
 
-const CodeEditor = () => {
-  const selected = useRecoilValue(selectedConfigAtom);
+const CodeEditor = ({ selected }) => {
   const hasError = useSetRecoilState(hasErrorAtom);
 
   const code = JSON.stringify(getFromConfig(selected), null, 2);

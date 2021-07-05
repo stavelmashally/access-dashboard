@@ -4,7 +4,7 @@ import { ExpandMore, ExpandLess } from '@material-ui/icons';
 import styled from 'styled-components';
 
 const ExpandableSection = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <>

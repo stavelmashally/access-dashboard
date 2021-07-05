@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionsList from './SectionsList';
 import { Button, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import { useRecoilValue } from 'recoil';
-import { selectedConfigAtom, refreshAtom } from 'plugins/settings/store';
-import { useSetRecoilState } from 'recoil';
 import * as access from 'plugins/access';
+import { useRecoilState } from 'recoil';
+import { refreshAtom } from 'plugins/settings/store';
 import { addConfigProperty } from 'plugins/access/gate';
 import styled from 'styled-components';
 
-const UiView = () => {
-  const selected = useRecoilValue(selectedConfigAtom);
-  const refresh = useSetRecoilState(refreshAtom);
-
+const UiView = ({ selected }) => {
+  const [, setRefresh] = useRecoilState(refreshAtom);
   const config = access[selected]();
 
   const handleAddSection = () => {
@@ -21,12 +18,12 @@ const UiView = () => {
       path: selected,
       value: { sectionTitle: sectionValue },
     });
-    refresh({});
+    setRefresh({});
   };
 
   return (
     <Wrapper>
-      <SectionsList config={config} type={selected} />
+      <SectionsList config={config} selected={selected} />
       <Button
         style={{ textTransform: 'none' }}
         size='large'

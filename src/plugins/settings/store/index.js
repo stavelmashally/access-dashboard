@@ -4,6 +4,7 @@ import {
   refreshAtom,
   viewModeAtom,
   hasErrorAtom,
+  expandedAtom,
 } from './atoms';
 import { fetchConfigSelector, restoreDefaultSelector } from './selectors';
 
@@ -14,5 +15,6 @@ export {
   selectedConfigAtom,
   fetchConfigSelector,
   hasErrorAtom,
+  expandedAtom,
   restoreDefaultSelector,
 };

@@ -9,9 +9,6 @@ export default {
       test2: {
         a: 'A',
       },
-      test3: {
-        nested: 'nested3',
-      },
     },
   },
   changeType: {

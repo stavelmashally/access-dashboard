@@ -1,4 +1,12 @@
-import { isObject, isString, isPlainObject } from 'lodash';
+import { isObject } from 'lodash';
+import {
+  addPropertyInPath,
+  deletePropertyInPath,
+  renamePropertyInPath,
+  renameValue,
+  setValueInPath,
+  getFromPath,
+} from 'utils/objectUtils';
 import general from './mainConfig/general';
 import colors from './mainConfig/colors';
 import icons from './mainConfig/icons';
@@ -38,7 +46,6 @@ export const mergeDeep = (target, source) => {
 
 export const addToConfig = pluginConfig => {
   for (const configKey in pluginConfig) {
-    // eslint-disable-next-line no-prototype-builtins
     if (pluginConfig.hasOwnProperty(configKey)) {
       config = mergeDeep(config, pluginConfig);
     }
@@ -49,6 +56,10 @@ export const getFromConfig = path => {
   if (!path) return config;
 
   return config[path];
+};
+
+export const getConfigFromPath = path => {
+  return getFromPath(config, path.split('.'));
 };
 
 export const replaceConfig = ({ path, value }) => {
@@ -64,58 +75,19 @@ export const deleteConfigProperty = path => {
   config = deletePropertyInPath(config, path.split('.'));
 };
 
-export const addConfigProperty = ({ path, value, propName }) => {
-  path = path.split('.');
-  config = addPropertyInPath(config, path, value);
-  if (propName) deleteConfigProperty(config, path, propName);
+export const addConfigProperty = ({ path, value }) => {
+  config = addPropertyInPath(config, path.split('.'), value);
 };
 
-export const editConfigProperty = ({ path, newProperty }) => {
+export const renameConfigProperty = ({ path, propName }) => {
   path = path.split('.');
-  config = renamePropertyInPath(config, path, newProperty);
+  config = renamePropertyInPath(config, path, propName);
   config = renameValue(config, {
     oldVal: path[path.length - 1],
-    newVal: newProperty,
+    newVal: propName,
   });
 };
 
 export const setConfigValue = ({ path, value }) => {
-  config = addPropertyInPath(config, path.split('.'), value);
+  config = setValueInPath(config, path.split('.'), value);
 };
-
-const addPropertyInPath = (obj, [key, ...next], value) => {
-  return next.length === 0
-    ? { ...obj, [key]: { ...obj[key], ...value } }
-    : { ...obj, [key]: addPropertyInPath(obj[key], next, value) };
-};
-
-const deletePropertyInPath = (obj, [key, ...next]) => {
-  if (next.length === 0) {
-    const { [key]: remove, ...rest } = obj;
-    return rest;
-  }
-  return { ...obj, [key]: deletePropertyInPath(obj[key], next) };
-};
-
-const renamePropertyInPath = (obj, [key, ...next], propName) => {
-  if (next.length === 0) {
-    const { [key]: value, ...rest } = obj;
-    return { [propName]: value, ...rest };
-  }
-  return { ...obj, [key]: renamePropertyInPath(obj[key], next, propName) };
-};
-
-const renameValue = (obj, { oldVal, newVal }) =>
-  Object.entries(obj).reduce(
-    (acc, [key, value]) => ({
-      ...acc,
-      ...{
-        [key]: isPlainObject(value)
-          ? renameValue(value, { oldVal, newVal })
-          : isString(value) && value.includes(oldVal)
-          ? value.replace(oldVal, newVal)
-          : value,
-      },
-    }),
-    {}
-  );

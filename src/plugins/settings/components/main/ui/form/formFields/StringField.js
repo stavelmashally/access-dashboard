@@ -1,45 +1,30 @@
 import React from 'react';
-import { useFormField } from 'plugins/settings/hooks/useFormField';
-import { Typography, IconButton } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
-import { Row, Input } from 'plugins/settings/components/shared/Layout';
+import Editable from './Editable';
+import { Input } from 'plugins/settings/components/shared/Layout';
+import { useState } from 'react';
 
-const StringField = ({ label, value, onSubmit, onDelete }) => {
-  const {
-    inputValue,
-    labelValue,
-    editMode,
-    setEditMode,
-    handleLabelChanged,
-    handleValueChanged,
-    handleKeyDown,
-    handleDelete,
-  } = useFormField(label, value, onSubmit, onDelete, 'string');
+const StringField = ({ value, label, onValueChanged, ...props }) => {
+  const [input, setInput] = useState(value);
+
+  const handleKeyDown = ({ key }) => {
+    if (key === 'Enter') onValueChanged({ label, value: input });
+    if (key === 'Escape') setInput(value);
+  };
+
+  const handleInputChanged = e => {
+    setInput(e.target.value);
+  };
 
   return (
-    <Row>
-      {editMode ? (
-        <Input
-          autoFocus
-          value={labelValue}
-          onChange={handleLabelChanged}
-          onKeyDown={handleKeyDown}
-        />
-      ) : (
-        <Typography variant='h6' onDoubleClick={setEditMode}>
-          {label}
-        </Typography>
-      )}
-      <Input type='text' value={inputValue} onChange={handleValueChanged} />
-      {editMode && (
-        <IconButton>
-          <Delete onClick={handleDelete} />
-        </IconButton>
-      )}
-    </Row>
+    <Editable label={label} {...props}>
+      <Input
+        type='text'
+        value={input}
+        onChange={handleInputChanged}
+        onKeyDown={handleKeyDown}
+      />
+    </Editable>
   );
 };
-
-
 
 export default StringField;

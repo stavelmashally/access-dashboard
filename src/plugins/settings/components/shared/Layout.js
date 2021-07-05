@@ -26,7 +26,9 @@ export const Column = styled.div`
 export const SpaceBetween = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const Grid = styled.div`
