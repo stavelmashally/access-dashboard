@@ -1,12 +1,35 @@
 import React from 'react';
-import { isLight } from 'plugins/settings/utils/colorUtils';
+import Editable from './Editable';
+import { Input, Row } from 'plugins/settings/components/shared/Layout';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-const ColorField = ({ label, value }) => {
+const ColorField = ({ value, label, onValueChanged, ...props }) => {
+  const [input, setInput] = useState(value);
+
+  const handleKeyDown = ({ key }) => {
+    if (key === 'Enter') onValueChanged({ label, value: input });
+    if (key === 'Escape') setInput(value);
+  };
+
+  const handleInputChanged = e => {
+    setInput(e.target.value);
+  };
+
   return (
-    <ColorBox background={value} color={isLight(value) ? 'black' : 'white'}>
-      {label}
-    </ColorBox>
+    <Editable label={label} {...props}>
+      <Row>
+        <Input
+          type="text"
+          prefix="#"
+          size={5}
+          value={input}
+          onChange={handleInputChanged}
+          onKeyDown={handleKeyDown}
+        />
+        <ColorBox background={input} />
+      </Row>
+    </Editable>
   );
 };
 
@@ -14,14 +37,10 @@ const ColorBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${props => props.color};
-  background: ${props => props.background};
-  width: 100px;
-  height: 100px;
+  background: ${props => props.background || '#fff'};
+  width: 30px;
+  height: 30px;
   border: 1px solid lightgray;
-  box-shadow: 0px 3px 11px 0px #e8eafc, 0 3px 3px -2px #b2b2b21a,
-    0 1px 8px 0 #9a9a9a1a;
-  border-radius: 10px;
 `;
 
 export default ColorField;

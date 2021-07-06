@@ -48,9 +48,9 @@ const Sidebar = () => {
   return (
     <Drawer
       className={classes.drawer}
-      variant='permanent'
-      color='primary'
-      anchor='left'
+      variant="permanent"
+      color="primary"
+      anchor="left"
       classes={{
         paper: classes.drawerPaper,
       }}

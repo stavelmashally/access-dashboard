@@ -6,17 +6,18 @@ import 'ace-builds/webpack-resolver';
 import { useSetRecoilState } from 'recoil';
 import { hasErrorAtom } from 'plugins/settings/store';
 import styled from 'styled-components';
-import { getFromConfig, replaceConfig } from 'plugins/access/gate';
+import { useAccess } from 'plugins/settings/hooks/useAccess';
 
 const CodeEditor = ({ selected }) => {
   const hasError = useSetRecoilState(hasErrorAtom);
+  const { getConfig, replaceConfig } = useAccess(selected);
 
-  const code = JSON.stringify(getFromConfig(selected), null, 2);
+  const code = getConfig();
 
   const handleChange = newCode => {
     try {
       const config = JSON.parse(newCode);
-      replaceConfig({ path: selected, value: config });
+      replaceConfig(config);
       hasError(false);
     } catch (error) {
       hasError(true);
@@ -26,11 +27,11 @@ const CodeEditor = ({ selected }) => {
   return (
     <Wrapper>
       <AceEditor
-        mode='json'
+        mode="json"
         fontSize={16}
         tabSize={2}
-        width='100%'
-        height='100%'
+        width="100%"
+        height="100%"
         value={code}
         onChange={handleChange}
         debounceChangePeriod={500}

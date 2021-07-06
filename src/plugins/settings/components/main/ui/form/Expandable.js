@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import { useToggler } from "plugins/settings/hooks/useToggler";
-import FieldPopper from "./FieldPopper";
-import { SpaceBetween } from "plugins/settings/components/shared/Layout";
-import { ExpandMore, ExpandLess } from "@material-ui/icons";
-import AppModal from "plugins/settings/components/shared/AppModal";
-import { IconButton, Typography, Tooltip } from "@material-ui/core";
-import { Add, Delete } from "@material-ui/icons";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import { useToggler } from 'plugins/settings/hooks/useToggler';
+import FieldPopper from './FieldPopper';
+import { SpaceBetween } from 'plugins/settings/components/shared/Layout';
+import { ExpandMore, ExpandLess } from '@material-ui/icons';
+import AppModal from 'plugins/settings/components/shared/AppModal';
+import { IconButton, Typography, Tooltip } from '@material-ui/core';
+import { Add, Delete } from '@material-ui/icons';
+import styled from 'styled-components';
 
 const Expandable = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [input, setInput] = useState(title);
   const [modalOpen, toggleModal] = useToggler(false);
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [editMode, toggleEditMode] = useToggler(title === "sectionTitle");
+  const [editMode, toggleEditMode] = useToggler(title === 'sectionTitle');
 
-  const handleKeyDown = (evt) => {
-    if (evt.key === "Enter") {
-      if (input !== "" && input !== title) onSubmit({ value: input });
+  const handleKeyDown = evt => {
+    if (evt.key === 'Enter') {
+      if (input !== '' && input !== title) onSubmit({ value: input });
       toggleEditMode();
     }
-    if (evt.key === "Escape") {
+    if (evt.key === 'Escape') {
       setInput(title);
       toggleEditMode();
     }
   };
 
-  const handleInputChanged = (evt) => {
+  const handleInputChanged = evt => {
     setInput(evt.target.value);
   };
 
-  const handleAddField = (type) => {
+  const handleAddField = type => {
     onAdd(type);
     setAnchorEl(null);
   };
@@ -39,7 +39,7 @@ const Expandable = ({ title, onSubmit, onDelete, onAdd, children }) => {
     return (
       <ButtonsWrapper>
         <IconButton
-          onClick={(e) => setAnchorEl(anchorEl ? null : e.currentTarget)}
+          onClick={e => setAnchorEl(anchorEl ? null : e.currentTarget)}
         >
           <Add />
         </IconButton>

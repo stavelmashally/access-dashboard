@@ -4,26 +4,23 @@ import styled from 'styled-components';
 
 const options = [
   { type: 'String', value: { propertyName: 'field value' } },
-  { type: 'Boolean', value: { propertyName: true } },
   { type: 'Number', value: { propertyName: 0 } },
+  { type: 'Boolean', value: { propertyName: true } },
+  { type: 'Color', value: { propertyName: '#ffffff' } },
   { type: 'Array', value: { propertyName: ['item1', 'item2'] } },
 ];
 
 const FieldPopper = ({ anchorEl, onSelected }) => {
-  const handleSelected = value => {
-    onSelected(value);
-  };
-
   const renderOptions = () => {
     return options.map(({ type, value }) => (
-      <PopperItem key={type} onClick={() => handleSelected(value)}>
+      <PopperItem key={type} onClick={() => onSelected(value)}>
         {type}
       </PopperItem>
     ));
   };
 
   return (
-    <Popper id='simple-popper' open anchorEl={anchorEl}>
+    <Popper id="simple-popper" open anchorEl={anchorEl}>
       <PopperContainer>{renderOptions()}</PopperContainer>
     </Popper>
   );

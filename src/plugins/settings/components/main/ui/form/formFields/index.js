@@ -21,4 +21,3 @@ export const getFieldComponentByType = (value, fieldProps) => {
   if (Array.isArray(value))
     return <StringField {...fieldProps} value={`[ ${value.join(', ')} ]`} />;
 };
-

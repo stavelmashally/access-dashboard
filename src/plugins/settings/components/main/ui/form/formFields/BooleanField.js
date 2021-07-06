@@ -7,14 +7,14 @@ const BooleanField = ({ value, label, onValueChanged, ...props }) => {
     <Editable label={label} {...props}>
       <ButtonGroup>
         <Button
-          size='small'
+          size="small"
           color={value === 'true' ? 'primary' : 'secondary'}
           onClick={() => onValueChanged({ label, value: true })}
         >
           True
         </Button>
         <Button
-          size='small'
+          size="small"
           color={value === 'false' ? 'primary' : 'secondary'}
           onClick={() => onValueChanged({ label, value: false })}
         >

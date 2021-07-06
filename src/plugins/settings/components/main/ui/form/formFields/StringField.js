@@ -18,7 +18,7 @@ const StringField = ({ value, label, onValueChanged, ...props }) => {
   return (
     <Editable label={label} {...props}>
       <Input
-        type='text'
+        type="text"
         value={input}
         onChange={handleInputChanged}
         onKeyDown={handleKeyDown}

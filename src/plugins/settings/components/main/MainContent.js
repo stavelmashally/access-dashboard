@@ -1,8 +1,8 @@
 import React from 'react';
-import Loader from './shared/Loader';
-import Error from './shared/Error';
-import Ui from './main/ui/UiView';
-import Editor from './main/editor/CodeEditor';
+import Loader from '../shared/Loader';
+import Error from '../shared/Error';
+import Ui from './ui/UiView';
+import Editor from './editor/CodeEditor';
 import { Toolbar } from '@material-ui/core';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
@@ -10,16 +10,16 @@ import {
   defaultConfigAtom,
   selectedConfigAtom,
 } from 'plugins/settings/store';
-import { SIDEBAR_WIDTH } from './shared/Layout';
+import { SIDEBAR_WIDTH } from '../shared/Layout';
 import styled from 'styled-components';
 
 const MainContent = () => {
   const viewMode = useRecoilValue(viewModeAtom);
   const selected = useRecoilValue(selectedConfigAtom);
   const { state } = useRecoilValueLoadable(defaultConfigAtom);
- 
+
   if (state === 'loading') return <Loader />;
-  if (state === 'hasError') return <Error msg='Failed to load configs' />;
+  if (state === 'hasError') return <Error msg="Failed to load configs" />;
 
   return (
     <Wrapper>

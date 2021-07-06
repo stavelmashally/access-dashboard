@@ -18,7 +18,7 @@ const NumberField = ({ value, label, onValueChanged, ...props }) => {
   return (
     <Editable label={label} {...props}>
       <Input
-        type='number'
+        type="number"
         value={input}
         onChange={handleInputChanged}
         onKeyDown={handleKeyDown}

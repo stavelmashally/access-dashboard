@@ -39,7 +39,7 @@ const Editable = ({ label, onLabelChanged, onDelete, children }) => {
           onKeyDown={handleKeyDown}
         />
       ) : (
-        <Typography variant='h6' onDoubleClick={setEditMode}>
+        <Typography variant="h6" onDoubleClick={setEditMode}>
           {label}
         </Typography>
       )}
@@ -51,7 +51,7 @@ const Editable = ({ label, onLabelChanged, onDelete, children }) => {
       )}
       {modalOpen && (
         <AppModal
-          msg='Are you sure you want to delete this field?'
+          msg="Are you sure you want to delete this field?"
           onSubmit={handleDelete}
           onClose={toggleModal}
         />

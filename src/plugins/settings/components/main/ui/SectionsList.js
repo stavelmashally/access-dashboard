@@ -1,7 +1,7 @@
-import React from "react";
-import { uniqueId } from "lodash";
-import EditableForm from "./form/EditableForm";
-import styled from "styled-components";
+import React from 'react';
+import { uniqueId } from 'lodash';
+import EditableForm from './form/EditableForm';
+import styled from 'styled-components';
 
 const SectionsList = ({ config, selected }) => {
   return (
@@ -12,7 +12,6 @@ const SectionsList = ({ config, selected }) => {
             <EditableForm
               title={key}
               data={value}
-              type={selected}
               path={`${selected}.${key}`}
             />
           </CardWrapper>
