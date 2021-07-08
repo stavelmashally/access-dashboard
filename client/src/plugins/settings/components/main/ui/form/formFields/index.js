@@ -2,6 +2,7 @@ import NumberField from './NumberField';
 import StringField from './StringField';
 import ColorField from './ColorField';
 import BooleanField from './BooleanField';
+import EditableList from './EditableList';
 import { isNumber, isString } from 'lodash';
 
 export const getFieldComponentByType = (value, fieldProps) => {
@@ -18,6 +19,5 @@ export const getFieldComponentByType = (value, fieldProps) => {
     );
   }
 
-  if (Array.isArray(value))
-    return <StringField {...fieldProps} value={`[ ${value.join(', ')} ]`} />;
+  if (Array.isArray(value)) return <EditableList {...fieldProps} />;
 };

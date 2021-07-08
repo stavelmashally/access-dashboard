@@ -12,7 +12,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const start = (port = '5050') => {
+const start = (port = 5050) => {
   app.listen(port, async () => {
     console.log(`Access Dashboard listening on port ${port}`);
   });

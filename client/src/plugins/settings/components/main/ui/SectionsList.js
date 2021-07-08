@@ -1,11 +1,12 @@
 import React from 'react';
 import { uniqueId } from 'lodash';
+import { Column } from '../../shared/Layout';
 import EditableForm from './form/EditableForm';
 import styled from 'styled-components';
 
 const SectionsList = ({ config, selected }) => {
   return (
-    <Wrapper>
+    <Column>
       {Object.entries(config).map(([key, value]) => {
         return (
           <CardWrapper key={uniqueId()}>
@@ -17,16 +18,9 @@ const SectionsList = ({ config, selected }) => {
           </CardWrapper>
         );
       })}
-    </Wrapper>
+    </Column>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-`;
 
 const CardWrapper = styled.div`
   display: flex;

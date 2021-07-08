@@ -8,7 +8,7 @@ import { IconButton, Typography, Tooltip } from '@material-ui/core';
 import { Add, Delete } from '@material-ui/icons';
 import styled from 'styled-components';
 
-const Expandable = ({ title, onSubmit, onDelete, onAdd, children }) => {
+const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [input, setInput] = useState(title);
   const [modalOpen, toggleModal] = useToggler(false);
   const [isExpanded, toggleExpanded] = useToggler(true);
@@ -85,7 +85,7 @@ const Expandable = ({ title, onSubmit, onDelete, onAdd, children }) => {
   };
 
   const handleDelete = () => {
-    onDelete(title);
+    onDelete({});
     toggleModal();
   };
 
@@ -139,4 +139,4 @@ export const InnerSection = styled.div`
   gap: 1rem;
 `;
 
-export default Expandable;
+export default FormHeader;

@@ -2,6 +2,29 @@ import styled from 'styled-components';
 
 export const SIDEBAR_WIDTH = 240;
 
+const Flex = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const Row = styled(Flex)`
+align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+export const Column = styled(Flex)`
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const SpaceBetween = styled(Flex)`
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
 export const CenteredContainer = styled.div`
   display: flex;
   height: 100%;
@@ -10,30 +33,9 @@ export const CenteredContainer = styled.div`
   align-items: center;
 `;
 
-export const Row = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-export const SpaceBetween = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-`;
-
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   width: 100%;
   flex-wrap: wrap;
 `;
@@ -45,17 +47,12 @@ export const Code = styled.code`
   padding: 0 0.5rem;
 `;
 
-export const Item = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
 export const Input = styled.input`
-  font-size: 1rem;
+  width: ${props => (props.variant === 'small' ? '150px' : '200px')};
   padding: 0.5rem;
   color: #395464;
   border: 1px solid lightgray;
+  font-size: ${props => (props.variant === 'small' ? '0.9rem' : '1rem')};
   border-radius: 4px;
   :focus {
     outline-color: #395464;

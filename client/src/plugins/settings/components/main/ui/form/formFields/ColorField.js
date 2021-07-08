@@ -1,6 +1,6 @@
 import React from 'react';
 import Editable from './Editable';
-import { Input, Row } from 'plugins/settings/components/shared/Layout';
+import { Input} from 'plugins/settings/components/shared/Layout';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -18,16 +18,14 @@ const ColorField = ({ value, label, onValueChanged, ...props }) => {
 
   return (
     <Editable label={label} {...props}>
-      <Row>
-        <Input
-          type="text"
-          size={5}
-          value={input}
-          onChange={handleInputChanged}
-          onKeyDown={handleKeyDown}
-        />
-        <ColorBox background={input} />
-      </Row>
+      <Input
+        type="text"
+        size={5}
+        value={input}
+        onChange={handleInputChanged}
+        onKeyDown={handleKeyDown}
+      />
+      <ColorBox background={input} />
     </Editable>
   );
 };
@@ -37,8 +35,8 @@ const ColorBox = styled.div`
   justify-content: center;
   align-items: center;
   background: ${props => props.background || '#fff'};
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border: 1px solid lightgray;
 `;
 

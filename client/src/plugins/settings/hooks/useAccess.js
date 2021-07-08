@@ -23,6 +23,11 @@ export const useAccess = path => {
     setRefresh({});
   };
 
+  const DeleteField = fieldName => {
+    Access.deleteConfigProperty(`${path}.${fieldName}`);
+    setRefresh({});
+  };
+
   const changeValue = ({ label, value }) => {
     Access.setConfigValue({ path: `${path}.${label}`, value });
     setRefresh({});
@@ -36,9 +41,8 @@ export const useAccess = path => {
     setRefresh({});
   };
 
-  const DeleteField = ({ propName }) => {
-    const propPath = propName ? `${path}.${propName}` : path;
-    Access.deleteConfigProperty(propPath);
+  const DeleteSection = () => {
+    Access.deleteConfigProperty(path);
     setRefresh({});
   };
 
@@ -57,6 +61,7 @@ export const useAccess = path => {
     replaceConfig,
     AddField,
     AddSection,
+    DeleteSection,
     changeLabel,
     changeValue,
     DeleteField,

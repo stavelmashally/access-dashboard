@@ -26,13 +26,14 @@ const Editable = ({ label, onLabelChanged, onDelete, children }) => {
   };
 
   const handleDelete = () => {
-    onDelete({ propName: label });
+    onDelete(label);
   };
 
   return (
     <Row>
       {editMode ? (
         <Input
+          variant="small"
           autoFocus
           value={input}
           onChange={handleInputChanged}
@@ -43,9 +44,10 @@ const Editable = ({ label, onLabelChanged, onDelete, children }) => {
           {label}
         </Typography>
       )}
+
       {children}
       {editMode && (
-        <IconButton onClick={toggleModal}>
+        <IconButton size="small" onClick={toggleModal}>
           <Delete />
         </IconButton>
       )}

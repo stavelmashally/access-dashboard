@@ -7,7 +7,7 @@ const options = [
   { type: 'Number', value: { propertyName: 0 } },
   { type: 'Boolean', value: { propertyName: true } },
   { type: 'Color', value: { propertyName: '#ffffff' } },
-  { type: 'Array', value: { propertyName: ['item1', 'item2'] } },
+  { type: 'Array', value: { propertyName: ['item1'] } },
 ];
 
 const FieldPopper = ({ anchorEl, onSelected }) => {
