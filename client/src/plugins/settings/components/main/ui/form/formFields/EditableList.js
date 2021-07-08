@@ -1,135 +1,80 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Editable from './Editable';
-import { HighlightOffOutlined } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
+import EditableListItem from './EditableListItem';
+import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallback';
 import { Input } from 'plugins/settings/components/shared/Layout';
 import styled from 'styled-components';
 
-class EditableList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: props.value,
-      newInput: '',
-    };
-  }
+const EditableList = ({ label, value, onValueChanged, ...props }) => {
+  const [list, setList] = useStateWithCallback(value);
+  const [newInput, setNewInput] = useState('');
 
-  handleListItemChange = (event, index) => {
-    const newList = [...this.state.list];
-    newList[index] = event.target.value;
-    this.setState(
-      {
-        list: newList,
-      },
-      () => {
-        this.props.onValueChanged({
-          label: this.props.label,
-          value: this.state.list,
-        });
-      }
+  const handleValueChanged = newList => {
+    onValueChanged({ label: label, value: newList });
+  };
+
+  const handleListItemChanged = (index, value) => {
+    setList(
+      prevList => [
+        ...prevList.slice(0, index),
+        value,
+        ...prevList.slice(index + 1),
+      ],
+      handleValueChanged
     );
   };
 
-  deleteItem = index => {
-    const newList = [...this.state.list];
-    newList.splice(index, 1);
-    this.setState(
-      {
-        list: newList,
-      },
-      () => {
-        this.props.onValueChanged({
-          label: this.props.label,
-          value: this.state.list,
-        });
-      }
+  const handleDeleteClicked = index => event => {
+    event.preventDefault();
+    setList(
+      prevList => [...prevList.slice(0, index), ...prevList.slice(index + 1)],
+      handleValueChanged
     );
   };
 
-  handleDeleteButtonClick = index => {
-    return event => {
-      // In order for the form not to be submitted
-      event.preventDefault();
-      this.deleteItem(index);
-    };
-  };
-
-  getList = () => {
-    return this.state.list.map((elem, index) => {
-      return (
-        <ListItem key={index}>
-          <Input
-            variant="small"
-            type="text"
-            value={elem}
-            placeholder="Enter a value"
-            onChange={e => {
-              this.handleListItemChange(e, index);
-            }}
-          />
-          <IconButton
-            size="small"
-            onClick={this.handleDeleteButtonClick(index)}
-          >
-            <HighlightOffOutlined />
-          </IconButton>
-        </ListItem>
-      );
-    });
-  };
-
-  onChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  onKeyUp = event => {
-    if (event.key === 'Enter' && event.target.value.trim(' ').length > 0) {
-      const newList = [...this.state.list];
-      this.setState(
-        {
-          list: newList.concat(event.target.value),
-          newInput: '',
-        },
-        () => {
-          this.props.onValueChanged({
-            label: this.props.label,
-            value: this.state.list,
-          });
-        }
-      );
+  const handleKeyDown = event => {
+    if (event.key === 'Enter' && newInput.trim(' ').length > 0) {
+      setList(prevList => [...prevList, newInput], handleValueChanged);
+      setNewInput('');
     }
   };
 
-  render() {
-    return (
-      <Editable {...this.props}>
-        <List>
-          {this.getList()}
-          <Input
-            variant="small"
-            name="newInput"
-            onChange={this.onChange}
-            onKeyUp={this.onKeyUp}
-            placeholder="New Item"
-            value={this.state.newInput}
-          />
-        </List>
-      </Editable>
-    );
-  }
-}
+  const renderList = () => {
+    return list.map((elem, index) => {
+      return (
+        <EditableListItem
+          key={index}
+          value={elem}
+          index={index}
+          onSubmit={handleListItemChanged}
+          onDelete={handleDeleteClicked}
+        />
+      );
+    });
+  };
+
+  return (
+    <Editable label={label} {...props}>
+      <List>
+        {renderList()}
+        <Input
+          variant="small"
+          name="newInput"
+          onChange={e => setNewInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="New Item"
+          value={newInput}
+        />
+      </List>
+    </Editable>
+  );
+};
 
 const List = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin: 0;
-`;
-
-const ListItem = styled.li`
-  padding-left: 0;
 `;
 
 export default EditableList;
