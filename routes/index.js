@@ -1,6 +1,5 @@
 const express = require('express');
-const defaultConfig = require('../configs/default');
-const modifyConfig = require('../configs/modify');
+const { defaultConfig, modifyConfig } = require('../configs');
 
 const router = express.Router();
 
