@@ -10,7 +10,7 @@ const EditableList = ({ label, value, onValueChanged, ...props }) => {
   const [newInput, setNewInput] = useState('');
 
   const handleValueChanged = newList => {
-    onValueChanged({ label: label, value: newList });
+    onValueChanged({ label, value: newList });
   };
 
   const handleListItemChanged = (index, value) => {

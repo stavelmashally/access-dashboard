@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://localhost:5050';
 
 const fetchDefaultConfig = () => {
   return axios.get(

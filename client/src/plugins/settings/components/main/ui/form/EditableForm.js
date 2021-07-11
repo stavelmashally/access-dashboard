@@ -2,14 +2,43 @@ import React from 'react';
 import FormatField from './formFields/FormatField';
 import { Divider } from '@material-ui/core';
 import FormHeader from './FormHeader';
+import { useSetRecoilState } from 'recoil';
+import { refreshAtom } from 'plugins/settings/store';
 import { Column } from 'plugins/settings/components/shared/Layout';
 import { isPlainObject, uniqueId } from 'lodash';
-import { useAccess } from 'plugins/settings/hooks/useAccess';
 import { getFieldComponentByType } from './formFields';
+import * as Access from 'plugins/access/gate';
 
 const EditableForm = ({ title, data, path }) => {
-  const { AddField, DeleteField, changeLabel, changeValue, DeleteSection } =
-    useAccess(path);
+  const setRefresh = useSetRecoilState(refreshAtom);
+
+  const AddField = value => {
+    Access.addConfigProperty({ path, value });
+    setRefresh({});
+  };
+
+  const DeleteField = fieldName => {
+    Access.deleteConfigProperty(`${path}.${fieldName}`);
+    setRefresh({});
+  };
+
+  const changeValue = ({ label, value }) => {
+    Access.setConfigValue({ path: `${path}.${label}`, value });
+    setRefresh({});
+  };
+
+  const changeLabel = ({ label, value }) => {
+    Access.renameConfigProperty({
+      path: label ? `${path}.${label}` : path,
+      propName: value,
+    });
+    setRefresh({});
+  };
+
+  const DeleteSection = () => {
+    Access.deleteConfigProperty(path);
+    setRefresh({});
+  };
 
   const renderTree = property => {
     return Object.entries(property).map(([key, value]) => {
