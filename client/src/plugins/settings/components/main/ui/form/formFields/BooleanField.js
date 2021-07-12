@@ -1,10 +1,10 @@
 import React from 'react';
-import Editable from './Editable';
+import EditableField from './EditableField';
 import { ButtonGroup, Button } from '@material-ui/core';
 
 const BooleanField = ({ value, label, onValueChanged, ...props }) => {
   return (
-    <Editable label={label} {...props}>
+    <EditableField label={label} {...props}>
       <ButtonGroup>
         <Button
           size="small"
@@ -21,7 +21,7 @@ const BooleanField = ({ value, label, onValueChanged, ...props }) => {
           False
         </Button>
       </ButtonGroup>
-    </Editable>
+    </EditableField>
   );
 };
 

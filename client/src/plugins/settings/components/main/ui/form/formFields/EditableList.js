@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Editable from './Editable';
+import EditableField from './EditableField';
 import EditableListItem from './EditableListItem';
 import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallback';
 import { Input } from 'plugins/settings/components/shared/Layout';
@@ -54,7 +54,7 @@ const EditableList = ({ label, value, onValueChanged, ...props }) => {
   };
 
   return (
-    <Editable label={label} {...props}>
+    <EditableField label={label} {...props}>
       <List>
         {renderList()}
         <Input
@@ -66,7 +66,7 @@ const EditableList = ({ label, value, onValueChanged, ...props }) => {
           value={newInput}
         />
       </List>
-    </Editable>
+    </EditableField>
   );
 };
 

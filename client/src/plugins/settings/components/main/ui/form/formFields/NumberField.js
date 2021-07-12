@@ -1,5 +1,5 @@
 import React from 'react';
-import Editable from './Editable';
+import EditableField from './EditableField';
 import { Input } from 'plugins/settings/components/shared/Layout';
 import { useState } from 'react';
 
@@ -16,14 +16,14 @@ const NumberField = ({ value, label, onValueChanged, ...props }) => {
   };
 
   return (
-    <Editable label={label} {...props}>
+    <EditableField label={label} {...props}>
       <Input
         type="number"
         value={input}
         onChange={handleInputChanged}
         onKeyDown={handleKeyDown}
       />
-    </Editable>
+    </EditableField>
   );
 };
 

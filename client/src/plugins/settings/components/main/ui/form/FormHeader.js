@@ -38,14 +38,18 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const renderButtons = () => {
     return (
       <ButtonsWrapper>
-        <IconButton
-          onClick={e => setAnchorEl(anchorEl ? null : e.currentTarget)}
-        >
-          <Add />
-        </IconButton>
-        <IconButton onClick={toggleModal}>
-          <Delete />
-        </IconButton>
+        <Tooltip title="add property">
+          <IconButton
+            onClick={e => setAnchorEl(anchorEl ? null : e.currentTarget)}
+          >
+            <Add />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="delete section">
+          <IconButton onClick={toggleModal}>
+            <Delete />
+          </IconButton>
+        </Tooltip>
       </ButtonsWrapper>
     );
   };

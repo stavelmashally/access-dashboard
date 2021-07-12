@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Editable from './Editable';
+import EditableField from './EditableField';
 import { Input } from 'plugins/settings/components/shared/Layout';
 
 const StringField = ({ value, label, onValueChanged, ...props }) => {
@@ -15,14 +15,14 @@ const StringField = ({ value, label, onValueChanged, ...props }) => {
   };
 
   return (
-    <Editable label={label} {...props}>
+    <EditableField label={label} {...props}>
       <Input
         type="text"
         value={input}
         onChange={handleInputChanged}
         onKeyDown={handleKeyDown}
       />
-    </Editable>
+    </EditableField>
   );
 };
 

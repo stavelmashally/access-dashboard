@@ -9,6 +9,7 @@ const fetchConfigSelector = selector({
     const [{ data: defaultConfig }, { data: modifyConfig }] = await Promise.all(
       [Api.fetchDefaultConfig(), Api.fetchModifyConfig()]
     );
+
     addToConfig(defaultConfig);
     addToConfig(modifyConfig);
 

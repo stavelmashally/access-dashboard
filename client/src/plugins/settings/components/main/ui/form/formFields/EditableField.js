@@ -5,7 +5,7 @@ import AppModal from 'plugins/settings/components/shared/AppModal';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import { Row, Input } from 'plugins/settings/components/shared/Layout';
 
-const Editable = ({ label, onLabelChanged, onDelete, children }) => {
+const EditableField = ({ label, onLabelChanged, onDelete, children }) => {
   const [input, setInput] = useState(label);
   const [modalOpen, toggleModal] = useToggler(false);
   const [editMode, setEditMode] = useState(label === 'propertyName');
@@ -62,4 +62,4 @@ const Editable = ({ label, onLabelChanged, onDelete, children }) => {
   );
 };
 
-export default Editable;
+export default EditableField;

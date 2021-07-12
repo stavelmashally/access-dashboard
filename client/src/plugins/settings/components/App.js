@@ -1,6 +1,7 @@
 import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 import MainContent from './main/MainContent';
+import ErrorBoundary from './shared/ErrorBoundary';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';
@@ -11,9 +12,11 @@ const App = () => {
     <ThemeProvider theme={Themes.default}>
       <CssBaseline />
       <AppContainer>
-        <Header />
-        <Sidebar />
-        <MainContent />
+        <ErrorBoundary>
+          <Header />
+          <Sidebar />
+          <MainContent />
+        </ErrorBoundary>
       </AppContainer>
     </ThemeProvider>
   );

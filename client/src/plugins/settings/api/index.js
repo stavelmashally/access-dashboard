@@ -10,4 +10,8 @@ const fetchModifyConfig = () => {
   return axios.get(`${BASE_URL}/modifyConfig`);
 };
 
-export { fetchDefaultConfig, fetchModifyConfig };
+const fetchConfig = () => {
+  return axios.get(`${BASE_URL}/config`);
+};
+
+export { fetchDefaultConfig, fetchModifyConfig, fetchConfig };

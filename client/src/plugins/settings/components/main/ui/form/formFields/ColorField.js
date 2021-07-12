@@ -1,6 +1,6 @@
 import React from 'react';
-import Editable from './Editable';
-import { Input} from 'plugins/settings/components/shared/Layout';
+import EditableField from './EditableField';
+import { Input } from 'plugins/settings/components/shared/Layout';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -13,20 +13,22 @@ const ColorField = ({ value, label, onValueChanged, ...props }) => {
   };
 
   const handleInputChanged = e => {
-    setInput(e.target.value);
+    const inputValue = e.target.value;
+    if (!inputValue.startsWith('#')) return;
+    setInput(inputValue);
   };
 
   return (
-    <Editable label={label} {...props}>
+    <EditableField label={label} {...props}>
       <Input
         type="text"
-        size={5}
+        maxLength={7}
         value={input}
         onChange={handleInputChanged}
         onKeyDown={handleKeyDown}
       />
       <ColorBox background={input} />
-    </Editable>
+    </EditableField>
   );
 };
 

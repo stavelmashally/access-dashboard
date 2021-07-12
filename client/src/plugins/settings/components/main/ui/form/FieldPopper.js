@@ -1,5 +1,5 @@
 import React from 'react';
-import Popper from '@material-ui/core/Popper';
+import { Popper } from '@material-ui/core';
 import styled from 'styled-components';
 
 const options = [
