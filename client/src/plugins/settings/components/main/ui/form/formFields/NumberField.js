@@ -1,6 +1,6 @@
 import React from 'react';
 import EditableField from './EditableField';
-import { Input } from 'plugins/settings/components/shared/Layout';
+import { Input } from 'plugins/settings/components/shared/Layouts';
 import { useState } from 'react';
 
 const NumberField = ({ value, label, onValueChanged, ...props }) => {

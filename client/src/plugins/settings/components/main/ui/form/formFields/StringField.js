@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import EditableField from './EditableField';
-import { Input } from 'plugins/settings/components/shared/Layout';
+import { Input } from 'plugins/settings/components/shared/Layouts';
 
 const StringField = ({ value, label, onValueChanged, ...props }) => {
   const [input, setInput] = useState(value);

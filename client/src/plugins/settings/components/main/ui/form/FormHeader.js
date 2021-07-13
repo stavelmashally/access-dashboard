@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useStateFromProps } from 'plugins/settings/hooks/useStateFromProps';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import FieldPopper from './FieldPopper';
-import { SpaceBetween } from 'plugins/settings/components/shared/Layout';
+import { SpaceBetween } from 'plugins/settings/components/shared/Layouts';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 import AppModal from 'plugins/settings/components/shared/AppModal';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
@@ -9,7 +10,7 @@ import { Add, Delete } from '@material-ui/icons';
 import styled from 'styled-components';
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
-  const [input, setInput] = useState(title);
+  const [inputTitle, setInputTitle] = useStateFromProps(title);
   const [modalOpen, toggleModal] = useToggler(false);
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -17,17 +18,18 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
 
   const handleKeyDown = evt => {
     if (evt.key === 'Enter') {
-      if (input !== '' && input !== title) onSubmit({ value: input });
+      if (inputTitle !== '' && inputTitle !== title)
+        onSubmit({ value: inputTitle });
       toggleEditMode();
     }
     if (evt.key === 'Escape') {
-      setInput(title);
+      setInputTitle(title);
       toggleEditMode();
     }
   };
 
   const handleInputChanged = evt => {
-    setInput(evt.target.value);
+    setInputTitle(evt.target.value);
   };
 
   const handleAddField = type => {
@@ -63,7 +65,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
             color="textSecondary"
             onDoubleClick={toggleEditMode}
           >
-            {input}
+            {inputTitle}
           </Typography>
         </Tooltip>
         <IconButton onClick={toggleExpanded}>
@@ -79,7 +81,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
         <Input
           type="text"
           autoFocus
-          value={input}
+          value={inputTitle}
           onChange={handleInputChanged}
           onKeyDown={handleKeyDown}
         />

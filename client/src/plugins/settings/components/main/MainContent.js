@@ -10,7 +10,7 @@ import {
   defaultConfigAtom,
   selectedConfigAtom,
 } from 'plugins/settings/store';
-import { SIDEBAR_WIDTH } from '../shared/Layout';
+import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import styled from 'styled-components';
 
 const MainContent = () => {

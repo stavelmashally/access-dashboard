@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import ErrorIcon from '@material-ui/icons/Error';
-import { CenteredContainer } from './Layout';
+import { CenteredContainer } from './Layouts';
 
 const Error = ({ msg }) => {
   return (

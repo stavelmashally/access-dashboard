@@ -11,7 +11,7 @@ import {
 import SidebarItem from './SidebarItem';
 import { uniqueId } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
-import { SIDEBAR_WIDTH } from '../shared/Layout';
+import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
 import { selectedConfigAtom } from 'plugins/settings/store';
 

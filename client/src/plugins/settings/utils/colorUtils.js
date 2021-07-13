@@ -1,4 +1,3 @@
-
 export const isLight = color => {
   const hex = color.replace('#', '');
 

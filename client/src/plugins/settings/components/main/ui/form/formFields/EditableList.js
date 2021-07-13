@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import EditableField from './EditableField';
 import EditableListItem from './EditableListItem';
 import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallback';
-import { Input } from 'plugins/settings/components/shared/Layout';
+import { Input } from 'plugins/settings/components/shared/Layouts';
 import styled from 'styled-components';
 
 const EditableList = ({ label, value, onValueChanged, ...props }) => {

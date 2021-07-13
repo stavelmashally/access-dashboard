@@ -8,7 +8,7 @@ const Flex = styled.div`
 `;
 
 export const Row = styled(Flex)`
-align-items: flex-start;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
 `;
@@ -40,21 +40,15 @@ export const Grid = styled.div`
   flex-wrap: wrap;
 `;
 
-export const Code = styled.code`
-  font-size: 1rem;
-  border-radius: 2px;
-  background: #f3f6fa;
-  padding: 0 0.5rem;
-`;
-
 export const Input = styled.input`
   width: ${props => (props.variant === 'small' ? '150px' : '200px')};
   padding: 0.5rem;
   color: #395464;
-  border: 1px solid lightgray;
+  border: 1px solid;
+  border-color: ${props => (props.error ? '#e53935' : 'lightgray')};
   font-size: ${props => (props.variant === 'small' ? '0.9rem' : '1rem')};
   border-radius: 4px;
   :focus {
-    outline-color: #395464;
+    outline-color: ${props => (props.error ? '#e53935' : '#395464')};
   }
 `;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input } from 'plugins/settings/components/shared/Layout';
+import { Input } from 'plugins/settings/components/shared/Layouts';
 import { HighlightOffOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import styled from 'styled-components';

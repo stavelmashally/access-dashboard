@@ -3,7 +3,7 @@ import { Typography, IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import AppModal from 'plugins/settings/components/shared/AppModal';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
-import { Row, Input } from 'plugins/settings/components/shared/Layout';
+import { Row, Input } from 'plugins/settings/components/shared/Layouts';
 
 const EditableField = ({ label, onLabelChanged, onDelete, children }) => {
   const [input, setInput] = useState(label);
