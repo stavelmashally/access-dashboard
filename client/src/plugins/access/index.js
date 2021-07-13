@@ -48,11 +48,10 @@ const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
 const getNested = (type, path, delimiter = '.') => {
   const collection = getFromConfig(type);
   const code = get(collection, path, delimiter);
-
+  
   if (isUndefined(code)) return undefined;
   if (Array.isArray(code)) return code;
   if (isNumber(code)) return code;
-
   if (isObject(code)) return getNestedEndValue({}, code, type, delimiter);
   if (isString(code)) {
     if (code.indexOf(delimiter) > -1) return getNested(type, code);

@@ -1,19 +1,17 @@
-import * as access from 'plugins/access';
-
 const defaultTheme = {
   palette: {
     primary: {
-      main: access.color('access.primary'),
+      main: '#163153',
     },
     secondary: {
-      main: access.color('access.secondary'),
+      main: '#a4a4a4',
     },
     text: {
-      primary: access.color('access.primaryText'),
-      secondary: access.color('access.secondaryText'),
+      primary: '#012333',
+      secondary: '#395464',
     },
     background: {
-      default: access.color('access.background'),
+      default: '#f6f7ff',
     },
   },
   typography: {

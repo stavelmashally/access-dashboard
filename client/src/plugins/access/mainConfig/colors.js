@@ -25,12 +25,4 @@ export default {
   icon: {
     primary: 'colors.white',
   },
-
-  access: {
-    primary: 'colors.darkblue',
-    secondary: 'colors.gray',
-    background: 'colors.lightgray',
-    primaryText: 'colors.text',
-    secondaryText: 'colors.darkbluegray',
-  },
 };

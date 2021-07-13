@@ -5,7 +5,6 @@ module.exports = {
     texts: {},
     border: {},
     icon: {},
-    access: {},
   },
   icon: {
     icons: {},

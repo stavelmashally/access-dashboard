@@ -30,20 +30,22 @@ export const renamePropertyInPath = (obj, [key, ...next], propName) => {
   return { ...obj, [key]: renamePropertyInPath(obj[key], next, propName) };
 };
 
-export const renameValue = (obj, { oldVal, newVal }) =>
-  Object.entries(obj).reduce(
+export const renameValue = (obj, { oldVal, newVal }) => {
+  console.log('renameValue', oldVal, newVal);
+  return Object.entries(obj).reduce(
     (acc, [key, value]) => ({
       ...acc,
       ...{
         [key]: isPlainObject(value)
           ? renameValue(value, { oldVal, newVal })
-          : typeof value === 'string' && value.includes(`${oldVal}.`)
+          : typeof value === 'string' && value.includes(`${oldVal}`)
           ? value.replace(oldVal, newVal)
           : value,
       },
     }),
     {}
   );
+};
 
 const isPlainObject = obj => {
   return Object.prototype.toString.call(obj) === '[object Object]';
