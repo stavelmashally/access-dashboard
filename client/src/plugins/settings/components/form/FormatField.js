@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
-import { useStateFromProps } from 'plugins/settings/hooks/useStateFromProps';
-import { formatDate } from 'plugins/settings/utils/dateUtils';
+import { formatDate } from 'plugins/settings/services/date';
 import { Input } from 'plugins/settings/components/shared/Layouts';
 import styled from 'styled-components';
 
 const FormatField = ({ value }) => {
   const [editMode, toggleEditMode] = useToggler(false);
-  const [format, setFormat] = useStateFromProps(value);
+  const [inputFormat, setInputFormat] = useState(value);
 
   const handleFormatChanged = event => {
-    setFormat(event.target.value);
+    setInputFormat(event.target.value);
   };
-  console.log('formatttt')
+  console.log('formatttt');
   return (
     <div>
       {editMode ? (
-        <Input value={format} onChange={handleFormatChanged} />
+        <Input value={inputFormat} onChange={handleFormatChanged} />
       ) : (
         <Code onDoubleClick={e => toggleEditMode()}>{formatDate(value)} </Code>
       )}

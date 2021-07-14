@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
 import { Typography, IconButton } from '@material-ui/core';
-import { useStateFromProps } from 'plugins/settings/hooks/useStateFromProps';
 import { Delete } from '@material-ui/icons';
 import AppModal from 'plugins/settings/components/shared/AppModal';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import { Row, Input } from 'plugins/settings/components/shared/Layouts';
 
 const EditableField = ({ label, onLabelChanged, onDelete, children }) => {
-  const [input, setInput] = useStateFromProps(label);
+  const [inputLabel, setInputLabel] = useState(label);
   const [modalOpen, toggleModal] = useToggler(false);
   const [editMode, setEditMode] = useState(label === 'propertyName');
 
   const handleKeyDown = ({ key }) => {
     if (key === 'Enter') {
-      onLabelChanged({ label, value: input });
+      onLabelChanged({ label, value: inputLabel });
       setEditMode(false);
     }
     if (key === 'Escape') {
-      setInput(label);
+      setInputLabel(label);
       setEditMode(false);
     }
   };
 
   const handleInputChanged = evt => {
-    setInput(evt.target.value);
+    setInputLabel(evt.target.value);
   };
 
   const handleDelete = () => {
@@ -36,7 +35,7 @@ const EditableField = ({ label, onLabelChanged, onDelete, children }) => {
         <Input
           variant="small"
           autoFocus
-          value={input}
+          value={inputLabel}
           onChange={handleInputChanged}
           onKeyDown={handleKeyDown}
         />

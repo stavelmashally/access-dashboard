@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useStateFromProps } from 'plugins/settings/hooks/useStateFromProps';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import FieldPopper from './FieldPopper';
 import { SpaceBetween } from 'plugins/settings/components/shared/Layouts';
@@ -10,7 +9,7 @@ import { Add, Delete } from '@material-ui/icons';
 import styled from 'styled-components';
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
-  const [inputTitle, setInputTitle] = useStateFromProps(title);
+  const [inputTitle, setInputTitle] = useState(title);
   const [modalOpen, toggleModal] = useToggler(false);
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,7 +64,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
             color="textSecondary"
             onDoubleClick={toggleEditMode}
           >
-            {inputTitle}
+            {title}
           </Typography>
         </Tooltip>
         <IconButton onClick={toggleExpanded}>

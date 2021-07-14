@@ -6,11 +6,11 @@ import { refreshAtom } from 'plugins/settings/store';
 import { Column } from 'plugins/settings/components/shared/Layouts';
 import { isPlainObject, isNumber, isString, uniqueId } from 'lodash';
 import * as Access from 'plugins/access/gate';
-import NumberField from './formFields/NumberField';
-import StringField from './formFields/StringField';
-import ColorField from './formFields/ColorField';
-import BooleanField from './formFields/BooleanField';
-import EditableList from './formFields/EditableList';
+import NumberField from './NumberField';
+import StringField from './StringField';
+import ColorField from './ColorField';
+import BooleanField from './BooleanField';
+import EditableList from './EditableList';
 
 const getFieldComponentByType = value => {
   if (value === 'true' || value === 'false') return BooleanField;

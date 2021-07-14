@@ -4,7 +4,7 @@ import { Save } from '@material-ui/icons';
 import { getFromConfig } from 'plugins/access/gate';
 import { useRecoilValue } from 'recoil';
 import { hasErrorAtom } from 'plugins/settings/store';
-import { downloadJsonFile } from 'plugins/settings/utils/fileUtils';
+import { downloadJsonFile } from 'plugins/settings/services/file';
 
 const SaveButton = () => {
   const hasError = useRecoilValue(hasErrorAtom);

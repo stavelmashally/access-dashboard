@@ -1,6 +1,6 @@
 import React from 'react';
-import EditableForm from './form/EditableForm';
-import { Column } from '../../shared/Layouts';
+import EditableForm from '../form/EditableForm';
+import { Column } from '../shared/Layouts';
 import { Button, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { useRecoilState } from 'recoil';

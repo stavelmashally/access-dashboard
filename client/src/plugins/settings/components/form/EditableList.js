@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import EditableField from './EditableField';
-import EditableListItem from './EditableListItem';
+import { HighlightOffOutlined } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
 import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallback';
 import { Input } from 'plugins/settings/components/shared/Layouts';
 import styled from 'styled-components';
@@ -69,6 +70,36 @@ const EditableList = ({ label, value, onValueChanged, ...props }) => {
     </EditableField>
   );
 };
+
+const EditableListItem = ({ value, index, onSubmit, onDelete }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  const handleKeyDown = event => {
+    if (event.key === 'Enter' && inputValue.trim(' ').length > 0) {
+      onSubmit(index, inputValue);
+    }
+  };
+
+  return (
+    <ListItem key={index}>
+      <Input
+        variant="small"
+        type="text"
+        value={inputValue}
+        placeholder="Enter a value"
+        onChange={e => setInputValue(e.target.value)}
+        onKeyDown={handleKeyDown}
+      />
+      <IconButton size="small" onClick={onDelete(index)}>
+        <HighlightOffOutlined />
+      </IconButton>
+    </ListItem>
+  );
+};
+
+const ListItem = styled.li`
+  padding-left: 0;
+`;
 
 const List = styled.ul`
   display: flex;

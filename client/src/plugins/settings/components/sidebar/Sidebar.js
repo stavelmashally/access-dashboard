@@ -8,14 +8,14 @@ import {
   TextFormatOutlined,
   CategoryOutlined,
 } from '@material-ui/icons';
-import SidebarItem from './SidebarItem';
-import { uniqueId } from 'lodash';
+import { ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
+import { uniqueId } from 'lodash';
 import { selectedConfigAtom } from 'plugins/settings/store';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   drawer: {
     width: SIDEBAR_WIDTH,
     flexShrink: 0,
@@ -23,7 +23,17 @@ const useStyles = makeStyles({
   drawerPaper: {
     width: SIDEBAR_WIDTH,
   },
-});
+  itemText: {
+    color: theme.palette.text.secondary,
+  },
+  itemActiveText: {
+    color: theme.palette.primary.main,
+  },
+  listItemIcon: {
+    minWidth: '35px',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 const sidebarItems = [
   { text: 'color', icon: <ColorLensOutlined /> },
@@ -64,6 +74,20 @@ const Sidebar = () => {
       <Toolbar />
       <List>{renderListItems()}</List>
     </Drawer>
+  );
+};
+
+const SidebarItem = ({ text, icon, onSelected, isActive }) => {
+  const classes = useStyles();
+
+  return (
+    <ListItem button onClick={() => onSelected(text)} selected={isActive}>
+      <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
+      <ListItemText
+        className={isActive ? classes.itemActiveText : classes.itemText}
+        primary={text.charAt(0).toUpperCase() + text.slice(1)}
+      />
+    </ListItem>
   );
 };
 

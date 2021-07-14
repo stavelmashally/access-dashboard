@@ -1,6 +1,6 @@
 import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
-import MainContent from './main/MainContent';
+import MainContent from './views/MainContent';
 import ErrorBoundary from './shared/ErrorBoundary';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
