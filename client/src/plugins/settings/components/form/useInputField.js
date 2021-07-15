@@ -1,21 +1,11 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
-export const useInputField = (label, initialValue, onEnter) => {
+export const useInputField = initialValue => {
   const [value, setValue] = useState(initialValue);
 
-  const handleInputChanged = event => {
-    const newValue = event.target.value;
-    if (isNaN(initialValue)) {
-      if (initialValue.startsWith('#') && !newValue.startsWith('#')) return;
-      setValue(newValue);
-    } else setValue(Number(newValue));
-  };
+  const handleInputChanged = useCallback(event => {
+    setValue(event.target.value);
+  }, []);
 
-  const handleKeyDown = event => {
-    const { key } = event;
-    if (key === 'Enter') onEnter({ label, value });
-    if (key === 'Escape') setValue(initialValue);
-  };
-
-  return { value, onChange: handleInputChanged, onKeyDown: handleKeyDown };
+  return { value, onChange: handleInputChanged };
 };

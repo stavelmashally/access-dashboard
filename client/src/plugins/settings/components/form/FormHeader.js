@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import FieldPopper from './FieldPopper';
 import { SpaceBetween } from 'plugins/settings/components/shared/Layouts';
-import { ExpandMore, ExpandLess } from '@material-ui/icons';
+import { ExpandMore, ExpandLess, Add, Delete } from '@material-ui/icons';
 import AppModal from 'plugins/settings/components/shared/AppModal';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
-import { Add, Delete } from '@material-ui/icons';
 import styled from 'styled-components';
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
@@ -14,6 +13,10 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editMode, toggleEditMode] = useToggler(title === 'sectionTitle');
+
+  useEffect(() => {
+    setInputTitle(title);
+  }, [title]);
 
   const handleKeyDown = evt => {
     if (evt.key === 'Enter') {

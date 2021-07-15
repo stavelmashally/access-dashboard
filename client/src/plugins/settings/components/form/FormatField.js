@@ -11,7 +11,7 @@ const FormatField = ({ value }) => {
   const handleFormatChanged = event => {
     setInputFormat(event.target.value);
   };
-  console.log('formatttt');
+
   return (
     <div>
       {editMode ? (

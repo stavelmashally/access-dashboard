@@ -9,7 +9,15 @@ const isHexColor = colorString => {
 };
 
 const ColorField = ({ value, label, onValueChanged, ...props }) => {
-  const inputField = useInputField(label, value, onValueChanged);
+  const inputField = useInputField(value);
+
+  const handleKeyDown = event => {
+    const { key, target } = event;
+    if (key === 'Enter' && isHexColor(target.value)) {
+      onValueChanged({ label, value: target.value });
+    }
+    if (key === 'Escape') onValueChanged({ label, value });
+  };
 
   return (
     <EditableField label={label} {...props}>
@@ -18,6 +26,7 @@ const ColorField = ({ value, label, onValueChanged, ...props }) => {
         maxLength={7}
         error={!isHexColor(inputField.value)}
         {...inputField}
+        onKeyDown={handleKeyDown}
       />
       <ColorBox background={inputField.value} />
     </EditableField>

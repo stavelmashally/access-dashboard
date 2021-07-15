@@ -11,17 +11,15 @@ const options = [
 ];
 
 const FieldPopper = ({ anchorEl, onSelected }) => {
-  const renderOptions = () => {
-    return options.map(({ type, value }) => (
-      <PopperItem key={type} onClick={() => onSelected(value)}>
-        {type}
-      </PopperItem>
-    ));
-  };
-
   return (
     <Popper id="simple-popper" open anchorEl={anchorEl}>
-      <PopperContainer>{renderOptions()}</PopperContainer>
+      <PopperContainer>
+        {options.map(({ type, value }) => (
+          <PopperItem key={type} onClick={() => onSelected(value)}>
+            {type}
+          </PopperItem>
+        ))}
+      </PopperContainer>
     </Popper>
   );
 };

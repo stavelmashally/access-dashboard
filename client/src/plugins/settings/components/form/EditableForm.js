@@ -22,12 +22,12 @@ const getFieldComponentByType = value => {
 const EditableForm = ({ title, data, path }) => {
   const setRefresh = useSetRecoilState(refreshAtom);
 
-  const AddField = value => {
+  const addField = value => {
     Access.addConfigProperty({ path, value });
     setRefresh({});
   };
 
-  const DeleteField = fieldName => {
+  const deleteField = fieldName => {
     Access.deleteConfigProperty(`${path}.${fieldName}`);
     setRefresh({});
   };
@@ -45,7 +45,7 @@ const EditableForm = ({ title, data, path }) => {
     setRefresh({});
   };
 
-  const DeleteSection = () => {
+  const deleteSection = () => {
     Access.deleteConfigProperty(path);
     setRefresh({});
   };
@@ -58,7 +58,7 @@ const EditableForm = ({ title, data, path }) => {
         value,
         onLabelChanged: changeLabel,
         onValueChanged: changeValue,
-        onDelete: DeleteField,
+        onDelete: deleteField,
       };
 
       if (isPlainObject(value)) {
@@ -81,8 +81,8 @@ const EditableForm = ({ title, data, path }) => {
     <FormHeader
       title={title}
       onSubmit={changeLabel}
-      onAdd={AddField}
-      onDelete={DeleteSection}
+      onAdd={addField}
+      onDelete={deleteSection}
     >
       <Divider />
       <Column>{renderTree()}</Column>
