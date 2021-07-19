@@ -5,29 +5,29 @@ import '@testing-library/jest-dom';
 
 import EditableList from '../form/EditableList';
 
-const defaultProps = {
+const props = {
   label: 'field label',
   value: ['item1', 'item2', 'item3'],
   onValueChanged: jest.fn(),
 };
 
 beforeEach(() => {
-  render(<EditableList {...defaultProps} />);
+  render(<EditableList {...props} />);
 });
 
 describe('EditableList', () => {
   test('renders EditableList component', () => {
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.getByText(props.label)).toBeInTheDocument();
 
     const listItems = screen.getAllByRole('listitem');
 
-    expect(listItems).toHaveLength(defaultProps.value.length);
+    expect(listItems).toHaveLength(props.value.length);
 
     listItems.forEach((item, index) => {
-      const { getByRole } = within(item);
-      expect(getByRole('textbox', { name: /item value/i })).toHaveValue(
-        defaultProps.value[index]
-      );
+      const input = within(item).getByRole('textbox', {
+        name: /item value/i,
+      });
+      expect(input).toHaveValue(props.value[index]);
     });
   });
 
@@ -38,39 +38,42 @@ describe('EditableList', () => {
     fireEvent.change(input, { target: { value: newListItem } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: [...defaultProps.value, newListItem],
+    expect(props.onValueChanged).toBeCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: [...props.value, newListItem],
     });
   });
 
   test('calls onValueChanged when deleting an item', () => {
     const listItems = screen.getAllByRole('listitem');
 
-    const { getByRole } = within(listItems[0]);
-    const delBtn = getByRole('button');
+    const delBtn = within(listItems[0]).getByRole('button');
 
     userEvent.click(delBtn);
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: [...defaultProps.value].slice(1),
+    expect(props.onValueChanged).toBeCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: [...props.value].slice(1),
     });
   });
 
   test('calls onValueChanged when changing an item', () => {
     const listItems = screen.getAllByRole('listitem');
 
-    const { getByRole } = within(listItems[0]);
     const itemValue = 'hello';
-    const input = getByRole('textbox', { name: /item value/i });
+    const input = within(listItems[0]).getByRole('textbox', {
+      name: /item value/i,
+    });
 
     fireEvent.change(input, { target: { value: itemValue } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: [itemValue, ...defaultProps.value.slice(1)],
+    expect(props.onValueChanged).toBeCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: [itemValue, ...props.value.slice(1)],
     });
   });
 });

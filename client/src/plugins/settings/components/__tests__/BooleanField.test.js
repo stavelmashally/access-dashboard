@@ -5,19 +5,19 @@ import '@testing-library/jest-dom';
 
 import BooleanField from '../form/BooleanField';
 
-const defaultProps = {
+const props = {
   label: 'field label',
   value: false,
   onValueChanged: jest.fn(),
 };
 
 beforeEach(() => {
-  render(<BooleanField {...defaultProps} />);
+  render(<BooleanField {...props} />);
 });
 
 describe('BooleanField', () => {
   test('renders BooleanField component', () => {
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.getByText(props.label)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /false/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /true/i })).toBeInTheDocument();
   });
@@ -28,15 +28,17 @@ describe('BooleanField', () => {
 
     userEvent.click(trueBtn);
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
+    expect(props.onValueChanged).toHaveBeenCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
       value: true,
     });
 
     userEvent.click(falseBtn);
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
+    expect(props.onValueChanged).toHaveBeenCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
       value: false,
     });
   });

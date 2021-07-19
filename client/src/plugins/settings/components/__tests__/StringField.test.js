@@ -4,21 +4,21 @@ import '@testing-library/jest-dom';
 
 import StringField from '../form/StringField';
 
-const defaultProps = {
+const props = {
   label: 'field label',
   value: 'field value',
   onValueChanged: jest.fn(),
 };
 
 beforeEach(() => {
-  render(<StringField {...defaultProps} />);
+  render(<StringField {...props} />);
 });
 
 describe('StringField', () => {
   test('renders StringField component', () => {
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.getByText(props.label)).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /string value/i })).toHaveValue(
-      defaultProps.value
+      props.value
     );
   });
 
@@ -29,8 +29,8 @@ describe('StringField', () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
       value,
     });
   });
@@ -41,7 +41,7 @@ describe('StringField', () => {
     fireEvent.change(input, { target: { value: '' } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledTimes(0);
+    expect(props.onValueChanged).toHaveBeenCalledTimes(0);
   });
 
   test('undo the change by clicking Escape key', () => {
@@ -50,9 +50,10 @@ describe('StringField', () => {
     fireEvent.change(input, { target: { value: 'hello' } });
     fireEvent.keyDown(input, { key: 'Escape', code: 'Escape' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: defaultProps.value,
+    expect(props.onValueChanged).toHaveBeenCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: props.value,
     });
   });
 });

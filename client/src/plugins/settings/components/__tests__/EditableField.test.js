@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 import EditableField from '../form/EditableField';
 
-const defaultProps = {
+const props = {
   label: 'field label',
   onLabelChanged: jest.fn(),
   onDelete: jest.fn(),
@@ -15,7 +15,7 @@ const inputValue = '123';
 
 beforeEach(() => {
   render(
-    <EditableField {...defaultProps}>
+    <EditableField {...props}>
       <input defaultValue={inputValue} />
     </EditableField>
   );
@@ -23,16 +23,16 @@ beforeEach(() => {
 
 describe('EditableField', () => {
   test('renders EditableField component', () => {
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.getByText(props.label)).toBeInTheDocument();
     expect(screen.getByRole('textbox')).toHaveValue(inputValue);
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
   test('renders input field & delete button when onDoubleClick called', () => {
-    userEvent.dblClick(screen.getByText(defaultProps.label));
+    userEvent.dblClick(screen.getByText(props.label));
 
     expect(screen.getByRole('textbox', { name: /label value/i })).toHaveValue(
-      defaultProps.label
+      props.label
     );
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
@@ -40,30 +40,32 @@ describe('EditableField', () => {
   test('calls the onLabelChange callback handler', () => {
     const value = 'new input value';
 
-    userEvent.dblClick(screen.getByText(defaultProps.label));
+    userEvent.dblClick(screen.getByText(props.label));
 
     const input = screen.getByRole('textbox', { name: /label value/i });
 
     fireEvent.change(input, { target: { value } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onLabelChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
+    expect(props.onLabelChanged).toHaveBeenCalledTimes(1);
+    expect(props.onLabelChanged).toHaveBeenCalledWith({
+      label: props.label,
       value,
     });
   });
 
   test('undo the change by clicking Escape key', () => {
-    userEvent.dblClick(screen.getByText(defaultProps.label));
+    userEvent.dblClick(screen.getByText(props.label));
 
     const input = screen.getByRole('textbox', { name: /label value/i });
 
     fireEvent.change(input, { target: { value: 'hello' } });
     fireEvent.keyDown(input, { key: 'Escape', code: 'Escape' });
 
-    expect(defaultProps.onLabelChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: defaultProps.label,
+    expect(props.onLabelChanged).toHaveBeenCalledTimes(1);
+    expect(props.onLabelChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: props.label,
     });
   });
 });

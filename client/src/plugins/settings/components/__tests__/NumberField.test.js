@@ -4,22 +4,22 @@ import '@testing-library/jest-dom';
 
 import NumberField from '../form/NumberField';
 
-const defaultProps = {
+const props = {
   label: 'field label',
   value: 10,
   onValueChanged: jest.fn(),
 };
 
 beforeEach(() => {
-  render(<NumberField {...defaultProps} />);
+  render(<NumberField {...props} />);
 });
 
 describe('NumberField', () => {
   test('renders NumberField component', () => {
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.getByText(props.label)).toBeInTheDocument();
     expect(
       screen.getByRole('spinbutton', { name: /number value/i })
-    ).toHaveValue(defaultProps.value);
+    ).toHaveValue(props.value);
   });
 
   test('calls the onValueChanged callback handler', () => {
@@ -29,8 +29,8 @@ describe('NumberField', () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
       value,
     });
   });
@@ -41,9 +41,10 @@ describe('NumberField', () => {
     fireEvent.change(input, { target: { value: 150 } });
     fireEvent.keyDown(input, { key: 'Escape', code: 'Escape' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: defaultProps.value,
+    expect(props.onValueChanged).toHaveBeenCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: props.value,
     });
   });
 });

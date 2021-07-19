@@ -4,24 +4,24 @@ import '@testing-library/jest-dom';
 
 import ColorField from '../form/ColorField';
 
-const defaultProps = {
+const props = {
   label: 'white',
   value: '#ffffff',
   onValueChanged: jest.fn(),
 };
 
 beforeEach(() => {
-  render(<ColorField {...defaultProps} />);
+  render(<ColorField {...props} />);
 });
 
 describe('ColorField', () => {
   test('renders ColorField component', () => {
-    expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
+    expect(screen.getByText(props.label)).toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: /color value/i })).toHaveValue(
-      defaultProps.value
+      props.value
     );
     expect(screen.getByTestId('color-box')).toHaveStyle(
-      `background: ${defaultProps.value}`
+      `background: ${props.value}`
     );
   });
 
@@ -32,8 +32,9 @@ describe('ColorField', () => {
     fireEvent.change(input, { target: { value } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
+    expect(props.onValueChanged).toHaveBeenCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
       value,
     });
   });
@@ -44,7 +45,7 @@ describe('ColorField', () => {
     fireEvent.change(input, { target: { value: '123' } });
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledTimes(0);
+    expect(props.onValueChanged).toHaveBeenCalledTimes(0);
   });
 
   test('undo the change by clicking Escape key', () => {
@@ -53,9 +54,10 @@ describe('ColorField', () => {
     fireEvent.change(input, { target: { value: '#f1f1f1' } });
     fireEvent.keyDown(input, { key: 'Escape', code: 'Escape' });
 
-    expect(defaultProps.onValueChanged).toHaveBeenCalledWith({
-      label: defaultProps.label,
-      value: defaultProps.value,
+    expect(props.onValueChanged).toHaveBeenCalledTimes(1);
+    expect(props.onValueChanged).toHaveBeenCalledWith({
+      label: props.label,
+      value: props.value,
     });
   });
 });
