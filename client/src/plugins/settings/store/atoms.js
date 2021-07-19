@@ -1,6 +1,11 @@
 import { atom } from 'recoil';
 import { fetchConfigSelector } from './selectors';
 
+const confirmModalAtom = atom({
+  key: 'confirmModalAtom',
+  default: {message: '', onConfirm: undefined}
+});
+
 const viewModeAtom = atom({
   key: 'viewModeAtom',
   default: true,
@@ -38,4 +43,5 @@ export {
   hasErrorAtom,
   refreshAtom,
   expandedAtom,
+  confirmModalAtom
 };

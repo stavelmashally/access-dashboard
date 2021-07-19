@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import { formatDate } from 'plugins/settings/services/date';
-import { Input } from 'plugins/settings/components/shared/Layouts';
-import styled from 'styled-components';
+import Input from 'plugins/settings/components/shared/Input';
+import styled from 'styled-components/macro';
 
 const FormatField = ({ value }) => {
   const [editMode, toggleEditMode] = useToggler(false);

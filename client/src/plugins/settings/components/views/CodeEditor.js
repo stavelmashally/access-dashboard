@@ -5,7 +5,7 @@ import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/webpack-resolver';
 import { useSetRecoilState } from 'recoil';
 import { hasErrorAtom } from 'plugins/settings/store';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { getFromConfig, replaceConfig } from 'plugins/access/gate';
 
 const CodeEditor = ({ selected }) => {

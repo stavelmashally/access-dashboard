@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import EditableField from './EditableField';
 import { HighlightOffOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
-import { useInputField } from './useInputField';
+import { useInputField } from '../../hooks/useInputField';
 import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallback';
-import { Input } from 'plugins/settings/components/shared/Layouts';
-import styled from 'styled-components';
+import Input from 'plugins/settings/components/shared/Input';
+import styled from 'styled-components/macro';
 
 const EditableList = ({ label, value, onValueChanged, ...props }) => {
   const [list, setList] = useStateWithCallback(value);
@@ -60,11 +60,12 @@ const EditableList = ({ label, value, onValueChanged, ...props }) => {
       <List>
         {renderList()}
         <Input
+          type="text"
           variant="small"
           name="newInput"
           onChange={e => setNewInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="New Item"
+          placeholder="New item"
           value={newInput}
         />
       </List>
@@ -78,7 +79,7 @@ const EditableListItem = ({ value, index, onSubmit, onDelete }) => {
   const handleKeyDown = event => {
     const { key, target } = event;
     if (key === 'Enter' && target.value.trim(' ').length > 0) {
-      onSubmit(index, inputValue);
+      onSubmit(index, target.value);
     }
     if (key === 'Escape') onSubmit(index, value);
   };
@@ -86,8 +87,9 @@ const EditableListItem = ({ value, index, onSubmit, onDelete }) => {
   return (
     <ListItem key={index}>
       <Input
-        variant="small"
         type="text"
+        aria-label="item value"
+        variant="small"
         placeholder="Enter a value"
         {...inputValue}
         onKeyDown={handleKeyDown}

@@ -6,6 +6,7 @@ import {
   renameValue,
   setValueInPath,
   getFromPath,
+  deleteByValue,
 } from 'plugins/access/utils/objectUtils';
 import general from './mainConfig/general';
 import colors from './mainConfig/colors';
@@ -72,7 +73,9 @@ export const replaceConfig = ({ path, value }) => {
 };
 
 export const deleteConfigProperty = path => {
-  config = deletePropertyInPath(config, path.split('.'));
+  path = path.split('.');
+  config = deletePropertyInPath(config, path);
+  config = deleteByValue(config, path[path.length - 1]);
 };
 
 export const addConfigProperty = ({ path, value }) => {

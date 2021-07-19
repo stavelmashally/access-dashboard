@@ -11,7 +11,7 @@ import {
   selectedConfigAtom,
 } from 'plugins/settings/store';
 import { SIDEBAR_WIDTH } from '../shared/Layouts';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const MainContent = () => {
   const viewMode = useRecoilValue(viewModeAtom);

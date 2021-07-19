@@ -1,7 +1,7 @@
 import React from 'react';
 import EditableField from './EditableField';
-import { Input } from 'plugins/settings/components/shared/Layouts';
-import { useInputField } from './useInputField';
+import Input from 'plugins/settings/components/shared/Input';
+import { useInputField } from '../../hooks/useInputField';
 
 const NumberField = ({ value, label, onValueChanged, ...props }) => {
   const inputField = useInputField(value);
@@ -16,7 +16,12 @@ const NumberField = ({ value, label, onValueChanged, ...props }) => {
 
   return (
     <EditableField label={label} {...props}>
-      <Input type="number" {...inputField} onKeyDown={handleKeyDown} />
+      <Input
+        type="number"
+        aria-label="number value"
+        {...inputField}
+        onKeyDown={handleKeyDown}
+      />
     </EditableField>
   );
 };

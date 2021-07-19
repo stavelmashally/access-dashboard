@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
-import { Typography, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
-import AppModal from 'plugins/settings/components/shared/AppModal';
-import { useToggler } from 'plugins/settings/hooks/useToggler';
-import { Row, Input } from 'plugins/settings/components/shared/Layouts';
+import { useSetRecoilState } from 'recoil';
+import { confirmModalAtom } from 'plugins/settings/store';
+import { useInputField } from 'plugins/settings/hooks/useInputField';
+import { Row } from 'plugins/settings/components/shared/Layouts';
+import Input from 'plugins/settings/components/shared/Input';
+import Label from 'plugins/settings/components/shared/Label';
 
 const EditableField = ({ label, onLabelChanged, onDelete, children }) => {
-  const [inputLabel, setInputLabel] = useState(label);
-  const [modalOpen, toggleModal] = useToggler(false);
+  const inputLabel = useInputField(label);
   const [editMode, setEditMode] = useState(label === 'propertyName');
+  const confirmModal = useSetRecoilState(confirmModalAtom);
 
-  const handleKeyDown = ({ key }) => {
-    if (key === 'Enter') {
-      onLabelChanged({ label, value: inputLabel });
+  const handleKeyDown = event => {
+    const { key, target } = event;
+    const newLabel = target.value.trim(' ');
+    if (key === 'Enter' && newLabel.length > 0) {
+      onLabelChanged({ label, value: newLabel });
       setEditMode(false);
     }
     if (key === 'Escape') {
-      setInputLabel(label);
+      onLabelChanged({ label, value: label });
       setEditMode(false);
     }
-  };
-
-  const handleInputChanged = evt => {
-    setInputLabel(evt.target.value);
   };
 
   const handleDelete = () => {
@@ -33,30 +34,31 @@ const EditableField = ({ label, onLabelChanged, onDelete, children }) => {
     <Row>
       {editMode ? (
         <Input
+          type="text"
+          aria-label="label value"
           variant="small"
           autoFocus
-          value={inputLabel}
-          onChange={handleInputChanged}
+          {...inputLabel}
           onKeyDown={handleKeyDown}
         />
       ) : (
-        <Typography variant="h6" onDoubleClick={setEditMode}>
+        <Label onDoubleClick={setEditMode}>
           {label}
-        </Typography>
+        </Label>
       )}
-
       {children}
       {editMode && (
-        <IconButton size="small" onClick={toggleModal}>
+        <IconButton
+          size="small"
+          onClick={() =>
+            confirmModal({
+              message: 'Are you sure you want to delete this field?',
+              onConfirm: handleDelete,
+            })
+          }
+        >
           <Delete />
         </IconButton>
-      )}
-      {modalOpen && (
-        <AppModal
-          msg="Are you sure you want to delete this field?"
-          onSubmit={handleDelete}
-          onClose={toggleModal}
-        />
       )}
     </Row>
   );

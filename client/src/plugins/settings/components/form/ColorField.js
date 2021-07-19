@@ -1,8 +1,8 @@
 import React from 'react';
 import EditableField from './EditableField';
-import { Input } from 'plugins/settings/components/shared/Layouts';
-import { useInputField } from './useInputField';
-import styled from 'styled-components';
+import Input from 'plugins/settings/components/shared/Input';
+import { useInputField } from '../../hooks/useInputField';
+import styled from 'styled-components/macro';
 
 const isHexColor = colorString => {
   return /^#([0-9A-Fa-f]{3}){1,2}$/i.test(colorString);
@@ -23,12 +23,13 @@ const ColorField = ({ value, label, onValueChanged, ...props }) => {
     <EditableField label={label} {...props}>
       <Input
         type="text"
+        aria-label="color value"
         maxLength={7}
         error={!isHexColor(inputField.value)}
         {...inputField}
         onKeyDown={handleKeyDown}
       />
-      <ColorBox background={inputField.value} />
+      <ColorBox data-testid="color-box" background={inputField.value} />
     </EditableField>
   );
 };

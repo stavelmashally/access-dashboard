@@ -1,7 +1,7 @@
 import React from 'react';
 import EditableField from './EditableField';
-import { Input } from 'plugins/settings/components/shared/Layouts';
-import { useInputField } from './useInputField';
+import Input from 'plugins/settings/components/shared/Input';
+import { useInputField } from '../../hooks/useInputField';
 
 const StringField = ({ value, label, onValueChanged, ...props }) => {
   const inputField = useInputField(value);
@@ -16,7 +16,12 @@ const StringField = ({ value, label, onValueChanged, ...props }) => {
 
   return (
     <EditableField label={label} {...props}>
-      <Input type="text" {...inputField} onKeyDown={handleKeyDown} />
+      <Input
+        type="text"
+        aria-label="string value"
+        {...inputField}
+        onKeyDown={handleKeyDown}
+      />
     </EditableField>
   );
 };

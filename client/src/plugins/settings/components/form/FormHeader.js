@@ -1,37 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
 import FieldPopper from './FieldPopper';
+import { useSetRecoilState } from 'recoil';
+import { confirmModalAtom } from 'plugins/settings/store';
 import { SpaceBetween } from 'plugins/settings/components/shared/Layouts';
 import { ExpandMore, ExpandLess, Add, Delete } from '@material-ui/icons';
-import AppModal from 'plugins/settings/components/shared/AppModal';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [inputTitle, setInputTitle] = useState(title);
-  const [modalOpen, toggleModal] = useToggler(false);
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editMode, toggleEditMode] = useToggler(title === 'sectionTitle');
+  const confirmModal = useSetRecoilState(confirmModalAtom);
 
   useEffect(() => {
     setInputTitle(title);
   }, [title]);
 
-  const handleKeyDown = evt => {
-    if (evt.key === 'Enter') {
-      if (inputTitle !== '' && inputTitle !== title)
-        onSubmit({ value: inputTitle });
+  const handleKeyDown = event => {
+    const { key, target } = event;
+    const newTitle = target.value.trim(' ');
+    if (key === 'Enter' && newTitle.length > 0) {
+      onSubmit({ value: newTitle });
       toggleEditMode();
     }
-    if (evt.key === 'Escape') {
+    if (key === 'Escape') {
       setInputTitle(title);
       toggleEditMode();
     }
   };
 
-  const handleInputChanged = evt => {
-    setInputTitle(evt.target.value);
+  const handleInputChanged = event => {
+    setInputTitle(event.target.value);
   };
 
   const handleAddField = type => {
@@ -50,7 +52,14 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
           </IconButton>
         </Tooltip>
         <Tooltip title="delete section">
-          <IconButton onClick={toggleModal}>
+          <IconButton
+            onClick={() =>
+              confirmModal({
+                message: 'Are you sure you want to delete this section?',
+                onConfirm: onDelete,
+              })
+            }
+          >
             <Delete />
           </IconButton>
         </Tooltip>
@@ -92,24 +101,12 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
     );
   };
 
-  const handleDelete = () => {
-    onDelete({});
-    toggleModal();
-  };
-
   return (
     <Wrapper>
       {editMode ? renderEditableTitle() : renderTitle()}
       {isExpanded && <InnerSection>{children}</InnerSection>}
       {anchorEl && (
         <FieldPopper anchorEl={anchorEl} onSelected={handleAddField} />
-      )}
-      {modalOpen && (
-        <AppModal
-          msg="Are you sure you want to delete this section?"
-          onSubmit={handleDelete}
-          onClose={toggleModal}
-        />
       )}
     </Wrapper>
   );

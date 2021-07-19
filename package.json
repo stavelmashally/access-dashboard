@@ -1,6 +1,6 @@
 {
   "name": "access-dashboard",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,6 @@
   "bugs": {
     "url": "https://github.com/stavelmashally/access-dashboard/issues"
   },
-  "homepage": "https://github.com/stavelmashally/access-dashboard#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1"

@@ -31,7 +31,6 @@ export const renamePropertyInPath = (obj, [key, ...next], propName) => {
 };
 
 export const renameValue = (obj, { oldVal, newVal }) => {
-  console.log('renameValue', oldVal, newVal);
   return Object.entries(obj).reduce(
     (acc, [key, value]) => ({
       ...acc,
@@ -40,6 +39,22 @@ export const renameValue = (obj, { oldVal, newVal }) => {
           ? renameValue(value, { oldVal, newVal })
           : typeof value === 'string' && value.includes(`${oldVal}`)
           ? value.replace(oldVal, newVal)
+          : value,
+      },
+    }),
+    {}
+  );
+};
+
+export const deleteByValue = (obj, valueToDelete) => {
+  return Object.entries(obj).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      ...{
+        [key]: isPlainObject(value)
+          ? deleteByValue(value, valueToDelete)
+          : typeof value === 'string' && value.includes(`${valueToDelete}`)
+          ? undefined
           : value,
       },
     }),

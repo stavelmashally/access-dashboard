@@ -5,7 +5,7 @@ import { Button, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { useRecoilState } from 'recoil';
 import { refreshAtom } from 'plugins/settings/store';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import * as access from 'plugins/access';
 import { addConfigProperty } from 'plugins/access/gate';
 

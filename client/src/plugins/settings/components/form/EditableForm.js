@@ -52,6 +52,8 @@ const EditableForm = ({ title, data, path }) => {
 
   const renderTree = () => {
     return Object.entries(data).map(([key, value]) => {
+      if (!value) return null;
+      
       const fieldProps = {
         key: uniqueId(),
         label: key,

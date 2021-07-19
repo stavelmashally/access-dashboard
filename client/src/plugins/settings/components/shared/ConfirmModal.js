@@ -1,18 +1,29 @@
 import React from 'react';
 import { Modal, Typography, Button } from '@material-ui/core';
-import styled from 'styled-components';
+import { confirmModalAtom } from 'plugins/settings/store';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import styled from 'styled-components/macro';
 
-const AppModal = ({ msg, onClose, onSubmit }) => {
+const ConfirmModal = () => {
+  const { message, onConfirm } = useRecoilValue(confirmModalAtom);
+  const close = useResetRecoilState(confirmModalAtom);
 
   return (
-    <Modal open onClose={onClose}>
+    <Modal open={!!onConfirm} onClose={() => close()}>
       <ModalContainer>
-        <Typography variant='h6'>{msg}</Typography>
+        <Typography variant="h6">{message}</Typography>
         <ButtonsContainer>
-          <Button variant='contained' color='primary' onClick={onSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              close();
+              onConfirm?.();
+            }}
+          >
             Submit
           </Button>
-          <Button variant='contained' onClick={onClose}>
+          <Button variant="contained" onClick={() => close()}>
             Cancel
           </Button>
         </ButtonsContainer>
@@ -42,4 +53,4 @@ const ButtonsContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export default AppModal;
+export default ConfirmModal;

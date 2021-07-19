@@ -2,10 +2,11 @@ import Header from './header/Header';
 import Sidebar from './sidebar/Sidebar';
 import MainContent from './views/MainContent';
 import ErrorBoundary from './shared/ErrorBoundary';
+import ConfirmModal from './shared/ConfirmModal';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Themes from 'themes';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Header />
           <Sidebar />
           <MainContent />
+          <ConfirmModal />
         </ErrorBoundary>
       </AppContainer>
     </ThemeProvider>

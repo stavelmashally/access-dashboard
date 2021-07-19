@@ -4,7 +4,7 @@ import SaveButton from './SaveButton';
 import RestoreButton from './RestoreButton';
 import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import appLogo from 'assets/app-logo.png';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
