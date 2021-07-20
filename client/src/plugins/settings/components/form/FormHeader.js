@@ -46,6 +46,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
       <ButtonsWrapper>
         <Tooltip title="add property">
           <IconButton
+            aria-label="add"
             onClick={e => setAnchorEl(anchorEl ? null : e.currentTarget)}
           >
             <Add />
@@ -53,6 +54,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
         </Tooltip>
         <Tooltip title="delete section">
           <IconButton
+            aria-label="delete"
             onClick={() =>
               confirmModal({
                 message: 'Are you sure you want to delete this section?',
@@ -86,11 +88,12 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
     );
   };
 
-  const renderEditableTitle = () => {
+  const renderEditMode = () => {
     return (
       <SpaceBetween>
         <Input
           type="text"
+          aria-label="title value"
           autoFocus
           value={inputTitle}
           onChange={handleInputChanged}
@@ -103,7 +106,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
 
   return (
     <Wrapper>
-      {editMode ? renderEditableTitle() : renderTitle()}
+      {editMode ? renderEditMode() : renderTitle()}
       {isExpanded && <InnerSection>{children}</InnerSection>}
       {anchorEl && (
         <FieldPopper anchorEl={anchorEl} onSelected={handleAddField} />
