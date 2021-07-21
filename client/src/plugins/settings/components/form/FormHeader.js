@@ -9,7 +9,7 @@ import { IconButton, Typography, Tooltip } from '@material-ui/core';
 import styled from 'styled-components/macro';
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
-  const [inputTitle, setInputTitle] = useState(title);
+  const [inputTitle, setInputTitle] = useState('');
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editMode, toggleEditMode] = useToggler(title === 'sectionTitle');
@@ -26,8 +26,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
       onSubmit({ value: newTitle });
       toggleEditMode();
     }
-    if (key === 'Escape') {
-      setInputTitle(title);
+    if (key === 'Escape' && title !== 'sectionTitle') {
       toggleEditMode();
     }
   };
@@ -71,13 +70,9 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
 
   const renderTitle = () => {
     return (
-      <SpaceBetween>
+      <SpaceBetween onDoubleClick={toggleEditMode}>
         <Tooltip title="Double-click to edit">
-          <Typography
-            variant="h5"
-            color="textSecondary"
-            onDoubleClick={toggleEditMode}
-          >
+          <Typography variant="h5" color="textSecondary">
             {title}
           </Typography>
         </Tooltip>
@@ -94,6 +89,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
         <Input
           type="text"
           aria-label="title value"
+          placeholder={title}
           autoFocus
           value={inputTitle}
           onChange={handleInputChanged}
@@ -117,6 +113,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
 
 const Wrapper = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   flex-wrap: wrap;
 `;

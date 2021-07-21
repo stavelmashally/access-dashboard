@@ -25,7 +25,7 @@ export const deletePropertyInPath = (obj, [key, ...next]) => {
 export const renamePropertyInPath = (obj, [key, ...next], propName) => {
   if (next.length === 0) {
     const { [key]: value, ...rest } = obj;
-    return { [propName]: value, ...rest };
+    return { ...rest, [propName]: value };
   }
   return { ...obj, [key]: renamePropertyInPath(obj[key], next, propName) };
 };

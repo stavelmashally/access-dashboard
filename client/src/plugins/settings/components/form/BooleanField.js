@@ -1,27 +1,27 @@
 import React from 'react';
-import EditableField from './EditableField';
+import Label from '../shared/Label';
 import { ButtonGroup, Button } from '@material-ui/core';
 
-const BooleanField = ({ value, label, onValueChanged, ...props }) => {
-  return (
-    <EditableField label={label} {...props}>
-      <ButtonGroup>
-        <Button
-          size="small"
-          color={value === 'true' ? 'primary' : 'secondary'}
-          onClick={() => onValueChanged({ label, value: true })}
-        >
-          True
-        </Button>
-        <Button
-          size="small"
-          color={value === 'false' ? 'primary' : 'secondary'}
-          onClick={() => onValueChanged({ label, value: false })}
-        >
-          False
-        </Button>
-      </ButtonGroup>
-    </EditableField>
+const BooleanField = ({ fieldValue, onValueChanged, editMode }) => {
+  return editMode ? (
+    <ButtonGroup>
+      <Button
+        color={fieldValue ? 'primary' : 'secondary'}
+        onClick={() => onValueChanged(true)}
+      >
+        True
+      </Button>
+      <Button
+        color={!fieldValue ? 'primary' : 'secondary'}
+        onClick={() => onValueChanged(false)}
+      >
+        False
+      </Button>
+    </ButtonGroup>
+  ) : (
+      <Label variant="value" title={fieldValue}>
+      {String(fieldValue)}
+    </Label>
   );
 };
 

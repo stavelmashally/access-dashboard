@@ -60,14 +60,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 1rem;
 `;
 
 const CardWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 1rem;
   padding: 1rem;
   border-radius: 8px;
   background: white;

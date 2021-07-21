@@ -27,8 +27,10 @@ const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
     const value = obj[key];
 
     if (isUndefined(value)) newObject[key] = undefined;
-    else if (isNumber(value)) newObject[key] = value;
-    else if (isBoolean(value)) newObject[key] = String(value);
+    else if (isBoolean(value)) {
+
+      newObject[key] = value;
+    } else if (isNumber(value)) newObject[key] = value;
     else if (Array.isArray(value)) newObject[key] = value;
     else if (isObject(value)) {
       newObject[key] = getNestedEndValue({}, value, type, delimiter);
@@ -48,7 +50,7 @@ const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
 const getNested = (type, path, delimiter = '.') => {
   const collection = getFromConfig(type);
   const code = get(collection, path, delimiter);
-  
+
   if (isUndefined(code)) return undefined;
   if (Array.isArray(code)) return code;
   if (isNumber(code)) return code;

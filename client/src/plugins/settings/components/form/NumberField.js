@@ -1,28 +1,23 @@
 import React from 'react';
-import EditableField from './EditableField';
 import Input from 'plugins/settings/components/shared/Input';
-import { useInputField } from '../../hooks/useInputField';
+import Label from '../shared/Label';
 
-const NumberField = ({ value, label, onValueChanged, ...props }) => {
-  const inputField = useInputField(value);
-
-  const handleKeyDown = event => {
-    const { key, target } = event;
-    if (key === 'Enter' && target.value.trim(' ').length > 0) {
-      onValueChanged({ label, value: Number(target.value) });
-    }
-    if (key === 'Escape') onValueChanged({ label, value });
+const NumberField = ({ fieldValue, onValueChanged, editMode }) => {
+  const handleChanged = ({ target }) => {
+    onValueChanged(Number(target.value));
   };
 
-  return (
-    <EditableField label={label} {...props}>
-      <Input
-        type="number"
-        aria-label="number value"
-        {...inputField}
-        onKeyDown={handleKeyDown}
-      />
-    </EditableField>
+  return editMode ? (
+    <Input
+      type="number"
+      aria-label="number value"
+      value={fieldValue}
+      onChange={handleChanged}
+    />
+  ) : (
+    <Label variant="value" title={fieldValue}>
+      {fieldValue}
+    </Label>
   );
 };
 

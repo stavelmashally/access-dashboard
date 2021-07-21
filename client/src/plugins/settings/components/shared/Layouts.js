@@ -35,7 +35,16 @@ export const CenteredContainer = styled.div`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  width: 100%;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  @media screen and (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const GridItem = styled.div`
+  display: grid;
+  grid-template-columns: 150px 65%;
+  align-items: flex-start;
+  gap: 0.5rem;
 `;

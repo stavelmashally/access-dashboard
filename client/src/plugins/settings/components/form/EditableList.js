@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import EditableField from './EditableField';
 import { HighlightOffOutlined } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import { useInputField } from '../../hooks/useInputField';
@@ -7,12 +6,12 @@ import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallbac
 import Input from 'plugins/settings/components/shared/Input';
 import styled from 'styled-components/macro';
 
-const EditableList = ({ label, value, onValueChanged, ...props }) => {
-  const [list, setList] = useStateWithCallback(value);
+const EditableList = ({ fieldValue, onValueChanged, editMode }) => {
+  const [list, setList] = useStateWithCallback(fieldValue);
   const [newInput, setNewInput] = useState('');
 
   const handleValueChanged = newList => {
-    onValueChanged({ label, value: newList });
+    onValueChanged(newList);
   };
 
   const handleListItemChanged = (index, value) => {
@@ -56,20 +55,18 @@ const EditableList = ({ label, value, onValueChanged, ...props }) => {
   };
 
   return (
-    <EditableField label={label} {...props}>
-      <List>
-        {renderList()}
-        <Input
-          type="text"
-          variant="small"
-          name="newInput"
-          onChange={e => setNewInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="New item"
-          value={newInput}
-        />
-      </List>
-    </EditableField>
+    <List>
+      {renderList()}
+      <Input
+        type="text"
+        name="newInput"
+        variant="small"
+        onChange={e => setNewInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder="New item"
+        value={newInput}
+      />
+    </List>
   );
 };
 
@@ -88,8 +85,8 @@ const EditableListItem = ({ value, index, onSubmit, onDelete }) => {
     <ListItem key={index}>
       <Input
         type="text"
-        aria-label="item value"
         variant="small"
+        aria-label="item value"
         placeholder="Enter a value"
         {...inputValue}
         onKeyDown={handleKeyDown}
@@ -107,9 +104,11 @@ const ListItem = styled.li`
 
 const List = styled.ul`
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: column;
   gap: 0.5rem;
   margin: 0;
+  padding-left: 1rem;
 `;
 
 export default EditableList;
