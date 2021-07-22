@@ -2,12 +2,12 @@ import React from 'react';
 import Input from 'plugins/settings/components/shared/Input';
 import Label from '../shared/Label';
 
-const StringField = ({ fieldValue, onValueChanged, editMode }) => {
+const StringField = ({ fieldValue, onValueChanged, isEditMode }) => {
   const handleChanged = event => {
     onValueChanged(event.target.value);
   };
 
-  return editMode ? (
+  return isEditMode ? (
     <Input
       type="text"
       aria-label="string fieldValue"

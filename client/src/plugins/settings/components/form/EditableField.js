@@ -8,7 +8,7 @@ import Input from 'plugins/settings/components/shared/Input';
 import Label from 'plugins/settings/components/shared/Label';
 import { GridItem } from 'plugins/settings/components/shared/Layouts';
 import { useToggler } from 'plugins/settings/hooks/useToggler';
-import { IconButton, ButtonGroup } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { Delete, Done } from '@material-ui/icons';
 import { useSetRecoilState } from 'recoil';
 import { confirmModalAtom } from 'plugins/settings/store';
@@ -41,11 +41,8 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
   const handleSubmit = () => {
     const newLabel = labelValue.trim(' ');
     const newValue = isString(fieldValue) ? fieldValue.trim(' ') : fieldValue;
-    if (newLabel.length < 1 || !newValue) return;
-    onFieldChanged(label, {
-      newLabel,
-      value: newValue,
-    });
+    // if (newLabel.length < 1 || !newValue) return;
+    onFieldChanged(label, { [newLabel]: newValue });
     toggleEditMode();
   };
 
@@ -63,11 +60,12 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
 
   const renderButtons = () => {
     return (
-      <ButtonGroup size="small">
-        <IconButton onClick={handleSubmit}>
+      <ButtonsWrapper size="small" aria-label="button group">
+        <IconButton size="small" onClick={handleSubmit}>
           <Done />
         </IconButton>
         <IconButton
+          size="small"
           onClick={() =>
             confirmModal({
               message: 'Are you sure you want to delete this field?',
@@ -77,7 +75,7 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
         >
           <Delete />
         </IconButton>
-      </ButtonGroup>
+      </ButtonsWrapper>
     );
   };
 
@@ -100,7 +98,7 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
       )}
       <FieldWrapper>
         <Field
-          editMode={isEditMode}
+          isEditMode={isEditMode}
           fieldValue={fieldValue}
           onValueChanged={handleValueChanged}
         />
@@ -114,6 +112,11 @@ const FieldWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+
 `;
 
 export default EditableField;

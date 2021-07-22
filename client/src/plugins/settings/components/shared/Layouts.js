@@ -44,7 +44,7 @@ export const Grid = styled.div`
 
 export const GridItem = styled.div`
   display: grid;
-  grid-template-columns: 150px 65%;
+  grid-template-columns: 33.334% 66.667%;
   align-items: flex-start;
   gap: 0.5rem;
 `;

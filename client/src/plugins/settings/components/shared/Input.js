@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 const Input = styled.input`
-  width: ${({ variant }) => (variant === 'small' ? '100px' : '150px')};
+  width: ${({ variant }) => (variant === 'small' ? '70%' : '100%')};
   padding: 0.5rem;
   color: #395464;
   border: 1px solid;

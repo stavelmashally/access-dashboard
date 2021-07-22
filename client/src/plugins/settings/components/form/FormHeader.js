@@ -23,7 +23,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
     const { key, target } = event;
     const newTitle = target.value.trim(' ');
     if (key === 'Enter' && newTitle.length > 0) {
-      onSubmit({ value: newTitle });
+      onSubmit(newTitle);
       toggleEditMode();
     }
     if (key === 'Escape' && title !== 'sectionTitle') {

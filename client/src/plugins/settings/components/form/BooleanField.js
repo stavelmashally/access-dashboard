@@ -2,9 +2,9 @@ import React from 'react';
 import Label from '../shared/Label';
 import { ButtonGroup, Button } from '@material-ui/core';
 
-const BooleanField = ({ fieldValue, onValueChanged, editMode }) => {
-  return editMode ? (
-    <ButtonGroup>
+const BooleanField = ({ fieldValue, onValueChanged, isEditMode }) => {
+  return isEditMode ? (
+    <div>
       <Button
         color={fieldValue ? 'primary' : 'secondary'}
         onClick={() => onValueChanged(true)}
@@ -17,9 +17,9 @@ const BooleanField = ({ fieldValue, onValueChanged, editMode }) => {
       >
         False
       </Button>
-    </ButtonGroup>
+    </div>
   ) : (
-      <Label variant="value" title={fieldValue}>
+    <Label variant="value" title={String(fieldValue)}>
       {String(fieldValue)}
     </Label>
   );

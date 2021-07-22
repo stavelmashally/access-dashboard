@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-const ColorField = ({ fieldValue, onValueChanged, editMode }) => {
-  return editMode ? (
+const ColorField = ({ fieldValue, onValueChanged, isEditMode }) => {
+  return isEditMode ? (
     <InputColor
       aria-label="color value"
       value={fieldValue}

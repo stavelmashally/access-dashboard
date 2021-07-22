@@ -21,20 +21,13 @@ const EditableForm = ({ title, data, path }) => {
     setRefresh({});
   };
 
-  const changeLabel = ({ label, value }) => {
-    Access.renameConfigProperty({
-      path: label ? `${path}.${label}` : path,
-      propName: value,
-    });
+  const changeTitle = label => {
+    Access.renameConfigProperty(path, label)
     setRefresh({});
   };
 
-  const changeField = (label, { newLabel, value }) => {
-    Access.setConfigValue({ path: `${path}.${label}`, value });
-    Access.renameConfigProperty({
-      path: `${path}.${label}`,
-      propName: newLabel,
-    });
+  const changeField = (label, fieldValue) => {
+    Access.updateConfigProperty(`${path}.${label}`, fieldValue);
     setRefresh({});
   };
 
@@ -73,7 +66,7 @@ const EditableForm = ({ title, data, path }) => {
   return (
     <FormHeader
       title={title}
-      onSubmit={changeLabel}
+      onSubmit={changeTitle}
       onAdd={addField}
       onDelete={deleteSection}
     >

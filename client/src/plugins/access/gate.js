@@ -7,6 +7,7 @@ import {
   setValueInPath,
   getFromPath,
   deleteByValue,
+  updateObjectProperty,
 } from 'plugins/access/utils/objectUtils';
 import general from './mainConfig/general';
 import colors from './mainConfig/colors';
@@ -82,7 +83,16 @@ export const addConfigProperty = ({ path, value }) => {
   config = addPropertyInPath(config, path.split('.'), value);
 };
 
-export const renameConfigProperty = ({ path, propName }) => {
+export const updateConfigProperty = (path, value) => {
+  path = path.split('.');
+  config = updateObjectProperty(config, path, value);
+  config = renameValue(config, {
+    oldVal: path[path.length - 1],
+    newVal: Object.keys(value)[0],
+  });
+};
+
+export const renameConfigProperty = (path, propName) => {
   path = path.split('.');
   config = renamePropertyInPath(config, path, propName);
   config = renameValue(config, {
@@ -92,5 +102,7 @@ export const renameConfigProperty = ({ path, propName }) => {
 };
 
 export const setConfigValue = ({ path, value }) => {
+  console.log(config);
   config = setValueInPath(config, path.split('.'), value);
+  console.log(config);
 };

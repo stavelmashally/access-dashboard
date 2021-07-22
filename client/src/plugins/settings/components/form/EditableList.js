@@ -1,48 +1,48 @@
 import React, { useState } from 'react';
 import { HighlightOffOutlined } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Button } from '@material-ui/core';
+import { useToggler } from 'plugins/settings/hooks/useToggler';
 import { useInputField } from '../../hooks/useInputField';
-import { useStateWithCallback } from 'plugins/settings/hooks/useStateWithCallback';
 import Input from 'plugins/settings/components/shared/Input';
+import Label from '../shared/Label';
 import styled from 'styled-components/macro';
 
-const EditableList = ({ fieldValue, onValueChanged, editMode }) => {
-  const [list, setList] = useStateWithCallback(fieldValue);
+const EditableList = ({ fieldValue, onValueChanged, isEditMode }) => {
   const [newInput, setNewInput] = useState('');
-
-  const handleValueChanged = newList => {
-    onValueChanged(newList);
-  };
+  const [isExpanded, toggleExpanded] = useToggler();
 
   const handleListItemChanged = (index, value) => {
-    setList(
-      prevList => [
-        ...prevList.slice(0, index),
-        value,
-        ...prevList.slice(index + 1),
-      ],
-      handleValueChanged
-    );
+    onValueChanged([
+      ...fieldValue.slice(0, index),
+      value,
+      ...fieldValue.slice(index + 1),
+    ]);
   };
 
   const handleDeleteClicked = index => event => {
-    event.preventDefault();
-    setList(
-      prevList => [...prevList.slice(0, index), ...prevList.slice(index + 1)],
-      handleValueChanged
-    );
+    onValueChanged([
+      ...fieldValue.slice(0, index),
+      ...fieldValue.slice(index + 1),
+    ]);
   };
 
   const handleKeyDown = event => {
     if (event.key === 'Enter' && newInput.trim(' ').length > 0) {
-      setList(prevList => [...prevList, newInput], handleValueChanged);
+      onValueChanged([...fieldValue, newInput]);
       setNewInput('');
     }
   };
 
+  const expandBtn =
+    fieldValue.length > 2 ? (
+      <Button size="small" onClick={() => toggleExpanded()}>
+        {isExpanded ? 'show less' : 'show more'}
+      </Button>
+    ) : null;
+
   const renderList = () => {
-    return list.map((elem, index) => {
-      return (
+    return fieldValue.map((elem, index) =>
+      isEditMode ? (
         <EditableListItem
           key={index}
           value={elem}
@@ -50,23 +50,41 @@ const EditableList = ({ fieldValue, onValueChanged, editMode }) => {
           onSubmit={handleListItemChanged}
           onDelete={handleDeleteClicked}
         />
-      );
-    });
+      ) : (
+        <ListItem key={index}>
+          <Label variant="value" title={fieldValue}>
+            {elem}
+          </Label>
+        </ListItem>
+      )
+    );
   };
 
-  return (
-    <List>
-      {renderList()}
-      <Input
-        type="text"
-        name="newInput"
-        variant="small"
-        onChange={e => setNewInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="New item"
-        value={newInput}
-      />
-    </List>
+  const renderEditMode = () => {
+    return (
+      <Wrapper expanded>
+        {renderList()}
+        <Input
+          type="text"
+          name="newInput"
+          variant="small"
+          onChange={e => setNewInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="New item"
+          value={newInput}
+        />
+      </Wrapper>
+    );
+  };
+
+  return isEditMode ? (
+    renderEditMode()
+  ) : fieldValue.length === 0 ? (
+    <Label variant="value">[ ]</Label>
+  ) : (
+    <Wrapper expanded={isExpanded}>
+      {renderList()} {expandBtn}
+    </Wrapper>
   );
 };
 
@@ -98,17 +116,22 @@ const EditableListItem = ({ value, index, onSubmit, onDelete }) => {
   );
 };
 
-const ListItem = styled.li`
-  padding-left: 0;
-`;
-
-const List = styled.ul`
+const Wrapper = styled.ul`
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   gap: 0.5rem;
   margin: 0;
   padding-left: 1rem;
+  ${({ expanded }) =>
+    !expanded &&
+    `li:nth-child(n + 3) {
+    display: none;
+  }`}
+`;
+
+const ListItem = styled.li`
+  padding-left: 0;
 `;
 
 export default EditableList;

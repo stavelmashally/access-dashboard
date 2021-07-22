@@ -2,12 +2,12 @@ import React from 'react';
 import Input from 'plugins/settings/components/shared/Input';
 import Label from '../shared/Label';
 
-const NumberField = ({ fieldValue, onValueChanged, editMode }) => {
+const NumberField = ({ fieldValue, onValueChanged, isEditMode }) => {
   const handleChanged = ({ target }) => {
     onValueChanged(Number(target.value));
   };
 
-  return editMode ? (
+  return isEditMode ? (
     <Input
       type="number"
       aria-label="number value"
