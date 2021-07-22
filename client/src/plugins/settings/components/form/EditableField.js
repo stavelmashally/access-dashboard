@@ -40,9 +40,10 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
 
   const handleSubmit = () => {
     const newLabel = labelValue.trim(' ');
-    const newValue = isString(fieldValue) ? fieldValue.trim(' ') : fieldValue;
-    // if (newLabel.length < 1 || !newValue) return;
-    onFieldChanged(label, { [newLabel]: newValue });
+    if (newLabel.length < 1) return;
+    if (Array.isArray(fieldValue) && fieldValue.length === 0) handleDelete();
+    if (isString(fieldValue) && fieldValue.trim(' ').length < 1) return;
+    onFieldChanged(label, { [newLabel]: fieldValue });
     toggleEditMode();
   };
 
@@ -82,7 +83,7 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
   const Field = getFieldComponentByValue(value);
 
   return (
-    <GridItem onDoubleClick={toggleEditMode}>
+    <GridItem onDoubleClick={!isEditMode && toggleEditMode}>
       {isEditMode ? (
         <Input
           type="text"
@@ -116,7 +117,6 @@ const FieldWrapper = styled.div`
 
 const ButtonsWrapper = styled.div`
   display: flex;
-
 `;
 
 export default EditableField;

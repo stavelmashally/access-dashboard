@@ -35,6 +35,11 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
     setInputTitle(event.target.value);
   };
 
+  const handleDblClickOnTitle = () => {
+    !isExpanded && toggleExpanded();
+    toggleEditMode();
+  };
+
   const handleAddField = type => {
     onAdd(type);
     setAnchorEl(null);
@@ -70,7 +75,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
 
   const renderTitle = () => {
     return (
-      <SpaceBetween onDoubleClick={toggleEditMode}>
+      <SpaceBetween onDoubleClick={handleDblClickOnTitle}>
         <Tooltip title="Double-click to edit">
           <Typography variant="h5" color="textSecondary">
             {title}
