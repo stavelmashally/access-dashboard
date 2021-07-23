@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from 'plugins/settings/components/shared/Input';
+import Input from 'plugins/dashboard/components/shared/Input';
 import Label from '../shared/Label';
 
 const NumberField = ({ fieldValue, onValueChanged, isEditMode }) => {

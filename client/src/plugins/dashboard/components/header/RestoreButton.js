@@ -6,7 +6,7 @@ import {
   forceUpdateAtom,
   restoreDefaultSelector,
   confirmModalAtom,
-} from 'plugins/settings/store';
+} from 'plugins/dashboard/store';
 
 const RestoreButton = () => {
   const restoreDefault = useSetRecoilState(restoreDefaultSelector);

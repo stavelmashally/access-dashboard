@@ -9,7 +9,7 @@ import {
   viewModeAtom,
   defaultConfigAtom,
   selectedConfigAtom,
-} from 'plugins/settings/store';
+} from 'plugins/dashboard/store';
 import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import styled from 'styled-components/macro';
 

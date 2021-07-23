@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useToggler } from 'plugins/settings/hooks/useToggler';
+import { useToggler } from 'plugins/dashboard/hooks/useToggler';
 import FieldPopper from './FieldPopper';
 import { useSetRecoilState } from 'recoil';
-import { confirmModalAtom } from 'plugins/settings/store';
-import { SpaceBetween } from 'plugins/settings/components/shared/Layouts';
+import { confirmModalAtom } from 'plugins/dashboard/store';
+import { SpaceBetween } from 'plugins/dashboard/components/shared/Layouts';
 import { ExpandMore, ExpandLess, Add, Delete } from '@material-ui/icons';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
 import styled from 'styled-components/macro';

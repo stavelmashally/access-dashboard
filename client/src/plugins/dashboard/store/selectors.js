@@ -1,7 +1,7 @@
 import { selector } from 'recoil';
 import { defaultConfigAtom } from './atoms';
 import { addToConfig, replaceConfig } from 'plugins/access/gate';
-import * as Api from 'plugins/settings/api';
+import * as Api from 'plugins/dashboard/api';
 
 const fetchConfigSelector = selector({
   key: 'fetchConfigSelector',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Typography, Button } from '@material-ui/core';
-import { confirmModalAtom } from 'plugins/settings/store';
+import { confirmModalAtom } from 'plugins/dashboard/store';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from 'styled-components/macro';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { Visibility, Code } from '@material-ui/icons';
 import { useRecoilState } from 'recoil';
-import { viewModeAtom } from 'plugins/settings/store';
+import { viewModeAtom } from 'plugins/dashboard/store';
 
 const ModeToggle = () => {
   const [viewMode, setViewMode] = useRecoilState(viewModeAtom);

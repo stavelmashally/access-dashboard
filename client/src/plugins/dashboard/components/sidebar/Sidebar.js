@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
 import { uniqueId } from 'lodash';
-import { selectedConfigAtom } from 'plugins/settings/store';
+import { selectedConfigAtom } from 'plugins/dashboard/store';
 
 const useStyles = makeStyles(theme => ({
   drawer: {

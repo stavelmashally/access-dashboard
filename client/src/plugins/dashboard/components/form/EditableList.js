@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { HighlightOffOutlined } from '@material-ui/icons';
 import { IconButton, Button } from '@material-ui/core';
-import { useToggler } from 'plugins/settings/hooks/useToggler';
+import { useToggler } from 'plugins/dashboard/hooks/useToggler';
 import { useInputField } from '../../hooks/useInputField';
-import Input from 'plugins/settings/components/shared/Input';
+import Input from 'plugins/dashboard/components/shared/Input';
 import Label from '../shared/Label';
 import styled from 'styled-components/macro';
 

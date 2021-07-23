@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useToggler } from 'plugins/settings/hooks/useToggler';
-import { formatDate } from 'plugins/settings/services/date';
-import Input from 'plugins/settings/components/shared/Input';
+import { useToggler } from 'plugins/dashboard/hooks/useToggler';
+import { formatDate } from 'plugins/dashboard/services/date';
+import Input from 'plugins/dashboard/components/shared/Input';
 import styled from 'styled-components/macro';
 
 const FormatField = ({ value }) => {

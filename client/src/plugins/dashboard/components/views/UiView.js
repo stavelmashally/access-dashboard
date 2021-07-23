@@ -4,7 +4,7 @@ import { Column } from '../shared/Layouts';
 import { Add } from '@material-ui/icons';
 import { Button, Typography } from '@material-ui/core';
 import { useRecoilState } from 'recoil';
-import { forceUpdateAtom } from 'plugins/settings/store';
+import { forceUpdateAtom } from 'plugins/dashboard/store';
 import { addConfigProperty } from 'plugins/access/gate';
 import * as access from 'plugins/access';
 import styled from 'styled-components/macro';
