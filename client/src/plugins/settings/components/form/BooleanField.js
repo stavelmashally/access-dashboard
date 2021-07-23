@@ -1,6 +1,6 @@
 import React from 'react';
 import Label from '../shared/Label';
-import { ButtonGroup, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 const BooleanField = ({ fieldValue, onValueChanged, isEditMode }) => {
   return isEditMode ? (

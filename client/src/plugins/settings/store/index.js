@@ -1,11 +1,11 @@
 import {
   defaultConfigAtom,
   selectedConfigAtom,
-  refreshAtom,
+  forceUpdateAtom,
   viewModeAtom,
   hasErrorAtom,
   expandedAtom,
-  confirmModalAtom
+  confirmModalAtom,
 } from './atoms';
 
 import { fetchConfigSelector, restoreDefaultSelector } from './selectors';
@@ -13,11 +13,11 @@ import { fetchConfigSelector, restoreDefaultSelector } from './selectors';
 export {
   defaultConfigAtom,
   viewModeAtom,
-  refreshAtom,
+  forceUpdateAtom,
   selectedConfigAtom,
   fetchConfigSelector,
   hasErrorAtom,
   expandedAtom,
   restoreDefaultSelector,
-  confirmModalAtom
+  confirmModalAtom,
 };

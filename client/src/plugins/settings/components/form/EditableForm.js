@@ -4,36 +4,36 @@ import FormHeader from './FormHeader';
 import EditableField from './EditableField';
 import { Grid } from '../shared/Layouts';
 import { useSetRecoilState } from 'recoil';
-import { refreshAtom } from 'plugins/settings/store';
+import { forceUpdateAtom } from 'plugins/settings/store';
 import { isPlainObject, isUndefined, uniqueId } from 'lodash';
 import * as Access from 'plugins/access/gate';
 
 const EditableForm = ({ title, data, path }) => {
-  const setRefresh = useSetRecoilState(refreshAtom);
+  const forceUpdate = useSetRecoilState(forceUpdateAtom);
 
   const addField = value => {
     Access.addConfigProperty({ path, value });
-    setRefresh({});
+    forceUpdate(x => x + 1);
   };
 
   const deleteField = fieldName => {
     Access.deleteConfigProperty(`${path}.${fieldName}`);
-    setRefresh({});
+    forceUpdate(x => x + 1);
   };
 
   const changeTitle = label => {
     Access.renameConfigProperty(path, label);
-    setRefresh({});
+    forceUpdate(x => x + 1);
   };
 
   const changeField = (label, fieldValue) => {
     Access.updateConfigProperty(`${path}.${label}`, fieldValue);
-    setRefresh({});
+    forceUpdate(x => x + 1);
   };
 
   const deleteSection = () => {
     Access.deleteConfigProperty(path);
-    setRefresh({});
+    forceUpdate(x => x + 1);
   };
 
   const renderTree = () => {
@@ -66,8 +66,8 @@ const EditableForm = ({ title, data, path }) => {
   return (
     <FormHeader
       title={title}
-      onSubmit={changeTitle}
       onAdd={addField}
+      onSubmit={changeTitle}
       onDelete={deleteSection}
     >
       <Divider />

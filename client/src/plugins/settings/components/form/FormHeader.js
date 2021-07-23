@@ -12,11 +12,12 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [inputTitle, setInputTitle] = useState('');
   const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [editMode, toggleEditMode] = useToggler(title === 'sectionTitle');
+  const [editMode, setEditMode] = useState(false);
   const confirmModal = useSetRecoilState(confirmModalAtom);
 
   useEffect(() => {
     setInputTitle(title);
+    setEditMode(title === 'sectionTitle');
   }, [title]);
 
   const handleKeyDown = event => {
@@ -24,10 +25,10 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
     const newTitle = target.value.trim(' ');
     if (key === 'Enter' && newTitle.length > 0) {
       onSubmit(newTitle);
-      toggleEditMode();
+      setEditMode(false);
     }
     if (key === 'Escape' && title !== 'sectionTitle') {
-      toggleEditMode();
+      setEditMode(false);
     }
   };
 
@@ -37,7 +38,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
 
   const handleDblClickOnTitle = () => {
     !isExpanded && toggleExpanded();
-    toggleEditMode();
+    setEditMode(true);
   };
 
   const handleAddField = type => {

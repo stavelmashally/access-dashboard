@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from '@material-ui/core';
 import { RestorePage } from '@material-ui/icons';
 import { useSetRecoilState } from 'recoil';
 import {
-  refreshAtom,
+  forceUpdateAtom,
   restoreDefaultSelector,
   confirmModalAtom,
 } from 'plugins/settings/store';
@@ -11,11 +11,11 @@ import {
 const RestoreButton = () => {
   const restoreDefault = useSetRecoilState(restoreDefaultSelector);
   const confirmModal = useSetRecoilState(confirmModalAtom);
-  const refresh = useSetRecoilState(refreshAtom);
+  const forceUpdate = useSetRecoilState(forceUpdateAtom);
 
   const handleRestore = () => {
     restoreDefault();
-    refresh({});
+    forceUpdate(x => x + 1);
   };
 
   return (

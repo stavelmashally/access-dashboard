@@ -55,6 +55,10 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
     setFieldValue(newValue);
   };
 
+  const handleDblCLick = () => {
+    !isEditMode && toggleEditMode();
+  };
+
   const handleDelete = () => {
     onDelete(label);
   };
@@ -83,7 +87,7 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
   const Field = getFieldComponentByValue(value);
 
   return (
-    <GridItem onDoubleClick={!isEditMode && toggleEditMode}>
+    <GridItem onDoubleClick={handleDblCLick}>
       {isEditMode ? (
         <Input
           type="text"

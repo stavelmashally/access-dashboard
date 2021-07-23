@@ -4,13 +4,13 @@ import { Column } from '../shared/Layouts';
 import { Add } from '@material-ui/icons';
 import { Button, Typography } from '@material-ui/core';
 import { useRecoilState } from 'recoil';
-import { refreshAtom } from 'plugins/settings/store';
+import { forceUpdateAtom } from 'plugins/settings/store';
 import { addConfigProperty } from 'plugins/access/gate';
 import * as access from 'plugins/access';
 import styled from 'styled-components/macro';
 
 const UiView = ({ selected }) => {
-  const [, setRefresh] = useRecoilState(refreshAtom);
+  const [, forceUpdate] = useRecoilState(forceUpdateAtom);
 
   const config = access[selected]();
 
@@ -19,7 +19,7 @@ const UiView = ({ selected }) => {
       path: selected,
       value: { sectionTitle: {} },
     });
-    setRefresh({});
+    forceUpdate(x => x + 1);
   };
 
   const renderCards = () => {
