@@ -3,10 +3,7 @@ import {
   addPropertyInPath,
   deletePropertyInPath,
   renamePropertyInPath,
-  renameValue,
-  setValueInPath,
   getFromPath,
-  deleteByValue,
   updateObjectProperty,
 } from 'plugins/access/utils/objectUtils';
 import general from './mainConfig/general';
@@ -74,9 +71,7 @@ export const replaceConfig = ({ path, value }) => {
 };
 
 export const deleteConfigProperty = path => {
-  path = path.split('.');
-  config = deletePropertyInPath(config, path);
-  config = deleteByValue(config, path[path.length - 1]);
+  config = deletePropertyInPath(config, path.split('.'));
 };
 
 export const addConfigProperty = ({ path, value }) => {
@@ -84,25 +79,9 @@ export const addConfigProperty = ({ path, value }) => {
 };
 
 export const updateConfigProperty = (path, value) => {
-  path = path.split('.');
-  config = updateObjectProperty(config, path, value);
-  config = renameValue(config, {
-    oldVal: path[path.length - 1],
-    newVal: Object.keys(value)[0],
-  });
+  config = updateObjectProperty(config, path.split('.'), value);
 };
 
 export const renameConfigProperty = (path, propName) => {
-  path = path.split('.');
-  config = renamePropertyInPath(config, path, propName);
-  config = renameValue(config, {
-    oldVal: path[path.length - 1],
-    newVal: propName,
-  });
-};
-
-export const setConfigValue = ({ path, value }) => {
-  console.log(config);
-  config = setValueInPath(config, path.split('.'), value);
-  console.log(config);
+  config = renamePropertyInPath(config, path.split('.'), propName);
 };

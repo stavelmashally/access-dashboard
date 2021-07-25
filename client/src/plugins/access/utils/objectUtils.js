@@ -18,13 +18,6 @@ export const renamePropertyInPath = (obj, [key, ...next], propName) => {
   return { ...obj, [key]: renamePropertyInPath(obj[key], next, propName) };
 };
 
-export const setValueInPath = (obj, [key, ...next], value) => {
-  return {
-    ...obj,
-    [key]: next.length === 0 ? value : setValueInPath(obj[key], next, value),
-  };
-};
-
 export const addPropertyInPath = (obj, [key, ...next], value) => {
   return next.length === 0
     ? { ...obj, [key]: { ...obj[key], ...value } }
@@ -37,44 +30,9 @@ export const getFromPath = (obj, [key, ...next]) => {
 
 export const deletePropertyInPath = (obj, [key, ...next]) => {
   if (next.length === 0) {
-    const { [key]: remove, ...rest } = obj;
+    const { [key]: omitted, ...rest } = obj;
     return rest;
   }
   return { ...obj, [key]: deletePropertyInPath(obj[key], next) };
 };
 
-export const renameValue = (obj, { oldVal, newVal }) => {
-  return Object.entries(obj).reduce(
-    (acc, [key, value]) => ({
-      ...acc,
-      ...{
-        [key]: isPlainObject(value)
-          ? renameValue(value, { oldVal, newVal })
-          : typeof value === 'string' && value.includes(`${oldVal}`)
-          ? value.replace(oldVal, newVal)
-          : value,
-      },
-    }),
-    {}
-  );
-};
-
-export const deleteByValue = (obj, valueToDelete) => {
-  return Object.entries(obj).reduce(
-    (acc, [key, value]) => ({
-      ...acc,
-      ...{
-        [key]: isPlainObject(value)
-          ? deleteByValue(value, valueToDelete)
-          : typeof value === 'string' && value.includes(`${valueToDelete}`)
-          ? undefined
-          : value,
-      },
-    }),
-    {}
-  );
-};
-
-const isPlainObject = obj => {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-};

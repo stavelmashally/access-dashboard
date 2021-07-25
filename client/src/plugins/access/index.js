@@ -27,10 +27,8 @@ const getNestedEndValue = (newObject = {}, obj, type, delimiter) => {
     const value = obj[key];
 
     if (isUndefined(value)) newObject[key] = undefined;
-    else if (isBoolean(value)) {
-
-      newObject[key] = value;
-    } else if (isNumber(value)) newObject[key] = value;
+    else if (isBoolean(value)) newObject[key] = value;
+    else if (isNumber(value)) newObject[key] = value;
     else if (Array.isArray(value)) newObject[key] = value;
     else if (isObject(value)) {
       newObject[key] = getNestedEndValue({}, value, type, delimiter);
