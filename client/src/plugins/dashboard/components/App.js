@@ -28,6 +28,7 @@ const AppContainer = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 `;
 
 export default App;

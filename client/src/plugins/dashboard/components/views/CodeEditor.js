@@ -36,7 +36,7 @@ const CodeEditor = ({ selected }) => {
         debounceChangePeriod={500}
         showPrintMargin={false}
         enableLiveAutocompletion
-        CodeeditorProps={{ $blockScrolling: true }}
+        CodeeditorProps={{ $blockScrolling: false }}
       />
     </Wrapper>
   );

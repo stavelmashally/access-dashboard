@@ -86,10 +86,7 @@ const EditableField = ({ label, value, onFieldChanged, onDelete }) => {
 
   const Field = getFieldComponentByValue(value);
 
-  useEffect(() => {
-    setLabelValue(label);
-    setFieldValue(value);
-  }, [label, value]);
+
 
   return (
     <GridItem onDoubleClick={handleDblCLick}>

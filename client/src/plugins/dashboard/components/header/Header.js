@@ -2,6 +2,7 @@ import React from 'react';
 import ViewModeToggle from './ModeToggle';
 import SaveButton from './SaveButton';
 import RestoreButton from './RestoreButton';
+import { TOOLBAR_HEIGHT } from '../shared/Layouts';
 import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import appLogo from 'assets/app-logo.png';
 import styled from 'styled-components/macro';
@@ -15,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: TOOLBAR_HEIGHT,
   },
 }));
 
@@ -22,11 +24,11 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position='fixed' className={classes.appBar}>
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <TitleContainer>
-          <img src={appLogo} alt='app logo' width={40} height={40} />
-          <Typography variant='h5'>Access</Typography>
+          <img src={appLogo} alt="app logo" width={40} height={40} />
+          <Typography variant="h5">Access</Typography>
         </TitleContainer>
         <ButtonsContainer>
           <SaveButton />

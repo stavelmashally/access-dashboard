@@ -1,4 +1,5 @@
 const defaultTheme = {
+  overrides: {},
   palette: {
     primary: {
       main: '#163153',

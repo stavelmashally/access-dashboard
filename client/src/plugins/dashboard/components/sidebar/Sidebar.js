@@ -10,7 +10,7 @@ import {
 } from '@material-ui/icons';
 import { ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SIDEBAR_WIDTH } from '../shared/Layouts';
+import { SIDEBAR_WIDTH, TOOLBAR_HEIGHT } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
 import { uniqueId } from 'lodash';
 import { selectedConfigAtom } from 'plugins/dashboard/store';
@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: SIDEBAR_WIDTH,
+    marginTop: TOOLBAR_HEIGHT,
   },
   itemText: {
     color: theme.palette.text.secondary,
@@ -71,7 +72,6 @@ const Sidebar = () => {
       anchor="left"
       classes={{ paper: classes.drawerPaper }}
     >
-      <Toolbar />
       <List>{renderListItems()}</List>
     </Drawer>
   );
