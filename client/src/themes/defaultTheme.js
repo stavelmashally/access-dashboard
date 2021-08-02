@@ -8,10 +8,10 @@ const defaultTheme = {
     },
     text: {
       primary: '#012333',
-      secondary: '#395464',
+      secondary: '#485861',
     },
     background: {
-      default: '#f6f7ff',
+      default: '#F6F7FF',
     },
   },
   typography: {

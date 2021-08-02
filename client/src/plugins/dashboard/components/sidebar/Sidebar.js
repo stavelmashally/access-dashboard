@@ -14,6 +14,8 @@ import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
 import { uniqueId } from 'lodash';
 import { selectedConfigAtom } from 'plugins/dashboard/store';
+import { motion, AnimateSharedLayout } from 'framer-motion';
+import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
   drawer: {
@@ -24,14 +26,23 @@ const useStyles = makeStyles(theme => ({
     width: SIDEBAR_WIDTH,
   },
   itemText: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
+    '&:hover': {
+      color: theme.palette.text.secondary,
+    },
   },
   itemActiveText: {
     color: theme.palette.primary.main,
   },
   listItemIcon: {
     minWidth: '35px',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
+  },
+  listItem: {
+    zIndex: 1,
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
   },
 }));
 
@@ -53,15 +64,20 @@ const Sidebar = () => {
   };
 
   const renderListItems = () => {
-    return sidebarItems.map(item => (
-      <SidebarItem
-        key={uniqueId()}
-        text={item.text}
-        icon={item.icon}
-        onSelected={handleSelected}
-        isActive={item.text === selected}
-      />
-    ));
+    return sidebarItems.map(item => {
+      return (
+        <div style={{ position: 'relative' }}>
+          {item.text === selected && <Rect layoutId="rect" />}
+          <SidebarItem
+            key={uniqueId()}
+            text={item.text}
+            icon={item.icon}
+            onSelected={handleSelected}
+            isActive={item.text === selected}
+          />
+        </div>
+      );
+    });
   };
 
   return (
@@ -72,7 +88,9 @@ const Sidebar = () => {
       classes={{ paper: classes.drawerPaper }}
     >
       <Toolbar />
-      <List>{renderListItems()}</List>
+      <AnimateSharedLayout transition={{ duration: 0.5 }}>
+        <List>{renderListItems()}</List>
+      </AnimateSharedLayout>
     </Drawer>
   );
 };
@@ -81,7 +99,11 @@ const SidebarItem = ({ text, icon, onSelected, isActive }) => {
   const classes = useStyles();
 
   return (
-    <ListItem button onClick={() => onSelected(text)} selected={isActive}>
+    <ListItem
+      className={classes.listItem}
+      button
+      onClick={() => onSelected(text)}
+    >
       <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
       <ListItemText
         className={isActive ? classes.itemActiveText : classes.itemText}
@@ -90,5 +112,13 @@ const SidebarItem = ({ text, icon, onSelected, isActive }) => {
     </ListItem>
   );
 };
+
+const Rect = styled(motion.div)`
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  background-color: #f6f7ff;
+  z-index: 0;
+`;
 
 export default Sidebar;
