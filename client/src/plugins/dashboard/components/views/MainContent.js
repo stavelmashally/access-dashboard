@@ -3,14 +3,13 @@ import Loader from '../shared/Loader';
 import Error from '../shared/Error';
 import Ui from './UiView';
 import Editor from './CodeEditor';
-import { Toolbar } from '@material-ui/core';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
   viewModeAtom,
   defaultConfigAtom,
   selectedConfigAtom,
 } from 'plugins/dashboard/store';
-import { SIDEBAR_WIDTH } from '../shared/Layouts';
+import { SIDEBAR_WIDTH, TOOLBAR_HEIGHT } from '../shared/Layouts';
 import styled from 'styled-components/macro';
 
 const MainContent = () => {
@@ -23,17 +22,20 @@ const MainContent = () => {
 
   return (
     <Wrapper>
-      <Toolbar />
       {viewMode ? <Ui selected={selected} /> : <Editor selected={selected} />}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  position: absolute;
+  top: ${TOOLBAR_HEIGHT}px;
+  left: ${SIDEBAR_WIDTH}px;
+  right: 0px;
+  bottom: 0px;
   display: flex;
   flex-direction: column;
-  width: calc(100% - ${SIDEBAR_WIDTH}px);
-  height: 100%;
+  overflow-y: scroll;
 `;
 
 export default MainContent;

@@ -2,41 +2,70 @@ import React from 'react';
 import { Modal, Typography, Button } from '@material-ui/core';
 import { confirmModalAtom } from 'plugins/dashboard/store';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components/macro';
+
+const modalVariants = {
+  hidden: {
+    opacity: 0,
+    x: '-50%',
+    y: '-100vh',
+  },
+  visible: {
+    opacity: 1,
+    x: '-50%',
+    y: '-50%',
+    transition: { delay: 0.2 },
+  },
+};
 
 const ConfirmModal = () => {
   const { message, onConfirm } = useRecoilValue(confirmModalAtom);
   const close = useResetRecoilState(confirmModalAtom);
 
+  const renderModalButtons = () => {
+    return (
+      <ButtonsContainer>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            close();
+            onConfirm?.();
+          }}
+        >
+          Submit
+        </Button>
+        <Button variant="contained" onClick={() => close()}>
+          Cancel
+        </Button>
+      </ButtonsContainer>
+    );
+  };
+
   return (
-    <Modal open={!!onConfirm} onClose={() => close()}>
-      <ModalContainer>
-        <Typography variant="h6">{message}</Typography>
-        <ButtonsContainer>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              close();
-              onConfirm?.();
-            }}
+    <AnimatePresence>
+      {!!onConfirm && (
+        <Modal open onClose={() => close()}>
+          <ModalContainer
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
           >
-            Submit
-          </Button>
-          <Button variant="contained" onClick={() => close()}>
-            Cancel
-          </Button>
-        </ButtonsContainer>
-      </ModalContainer>
-    </Modal>
+            <Typography variant="h6">{message}</Typography>
+            {renderModalButtons()}
+          </ModalContainer>
+        </Modal>
+      )}
+    </AnimatePresence>
   );
 };
 
-const ModalContainer = styled.div`
+const ModalContainer = styled(motion.div)`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 400px;
   display: flex;
   flex-direction: column;

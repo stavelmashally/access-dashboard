@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const SIDEBAR_WIDTH = 240;
+export const TOOLBAR_HEIGHT = 64;
 
 const Flex = styled.div`
   width: 100%;
