@@ -3,10 +3,12 @@ import Loader from '../shared/Loader';
 import Error from '../shared/Error';
 import Ui from './UiView';
 import Editor from './CodeEditor';
+import Settings from './Settings';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import {
+  configEndpointsAtom,
   viewModeAtom,
-  defaultConfigAtom,
+  configAtom,
   selectedConfigAtom,
 } from 'plugins/dashboard/store';
 import { SIDEBAR_WIDTH, TOOLBAR_HEIGHT } from '../shared/Layouts';
@@ -15,8 +17,15 @@ import styled from 'styled-components/macro';
 const MainContent = () => {
   const viewMode = useRecoilValue(viewModeAtom);
   const selected = useRecoilValue(selectedConfigAtom);
-  const { state } = useRecoilValueLoadable(defaultConfigAtom);
+  const { fetchUrl, postUrl } = useRecoilValue(configEndpointsAtom);
+  const { state } = useRecoilValueLoadable(configAtom);
 
+  if (!fetchUrl || !postUrl)
+    return (
+      <Wrapper>
+        <Settings />
+      </Wrapper>
+    );
   if (state === 'loading') return <Loader />;
   if (state === 'hasError') return <Error msg="Failed to load configs" />;
 

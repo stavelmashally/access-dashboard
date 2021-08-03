@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5050';
+export const BASE_URL = 'http://localhost:5050/';
+
+const fetchConfig = endpoint => {
+  return axios.get(`${BASE_URL}${endpoint}`);
+};
 
 const fetchDefaultConfig = () => {
-  return axios.get(`${BASE_URL}/defaultConfig`);
+  return axios.get(`${BASE_URL}defaultConfig`);
 };
 
 const fetchModifyConfig = () => {
-  return axios.get(`${BASE_URL}/modifyConfig`);
-};
-
-const fetchConfig = () => {
-  return axios.get(`${BASE_URL}/config`);
+  return axios.get(`${BASE_URL}modifyConfig`);
 };
 
 export { fetchDefaultConfig, fetchModifyConfig, fetchConfig };

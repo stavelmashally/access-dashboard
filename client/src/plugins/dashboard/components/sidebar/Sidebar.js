@@ -66,10 +66,9 @@ const Sidebar = () => {
   const renderListItems = () => {
     return sidebarItems.map(item => {
       return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative' }} key={uniqueId()}>
           {item.text === selected && <Rect layoutId="rect" />}
           <SidebarItem
-            key={uniqueId()}
             text={item.text}
             icon={item.icon}
             onSelected={handleSelected}

@@ -3,7 +3,7 @@ import { fetchConfigSelector } from './selectors';
 
 const confirmModalAtom = atom({
   key: 'confirmModalAtom',
-  default: {message: '', onConfirm: undefined}
+  default: { message: '', onConfirm: undefined },
 });
 
 const viewModeAtom = atom({
@@ -11,7 +11,12 @@ const viewModeAtom = atom({
   default: true,
 });
 
-const defaultConfigAtom = atom({
+const configEndpointsAtom = atom({
+  key: 'configEndpointsAtom',
+  default: { fetchUrl: null, postUrl: null },
+});
+
+const configAtom = atom({
   key: 'configAtom',
   default: fetchConfigSelector,
 });
@@ -31,17 +36,13 @@ const hasErrorAtom = atom({
   default: false,
 });
 
-const expandedAtom = atom({
-  key: 'expandedAtom',
-  default: {},
-});
 
 export {
-  defaultConfigAtom,
+  configEndpointsAtom,
+  configAtom,
   selectedConfigAtom,
   viewModeAtom,
   hasErrorAtom,
   forceUpdateAtom,
-  expandedAtom,
   confirmModalAtom,
 };

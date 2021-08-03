@@ -22,7 +22,7 @@ const sectionVariants = {
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [inputTitle, setInputTitle] = useState('');
-  const [isExpanded, toggleExpanded] = useToggler(true);
+  const [isExpanded, toggleExpanded, close] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const confirmModal = useSetRecoilState(confirmModalAtom);
@@ -30,7 +30,8 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   useEffect(() => {
     setInputTitle(title);
     setEditMode(title === 'sectionTitle');
-  }, [title]);
+    close();
+  }, [title, close]);
 
   const handleKeyDown = event => {
     const { key, target } = event;
