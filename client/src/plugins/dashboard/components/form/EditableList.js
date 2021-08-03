@@ -83,7 +83,8 @@ const EditableList = ({ fieldValue, onValueChanged, isEditMode }) => {
     <Label variant="value">[ ]</Label>
   ) : (
     <Wrapper expanded={isExpanded}>
-      {renderList()} {expandBtn}
+      {renderList()}
+      {expandBtn}
     </Wrapper>
   );
 };

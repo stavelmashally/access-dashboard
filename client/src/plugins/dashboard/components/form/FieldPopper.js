@@ -12,7 +12,7 @@ const options = [
 
 const FieldPopper = ({ anchorEl, onSelected }) => {
   return (
-    <Popper id="simple-popper" open anchorEl={anchorEl}>
+    <Popper open anchorEl={anchorEl}>
       <PopperContainer>
         {options.map(({ type, value }) => (
           <PopperItem key={type} onClick={() => onSelected(value)}>
@@ -30,6 +30,7 @@ const PopperContainer = styled.div`
   background-color: #fff;
   box-shadow: 0px 3px 11px 0px #b2b2b21a, 0 3px 3px -2px #b2b2b21a,
     0 1px 8px 0 #b2b2b21a;
+    z-index: 100;
 `;
 
 const PopperItem = styled.div`

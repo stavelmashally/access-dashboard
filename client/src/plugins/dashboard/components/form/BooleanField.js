@@ -1,27 +1,20 @@
 import React from 'react';
-import Label from '../shared/Label';
-import { Button } from '@material-ui/core';
+import { Switch } from '@material-ui/core';
 
 const BooleanField = ({ fieldValue, onValueChanged, isEditMode }) => {
+  const handleChange = event => {
+    onValueChanged(event.target.checked);
+  };
+
   return isEditMode ? (
     <div>
-      <Button
-        color={fieldValue ? 'primary' : 'secondary'}
-        onClick={() => onValueChanged(true)}
-      >
-        True
-      </Button>
-      <Button
-        color={!fieldValue ? 'primary' : 'secondary'}
-        onClick={() => onValueChanged(false)}
-      >
-        False
-      </Button>
+      <Switch checked={fieldValue} onChange={handleChange} />
     </div>
   ) : (
-    <Label variant="value" title={String(fieldValue)}>
-      {String(fieldValue)}
-    </Label>
+    <Switch
+      checked={fieldValue}
+      style={{ cursor: 'default', backgroundColor: 'transparent' }}
+    />
   );
 };
 

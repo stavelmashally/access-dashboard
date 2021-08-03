@@ -26,17 +26,17 @@ const useStyles = makeStyles(theme => ({
     width: SIDEBAR_WIDTH,
   },
   itemText: {
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
     '&:hover': {
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.primary,
     },
   },
   itemActiveText: {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.primary,
   },
   listItemIcon: {
     minWidth: '35px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
   },
   listItem: {
     zIndex: 1,
@@ -102,6 +102,7 @@ const SidebarItem = ({ text, icon, onSelected, isActive }) => {
     <ListItem
       className={classes.listItem}
       button
+      disableRipple
       onClick={() => onSelected(text)}
     >
       <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
@@ -117,7 +118,7 @@ const Rect = styled(motion.div)`
   width: 100%;
   height: 50px;
   position: absolute;
-  background-color: #f6f7ff;
+  background-color: #e9eaf5;
   z-index: 0;
 `;
 

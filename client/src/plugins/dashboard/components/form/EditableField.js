@@ -19,7 +19,8 @@ const getFieldComponentByValue = value => {
   if (isBoolean(value)) return BooleanField;
   if (isNumber(value)) return NumberField;
   if (Array.isArray(value)) return EditableList;
-  if (isString(value)) return value.startsWith('#') ? ColorField : StringField;
+  if (isString(value))
+    return value.match(/#[a-fA-F0-9]+/) ? ColorField : StringField;
 };
 
 const EditableField = ({ label, value, onFieldChanged, onDelete }) => {

@@ -78,10 +78,10 @@ export const addConfigProperty = ({ path, value }) => {
   config = addPropertyInPath(config, path.split('.'), value);
 };
 
-export const updateConfigProperty = (path, value) => {
+export const updateConfigProperty = ({ path, value }) => {
   config = updateObjectProperty(config, path.split('.'), value);
 };
 
-export const renameConfigProperty = (path, propName) => {
+export const renameConfigProperty = ({ path, propName }) => {
   config = renamePropertyInPath(config, path.split('.'), propName);
 };

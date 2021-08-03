@@ -6,7 +6,19 @@ import { confirmModalAtom } from 'plugins/dashboard/store';
 import { SpaceBetween } from 'plugins/dashboard/components/shared/Layouts';
 import { ExpandMore, ExpandLess, Add, Delete } from '@material-ui/icons';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
+import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components/macro';
+
+const sectionVariants = {
+  collapsed: {
+    opacity: 0,
+    height: 0,
+  },
+  open: {
+    opacity: 1,
+    height: 'auto',
+  },
+};
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [inputTitle, setInputTitle] = useState('');
@@ -109,7 +121,19 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   return (
     <Wrapper>
       {editMode ? renderEditMode() : renderTitle()}
-      {isExpanded && <InnerSection>{children}</InnerSection>}
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <InnerSection
+            variants={sectionVariants}
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            transition={{ duration: 0.8, ease: [0.04, 0.82, 0.23, 0.98] }}
+          >
+            {children}
+          </InnerSection>
+        )}
+      </AnimatePresence>
       {anchorEl && (
         <FieldPopper anchorEl={anchorEl} onSelected={handleAddField} />
       )}
@@ -143,11 +167,12 @@ const Input = styled.input`
   outline: none;
 `;
 
-export const InnerSection = styled.div`
+export const InnerSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   padding-left: 0.5rem;
   gap: 1rem;
+  overflow: hidden;
 `;
 
 export default FormHeader;

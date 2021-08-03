@@ -6,17 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components/macro';
 
 const modalVariants = {
-  hidden: {
-    opacity: 0,
-    x: '-50%',
-    y: '-100vh',
-  },
-  visible: {
-    opacity: 1,
-    x: '-50%',
-    y: '-50%',
-    transition: { delay: 0.2 },
-  },
+  hidden: { top: '-50%', transition: { type: 'spring', duration: 0.4 } },
+  visible: { top: '50%' },
+  exit: { top: '-50%'},
 };
 
 const ConfirmModal = () => {
@@ -66,6 +58,7 @@ const ModalContainer = styled(motion.div)`
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   width: 400px;
   display: flex;
   flex-direction: column;

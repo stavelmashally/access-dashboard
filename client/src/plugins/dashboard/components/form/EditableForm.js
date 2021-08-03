@@ -22,12 +22,12 @@ const EditableForm = ({ title, data, path }) => {
   };
 
   const changeTitle = label => {
-    Access.renameConfigProperty(path, label);
+    Access.renameConfigProperty({ path, propName: label });
     forceUpdate(x => x + 1);
   };
 
-  const changeField = (label, fieldValue) => {
-    Access.updateConfigProperty(`${path}.${label}`, fieldValue);
+  const changeField = (label, value) => {
+    Access.updateConfigProperty({ path: `${path}.${label}`, value });
     forceUpdate(x => x + 1);
   };
 
