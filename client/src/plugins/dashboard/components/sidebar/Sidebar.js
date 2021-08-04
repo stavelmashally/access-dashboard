@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
 import { selectedAtom } from 'plugins/dashboard/store/ui';
+
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -57,7 +58,7 @@ const sidebarItems = [
 const Sidebar = () => {
   const classes = useStyles();
   const [selected, setSelected] = useRecoilState(selectedAtom);
-
+  
   const handleSelected = text => {
     setSelected(text);
   };

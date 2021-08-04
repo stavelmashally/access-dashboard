@@ -6,6 +6,10 @@ const fetchConfig = endpoint => {
   return axios.get(`${BASE_URL}${endpoint}`);
 };
 
+const postConfig = ({ endpoint, config }) => {
+  return axios.post(`${BASE_URL}${endpoint}`, { config });
+};
+
 const fetchDefaultConfig = () => {
   return axios.get(`${BASE_URL}defaultConfig`);
 };
@@ -14,4 +18,4 @@ const fetchModifyConfig = () => {
   return axios.get(`${BASE_URL}modifyConfig`);
 };
 
-export { fetchDefaultConfig, fetchModifyConfig, fetchConfig };
+export { fetchDefaultConfig, fetchModifyConfig, fetchConfig, postConfig };

@@ -1,19 +1,40 @@
-import { selector } from 'recoil';
-import { configAtom, endpointsAtom } from './atoms';
-import { addToConfig, replaceConfig } from 'plugins/access/gate';
+import { selector, DefaultValue } from 'recoil';
+import { configAtom, endpointsAtom, postTriggerAtom } from './atoms';
+import { addToConfig, replaceConfig, getFromConfig } from 'plugins/access/gate';
 import * as Api from 'plugins/dashboard/api';
 
 export const fetchConfigSelector = selector({
   key: 'fetchConfigSelector',
   get: async ({ get }) => {
-    const fetchUrl =
-      localStorage.getItem('fetch') || get(endpointsAtom).fetchEndpoint;
-    
-    const { data } = await Api.fetchConfig(fetchUrl);
+    const fetchEndpoint = get(endpointsAtom).fetchEndpoint;
+    const postEndpoint = get(endpointsAtom).postEndpoint;
+
+    const { data } = await Api.fetchConfig(fetchEndpoint);
+    await Api.postConfig({ endpoint: postEndpoint, config: {} });
+
     addToConfig(data);
-    localStorage.setItem('fetch', fetchUrl);
+
+    localStorage.setItem('fetch', fetchEndpoint);
+    localStorage.setItem('post', postEndpoint);
 
     return data;
+  },
+});
+
+export const saveConfigSelector = selector({
+  key: 'saveConfigSelector',
+  get: async ({ get }) => {
+    get(postTriggerAtom);
+
+    const { data } = await Api.postConfig({
+      endpoint: get(endpointsAtom).postEndpoint,
+      config: getFromConfig(),
+    });
+
+    return data;
+  },
+  set: ({ set }) => {
+    set(postTriggerAtom, v => v + 1);
   },
 });
 
