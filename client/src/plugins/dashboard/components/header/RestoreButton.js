@@ -4,23 +4,23 @@ import { RestorePage } from '@material-ui/icons';
 import { useSetRecoilState } from 'recoil';
 import {
   forceUpdateAtom,
-  restoreDefaultSelector,
   confirmModalAtom,
-} from 'plugins/dashboard/store';
+} from 'plugins/dashboard/store/ui';
+import { restoreSelector } from 'plugins/dashboard/store/data';
 
 const RestoreButton = () => {
-  const restoreDefault = useSetRecoilState(restoreDefaultSelector);
+  const restore = useSetRecoilState(restoreSelector);
   const confirmModal = useSetRecoilState(confirmModalAtom);
   const forceUpdate = useSetRecoilState(forceUpdateAtom);
 
   const handleRestore = () => {
-    restoreDefault();
+    restore();
     forceUpdate(x => x + 1);
   };
 
   return (
     <>
-      <Tooltip title="Restore default">
+      <Tooltip title="Restore config">
         <IconButton
           color="inherit"
           onClick={() =>

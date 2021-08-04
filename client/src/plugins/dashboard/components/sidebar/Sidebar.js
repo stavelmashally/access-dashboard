@@ -12,8 +12,7 @@ import { ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SIDEBAR_WIDTH } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
-import { uniqueId } from 'lodash';
-import { selectedConfigAtom } from 'plugins/dashboard/store';
+import { selectedAtom } from 'plugins/dashboard/store/ui';
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import styled from 'styled-components';
 
@@ -57,7 +56,7 @@ const sidebarItems = [
 
 const Sidebar = () => {
   const classes = useStyles();
-  const [selected, setSelected] = useRecoilState(selectedConfigAtom);
+  const [selected, setSelected] = useRecoilState(selectedAtom);
 
   const handleSelected = text => {
     setSelected(text);
@@ -66,15 +65,13 @@ const Sidebar = () => {
   const renderListItems = () => {
     return sidebarItems.map(item => {
       return (
-        <div style={{ position: 'relative' }} key={uniqueId()}>
-          {item.text === selected && <Rect layoutId="rect" />}
-          <SidebarItem
-            text={item.text}
-            icon={item.icon}
-            onSelected={handleSelected}
-            isActive={item.text === selected}
-          />
-        </div>
+        <SidebarItem
+          key={item.text}
+          text={item.text}
+          icon={item.icon}
+          onSelected={handleSelected}
+          selected={item.text === selected}
+        />
       );
     });
   };
@@ -94,22 +91,25 @@ const Sidebar = () => {
   );
 };
 
-const SidebarItem = ({ text, icon, onSelected, isActive }) => {
+const SidebarItem = ({ text, icon, onSelected, selected }) => {
   const classes = useStyles();
 
   return (
-    <ListItem
-      className={classes.listItem}
-      button
-      disableRipple
-      onClick={() => onSelected(text)}
-    >
-      <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
-      <ListItemText
-        className={isActive ? classes.itemActiveText : classes.itemText}
-        primary={text.charAt(0).toUpperCase() + text.slice(1)}
-      />
-    </ListItem>
+    <div style={{ position: 'relative' }}>
+      {selected && <Rect layoutId="rect" />}
+      <ListItem
+        className={classes.listItem}
+        button
+        disableRipple
+        onClick={() => onSelected(text)}
+      >
+        <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
+        <ListItemText
+          className={selected ? classes.itemActiveText : classes.itemText}
+          primary={text.charAt(0).toUpperCase() + text.slice(1)}
+        />
+      </ListItem>
+    </div>
   );
 };
 

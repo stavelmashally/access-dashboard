@@ -4,7 +4,7 @@ import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/webpack-resolver';
 import { useSetRecoilState } from 'recoil';
-import { hasErrorAtom } from 'plugins/dashboard/store';
+import { hasErrorAtom } from 'plugins/dashboard/store/ui';
 import styled from 'styled-components/macro';
 import { getFromConfig, replaceConfig } from 'plugins/access/gate';
 

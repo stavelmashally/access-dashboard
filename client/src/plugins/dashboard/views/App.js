@@ -1,23 +1,26 @@
-import Header from './header/Header';
-import Sidebar from './sidebar/Sidebar';
-import MainContent from './views/MainContent';
-import ErrorBoundary from './shared/ErrorBoundary';
-import ConfirmModal from './shared/ConfirmModal';
+import Dashboard from './Dashboard';
+import Settings from './Settings';
+import ErrorBoundary from '../components/shared/ErrorBoundary';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
+import { useRecoilValueLoadable } from 'recoil';
+import { configAtom } from '../store/data';
 import Themes from 'themes';
 import styled from 'styled-components/macro';
+import Loader from '../components/shared/Loader';
 
 const App = () => {
+  const { state } = useRecoilValueLoadable(configAtom);
+
+  const loading = state === 'loading';
+  const error = state === 'hasError';
+
   return (
     <ThemeProvider theme={Themes.default}>
       <CssBaseline />
       <AppContainer>
         <ErrorBoundary>
-          <Header />
-          <Sidebar />
-          <MainContent />
-          <ConfirmModal />
+          {loading ? <Loader /> : error ? <Settings /> : <Dashboard />}
         </ErrorBoundary>
       </AppContainer>
     </ThemeProvider>

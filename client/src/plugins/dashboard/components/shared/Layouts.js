@@ -27,11 +27,12 @@ export const SpaceBetween = styled(Flex)`
 `;
 
 export const CenteredContainer = styled.div`
+  width: 100%;
   display: flex;
-  height: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 `;
 
 export const Grid = styled.div`

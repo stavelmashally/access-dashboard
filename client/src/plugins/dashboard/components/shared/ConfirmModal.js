@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Typography, Button } from '@material-ui/core';
-import { confirmModalAtom } from 'plugins/dashboard/store';
+import { confirmModalAtom } from 'plugins/dashboard/store/ui/atoms';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components/macro';
@@ -8,7 +8,7 @@ import styled from 'styled-components/macro';
 const modalVariants = {
   hidden: { top: '-50%', transition: { type: 'spring', duration: 0.4 } },
   visible: { top: '50%' },
-  exit: { top: '-50%'},
+  exit: { top: '-50%' },
 };
 
 const ConfirmModal = () => {

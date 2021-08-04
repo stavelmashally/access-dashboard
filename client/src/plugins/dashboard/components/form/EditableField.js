@@ -11,7 +11,7 @@ import { useToggler } from 'plugins/dashboard/hooks/useToggler';
 import { IconButton } from '@material-ui/core';
 import { Delete, Done } from '@material-ui/icons';
 import { useSetRecoilState } from 'recoil';
-import { confirmModalAtom } from 'plugins/dashboard/store';
+import { confirmModalAtom } from 'plugins/dashboard/store/ui';
 import { isNumber, isString, isBoolean } from 'lodash';
 import styled from 'styled-components';
 

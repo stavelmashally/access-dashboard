@@ -4,7 +4,7 @@ import FormHeader from './FormHeader';
 import EditableField from './EditableField';
 import { Grid } from '../shared/Layouts';
 import { useSetRecoilState } from 'recoil';
-import { forceUpdateAtom } from 'plugins/dashboard/store';
+import { forceUpdateAtom } from 'plugins/dashboard/store/ui';
 import { isPlainObject, isUndefined, uniqueId } from 'lodash';
 import * as Access from 'plugins/access/gate';
 

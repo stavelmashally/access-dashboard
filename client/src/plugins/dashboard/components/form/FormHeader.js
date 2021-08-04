@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useToggler } from 'plugins/dashboard/hooks/useToggler';
 import FieldPopper from './FieldPopper';
 import { useSetRecoilState } from 'recoil';
-import { confirmModalAtom } from 'plugins/dashboard/store';
+import { confirmModalAtom } from 'plugins/dashboard/store/ui';
 import { SpaceBetween } from 'plugins/dashboard/components/shared/Layouts';
 import { ExpandMore, ExpandLess, Add, Delete } from '@material-ui/icons';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
@@ -126,7 +126,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
         {isExpanded && (
           <InnerSection
             variants={sectionVariants}
-            initial="collapsed"
+            initial={false}
             animate="open"
             exit="collapsed"
             transition={{ duration: 0.8, ease: [0.04, 0.82, 0.23, 0.98] }}
@@ -153,14 +153,6 @@ const ButtonsWrapper = styled.div`
   display: flex;
 `;
 
-export const Title = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
 const Input = styled.input`
   font-size: 1.5rem;
   width: 60%;
@@ -168,7 +160,7 @@ const Input = styled.input`
   outline: none;
 `;
 
-export const InnerSection = styled(motion.div)`
+const InnerSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   padding-left: 0.5rem;
