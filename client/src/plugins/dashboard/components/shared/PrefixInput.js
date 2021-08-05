@@ -28,6 +28,7 @@ const Input = styled.input`
 
 const InputSpan = styled.span`
   font-size: 1rem;
+  padding: 4px;
   color: #555;
   text-align: center;
   background-color: #eee;

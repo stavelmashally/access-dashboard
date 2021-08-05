@@ -1,4 +1,4 @@
-import { selector, DefaultValue } from 'recoil';
+import { selector } from 'recoil';
 import { configAtom, endpointsAtom, postTriggerAtom } from './atoms';
 import { addToConfig, replaceConfig, getFromConfig } from 'plugins/access/gate';
 import * as Api from 'plugins/dashboard/api';
@@ -6,11 +6,12 @@ import * as Api from 'plugins/dashboard/api';
 export const fetchConfigSelector = selector({
   key: 'fetchConfigSelector',
   get: async ({ get }) => {
-    const fetchEndpoint = get(endpointsAtom).fetchEndpoint;
-    const postEndpoint = get(endpointsAtom).postEndpoint;
+    const { fetchEndpoint, postEndpoint } = get(endpointsAtom);
 
-    const { data } = await Api.fetchConfig(fetchEndpoint);
-    await Api.postConfig({ endpoint: postEndpoint, config: {} });
+    const [{ data }] = await Promise.all([
+      Api.fetchConfig(fetchEndpoint),
+      Api.postConfig({ endpoint: postEndpoint, config: {} }),
+    ]);
 
     addToConfig(data);
 

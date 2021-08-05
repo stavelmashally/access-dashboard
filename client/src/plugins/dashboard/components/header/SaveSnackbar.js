@@ -13,11 +13,11 @@ const SaveSnackbar = ({ onClose }) => {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open
       onClose={onClose}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-      <Alert onClose={onClose} severity={severity}>
+      <Alert severity={severity} onClose={onClose}>
         {loading
           ? 'Saving...'
           : error

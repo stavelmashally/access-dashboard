@@ -1,5 +1,6 @@
 import React from 'react';
-import { Drawer, List, Toolbar } from '@material-ui/core';
+import { Drawer, List, Divider } from '@material-ui/core';
+import Endpoints from './Endpoints';
 import {
   ColorLensOutlined,
   SentimentSatisfiedOutlined,
@@ -10,7 +11,7 @@ import {
 } from '@material-ui/icons';
 import { ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SIDEBAR_WIDTH } from '../shared/Layouts';
+import { SIDEBAR_WIDTH, TOOLBAR_HEIGHT } from '../shared/Layouts';
 import { useRecoilState } from 'recoil';
 import { selectedAtom } from 'plugins/dashboard/store/ui';
 
@@ -21,9 +22,13 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: SIDEBAR_WIDTH,
     flexShrink: 0,
+    position: 'fixed',
+    top: TOOLBAR_HEIGHT,
   },
   drawerPaper: {
     width: SIDEBAR_WIDTH,
+    marginTop: TOOLBAR_HEIGHT,
+    display: 'flex',
   },
   itemText: {
     color: theme.palette.text.secondary,
@@ -58,7 +63,7 @@ const sidebarItems = [
 const Sidebar = () => {
   const classes = useStyles();
   const [selected, setSelected] = useRecoilState(selectedAtom);
-  
+
   const handleSelected = text => {
     setSelected(text);
   };
@@ -84,10 +89,15 @@ const Sidebar = () => {
       anchor="left"
       classes={{ paper: classes.drawerPaper }}
     >
-      <Toolbar />
-      <AnimateSharedLayout transition={{ duration: 0.5 }}>
-        <List>{renderListItems()}</List>
-      </AnimateSharedLayout>
+      <SidebarContainer>
+        <AnimateSharedLayout transition={{ duration: 0.5 }}>
+          <List>{renderListItems()}</List>
+        </AnimateSharedLayout>
+        <div>
+          <Divider />
+          <Endpoints />
+        </div>
+      </SidebarContainer>
     </Drawer>
   );
 };
@@ -113,6 +123,13 @@ const SidebarItem = ({ text, icon, onSelected, selected }) => {
     </div>
   );
 };
+
+const SidebarContainer = styled.div`
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 const Rect = styled(motion.div)`
   width: 100%;
