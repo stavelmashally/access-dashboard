@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useToggler } from 'plugins/dashboard/hooks/useToggler';
+import React, { useState, useEffect, useCallback } from 'react';
 import FieldPopper from './FieldPopper';
-import { useSetRecoilState } from 'recoil';
-import { confirmModalAtom } from 'plugins/dashboard/store/ui';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import { confirmModalAtom, collapsedAtom } from 'plugins/dashboard/store/ui';
 import { SpaceBetween } from 'plugins/dashboard/components/shared/Layouts';
 import { ExpandMore, ExpandLess, Add, Delete } from '@material-ui/icons';
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
@@ -22,15 +21,20 @@ const sectionVariants = {
 
 const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   const [inputTitle, setInputTitle] = useState('');
-  const [isExpanded, toggleExpanded] = useToggler(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [collapsed, setCollapsed] = useRecoilState(collapsedAtom);
   const confirmModal = useSetRecoilState(confirmModalAtom);
 
-  useEffect(() => {
-    setInputTitle(title);
-    setEditMode(title === 'sectionTitle');
-  }, [title]);
+  const toggleCollapsed = useCallback(() => {
+    setCollapsed(collapsed => {
+      if (collapsed.has(title)) {
+        collapsed.delete(title);
+        return new Set(collapsed);
+      }
+      return new Set([...collapsed.values(), title]);
+    });
+  }, [setCollapsed, title]);
 
   const handleKeyDown = event => {
     const { key, target } = event;
@@ -49,7 +53,7 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
   };
 
   const handleDblClickOnTitle = () => {
-    !isExpanded && toggleExpanded();
+    collapsed.has(title) && toggleCollapsed();
     setEditMode(true);
   };
 
@@ -94,8 +98,8 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
             {title}
           </Typography>
         </Tooltip>
-        <IconButton onClick={toggleExpanded}>
-          {isExpanded ? <ExpandLess /> : <ExpandMore />}
+        <IconButton onClick={toggleCollapsed}>
+          {collapsed.has(title) ? <ExpandLess /> : <ExpandMore />}
         </IconButton>
       </SpaceBetween>
     );
@@ -118,11 +122,16 @@ const FormHeader = ({ title, onSubmit, onDelete, onAdd, children }) => {
     );
   };
 
+  useEffect(() => {
+    setInputTitle(title);
+    if (title === 'sectionTitle') setEditMode(true);
+  }, [title]);
+
   return (
     <Wrapper>
       {editMode ? renderEditMode() : renderTitle()}
       <AnimatePresence initial={false}>
-        {isExpanded && (
+        {!collapsed.has(title) && (
           <InnerSection
             variants={sectionVariants}
             initial="collapsed"

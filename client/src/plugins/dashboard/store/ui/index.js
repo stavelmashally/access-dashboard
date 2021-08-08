@@ -4,6 +4,7 @@ import {
   hasErrorAtom,
   selectedAtom,
   viewModeAtom,
+  collapsedAtom,
 } from './atoms';
 
 export {
@@ -12,4 +13,5 @@ export {
   hasErrorAtom,
   selectedAtom,
   viewModeAtom,
+  collapsedAtom,
 };

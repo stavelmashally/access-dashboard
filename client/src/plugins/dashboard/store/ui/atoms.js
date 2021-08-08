@@ -24,3 +24,8 @@ export const hasErrorAtom = atom({
   key: 'hasErrorAtom',
   default: false,
 });
+
+export const collapsedAtom = atom({
+  key: 'collapsedAtom',
+  default: new Set(),
+});
