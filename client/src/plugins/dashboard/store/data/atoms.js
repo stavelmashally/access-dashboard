@@ -4,8 +4,8 @@ import { fetchConfigSelector } from './selectors';
 export const endpointsAtom = atom({
   key: 'endpointsAtom',
   default: {
-    fetchEndpoint: localStorage.getItem('fetch') || null,
-    postEndpoint: localStorage.getItem('post') || null,
+    fetchEndpoint: localStorage.getItem('access-get-endpoint') || null,
+    postEndpoint: localStorage.getItem('access-post-endpoint') || null,
   },
 });
 

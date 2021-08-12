@@ -15,8 +15,8 @@ export const fetchConfigSelector = selector({
 
     addToConfig(data);
 
-    localStorage.setItem('fetch', fetchEndpoint);
-    localStorage.setItem('post', postEndpoint);
+    localStorage.setItem('access-get-endpoint', fetchEndpoint);
+    localStorage.setItem('access-post-endpoint', postEndpoint);
 
     return data;
   },
