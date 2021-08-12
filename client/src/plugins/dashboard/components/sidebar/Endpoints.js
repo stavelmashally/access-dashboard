@@ -1,20 +1,42 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
+import { Edit } from '@material-ui/icons';
 import { endpointsAtom } from 'plugins/dashboard/store/data';
-import { useRecoilValue } from 'recoil';
+import { confirmModalAtom } from 'plugins/dashboard/store/ui';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import PrefixInput from '../shared/PrefixInput';
 import styled from 'styled-components';
 
 const Endpoints = () => {
-  const { fetchEndpoint, postEndpoint } = useRecoilValue(endpointsAtom);
+  const [{ fetchEndpoint, postEndpoint }, setEndpoints] =
+    useRecoilState(endpointsAtom);
+  const confirmModal = useSetRecoilState(confirmModalAtom);
+
+  const handleEditEndpoints = () => {
+    setEndpoints({ fetchEndpoint: null, postEndpoint: null });
+  };
 
   return (
     <Wrapper>
       <Field>
-        <PrefixInput text="GET" defaultValue={`${fetchEndpoint}`} />
+        <PrefixInput disabled text="GET" value={`${fetchEndpoint}`} />
       </Field>
       <Field>
-        <PrefixInput text="POST" defaultValue={`${postEndpoint}`} />
+        <PrefixInput disabled text="POST" value={`${postEndpoint}`} />
       </Field>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<Edit />}
+        onClick={() =>
+          confirmModal({
+            message: 'Are you sure you want to edit the endpoints?',
+            onConfirm: handleEditEndpoints,
+          })
+        }
+      >
+        Edit
+      </Button>
     </Wrapper>
   );
 };

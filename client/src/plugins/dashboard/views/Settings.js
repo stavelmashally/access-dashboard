@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Label from '../components/shared/Label';
 import Loader from '../components/shared/Loader';
 import PrefixInput from '../components/shared/PrefixInput';
-import { CenteredContainer } from '../components/shared/Layouts';
 import { Typography, Button } from '@material-ui/core';
 import { Publish } from '@material-ui/icons';
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
@@ -43,11 +42,12 @@ const Settings = () => {
   };
 
   return (
-    <CenteredContainer>
+    <Wrapper>
       <Typography variant="h4">Settings</Typography>
       {renderFormFields()}
       <Button
         variant="contained"
+        color='primary'
         startIcon={<Publish />}
         onClick={handleSubmit}
       >
@@ -57,9 +57,18 @@ const Settings = () => {
       {state === 'hasError' && endpoints.fetchEndpoint && (
         <Error>Failed to load configs</Error>
       )}
-    </CenteredContainer>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+`;
 
 const FieldWrapper = styled.div`
   display: flex;
